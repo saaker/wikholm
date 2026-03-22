@@ -276,7 +276,10 @@ export default function AdminPanel({ initialLocations = [] }: AdminPanelProps) {
 
         <div className="grid lg:grid-cols-2 gap-8">
           {/* Form — disabled in read-only mode */}
-          <fieldset disabled={readOnly} className={readOnly ? "opacity-60" : ""}>
+          <fieldset
+            disabled={readOnly}
+            className={readOnly ? "opacity-60" : ""}
+          >
             <div className="bg-white rounded-2xl shadow-sm border border-border p-6">
               <h2 className="text-lg font-semibold mb-4 font-sans">
                 {editing ? "Redigera klinik" : "Lägg till ny klinik"}

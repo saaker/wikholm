@@ -26,12 +26,12 @@ export const translations = {
     heroSecondary: "Läs mer om mig",
 
     // About
-    aboutLabel: "Om mig",
+    aboutLabel: "André Wikholm",
     aboutTitle1: "Specialisttandläkare med ett öga för",
     aboutTitle2: "naturliga resultat",
     aboutPhotoPlaceholder: "Foto kommer snart",
     aboutParagraph1:
-      "Jag heter André Wikholm och är legitimerad tandläkare sedan 2003 och specialisttandläkare inom tandreglering sedan 2014. Jag har varit en dedikerad Invisalign-behandlare sedan 2017 och arbetar uteslutande med Invisalign sedan 2020.",
+      "Legitimerad tandläkare sedan 2003 och specialisttandläkare inom tandreglering sedan 2014. Dedikerad Invisalign-behandlare sedan 2017 och arbetar idag uteslutande med aligners.",
     aboutParagraph2:
       "Som mångårig Invisalign Platinum Elite Provider har jag startat ett stort antal fall och byggt upp en bred erfarenhet av alignerbehandling för både ungdomar och vuxna. Min filosofi är enkel: varje patient förtjänar en individuell behandlingsplan.",
     aboutParagraph3:
@@ -98,7 +98,7 @@ export const translations = {
     advantagesTitle1: "Varför välja",
     advantagesTitle2: "genomskinlig tandreglering?",
     advantagesIntro:
-      "Invisalign erbjuder en rad fördelar jämfört med traditionell tandreglering, speciellt för vuxna och ungdomar som vill ha en diskret behandling.",
+      "Aligners erbjuder en rad fördelar jämfört med traditionell tandreglering, speciellt för vuxna och ungdomar som vill ha en diskret behandling.",
     advRemovable: "Avtagbara skenor",
     advRemovableDesc:
       "Ta enkelt ut skenorna när du äter, dricker eller borstar tänderna — för bättre munhygien under hela behandlingen.",
@@ -117,12 +117,12 @@ export const translations = {
     newsTitle1: "Aktuellt inom",
     newsTitle2: "ortodonti",
     newsIntro:
-      "Artiklar, tips och nyheter om tandreglering, munhälsa och det senaste inom Invisalign.",
+      "Artiklar, tips och nyheter om tandreglering, munhälsa och det senaste inom aligners.",
     newsReadMore: "Läs mer →",
     news1Tag: "GUIDE",
     news1Date: "15 mars 2026",
     news1Title:
-      "Invisalign vs traditionell tandställning: Vilken behandling passar dig?",
+      "Aligners vs traditionell tandställning: Vilken behandling passar dig?",
     news1Desc:
       "En jämförelse av genomskinliga skenor och traditionell tandreglering — material, process, kostnad och resultat.",
     news2Tag: "TIPS",
@@ -141,8 +141,8 @@ export const translations = {
     faqTitle1: "Frågor",
     faqTitle2: "& svar",
     faqIntro:
-      "Här hittar du svar på de vanligaste frågorna om Invisalign och ClearCorrect.",
-    faq1Q: "Hur länge pågår en behandling med Invisalign?",
+      "Här hittar du svar på de vanligaste frågorna om alignerbehandling.",
+    faq1Q: "Hur länge pågår en behandling med aligners?",
     faq1A:
       "Behandlingstiden varierar beroende på hur mycket tänderna behöver flyttas. En typisk behandling tar mellan 6 och 18 månader. Under konsultationen får du en uppskattning baserad på din individuella situation.",
     faq2Q: "Gör det ont att använda genomskinliga skenor?",
@@ -151,9 +151,9 @@ export const translations = {
     faq3Q: "Hur ofta måste jag bära skenorna?",
     faq3A:
       "För bästa resultat bör skenorna bäras 20–22 timmar per dag. Du tar ut dem när du äter, dricker (annat än vatten) och borstar tänderna.",
-    faq4Q: "Kan alla behandlas med Invisalign?",
+    faq4Q: "Kan alla behandlas med aligners?",
     faq4A:
-      "De flesta ortodontiska problem kan behandlas med Invisalign, men inte alla fall är lämpliga. Mer komplexa bettfel kan kräva andra metoder. En konsultation ger dig svar på om Invisalign passar just dig.",
+      "De flesta ortodontiska problem kan behandlas med aligners, men inte alla fall är lämpliga. Mer komplexa bettfel kan kräva andra metoder. En konsultation ger dig svar på om aligners passar just dig.",
     faq5Q: "Vad är skillnaden mellan Invisalign och ClearCorrect?",
     faq5A:
       "Båda systemen använder genomskinliga, avtagbara skenor för att räta tänderna. Invisalign har funnits längst och har behandlat över 22 miljoner patienter. ClearCorrect, som utvecklas av Straumann Group, erbjuder ett konkurrenskraftigt alternativ med sitt ClearQuartz-material. André hjälper dig välja det system som bäst passar dina behov.",
@@ -216,12 +216,12 @@ export const translations = {
     heroSecondary: "Read more about me",
 
     // About
-    aboutLabel: "About me",
+    aboutLabel: "André Wikholm",
     aboutTitle1: "Specialist orthodontist with an eye for",
     aboutTitle2: "natural results",
     aboutPhotoPlaceholder: "Photo coming soon",
     aboutParagraph1:
-      "My name is André Wikholm. I've been a licensed dentist since 2003 and a specialist in orthodontics since 2014. I've been a dedicated Invisalign provider since 2017 and have worked exclusively with Invisalign since 2020.",
+      "Licensed dentist since 2003 and specialist orthodontist since 2014. A dedicated Invisalign provider since 2017, today working exclusively with aligners.",
     aboutParagraph2:
       "As a multi-year Invisalign Platinum Elite Provider, I have started a large number of cases and built extensive experience in aligner treatment for both teenagers and adults. My philosophy is simple: every patient deserves an individual treatment plan.",
     aboutParagraph3:
@@ -288,7 +288,7 @@ export const translations = {
     advantagesTitle1: "Why choose",
     advantagesTitle2: "clear aligner treatment?",
     advantagesIntro:
-      "Invisalign offers a range of advantages over traditional braces, especially for adults and teenagers who want a discreet treatment.",
+      "Aligners offer a range of advantages over traditional braces, especially for adults and teenagers who want a discreet treatment.",
     advRemovable: "Removable aligners",
     advRemovableDesc:
       "Simply remove the aligners when eating, drinking, or brushing — for better oral hygiene throughout treatment.",
@@ -307,11 +307,11 @@ export const translations = {
     newsTitle1: "Latest in",
     newsTitle2: "orthodontics",
     newsIntro:
-      "Articles, tips, and news about teeth straightening, oral health, and the latest in Invisalign.",
+      "Articles, tips, and news about teeth straightening, oral health, and the latest in aligners.",
     newsReadMore: "Read more →",
     news1Tag: "GUIDE",
     news1Date: "March 15, 2026",
-    news1Title: "Invisalign vs traditional braces: Which treatment suits you?",
+    news1Title: "Aligners vs traditional braces: Which treatment suits you?",
     news1Desc:
       "A comparison of clear aligners and traditional braces — materials, process, cost, and results.",
     news2Tag: "TIPS",
@@ -330,8 +330,8 @@ export const translations = {
     faqTitle1: "Questions",
     faqTitle2: "& answers",
     faqIntro:
-      "Here you'll find answers to the most common questions about Invisalign and ClearCorrect.",
-    faq1Q: "How long does Invisalign treatment take?",
+      "Here you'll find answers to the most common questions about aligner treatment.",
+    faq1Q: "How long does aligner treatment take?",
     faq1A:
       "Treatment time varies depending on how much the teeth need to move. A typical treatment takes between 6 and 18 months. During the consultation, you'll receive an estimate based on your individual situation.",
     faq2Q: "Does it hurt to wear clear aligners?",
@@ -340,9 +340,9 @@ export const translations = {
     faq3Q: "How often do I need to wear the aligners?",
     faq3A:
       "For best results, aligners should be worn 20–22 hours per day. You remove them when eating, drinking (anything other than water), and brushing your teeth.",
-    faq4Q: "Can everyone be treated with Invisalign?",
+    faq4Q: "Can everyone be treated with aligners?",
     faq4A:
-      "Most orthodontic problems can be treated with Invisalign, but not all cases are suitable. More complex bite issues may require other methods. A consultation will tell you if Invisalign is right for you.",
+      "Most orthodontic problems can be treated with aligners, but not all cases are suitable. More complex bite issues may require other methods. A consultation will tell you if aligners are right for you.",
     faq5Q: "What is the difference between Invisalign and ClearCorrect?",
     faq5A:
       "Both systems use clear, removable aligners to straighten teeth. Invisalign has been around the longest and has treated over 22 million patients. ClearCorrect, developed by Straumann Group, offers a competitive alternative with its ClearQuartz material. André will help you choose the system that best suits your needs.",
