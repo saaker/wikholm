@@ -51,17 +51,14 @@ export default function Header() {
             ))}
           </nav>
 
-          {/* Language switcher */}
+          {/* Language switcher — desktop only */}
           <button
             onClick={() => setLocale(locale === "sv" ? "en" : "sv")}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-border text-xs font-medium text-muted-dark hover:text-foreground hover:border-primary/30 transition-colors"
+            className="hidden md:flex items-center justify-center w-8 h-8 rounded-full text-xs font-semibold text-muted-dark hover:text-primary hover:bg-primary/10 transition-colors"
             aria-label={
               locale === "sv" ? "Switch to English" : "Byt till svenska"
             }
           >
-            <span className="text-base leading-none">
-              {locale === "sv" ? "🇬🇧" : "🇸🇪"}
-            </span>
             {locale === "sv" ? "EN" : "SV"}
           </button>
 
@@ -110,6 +107,18 @@ export default function Header() {
               {item.label}
             </a>
           ))}
+          <button
+            onClick={() => {
+              setLocale(locale === "sv" ? "en" : "sv");
+              setMenuOpen(false);
+            }}
+            className="flex items-center gap-2 text-sm font-medium text-muted-dark hover:text-primary transition-colors pt-2 border-t border-border"
+          >
+            <span className="text-base leading-none">
+              {locale === "sv" ? "🇬🇧" : "🇸🇪"}
+            </span>
+            {locale === "sv" ? "Switch to English" : "Byt till svenska"}
+          </button>
         </nav>
       )}
     </header>

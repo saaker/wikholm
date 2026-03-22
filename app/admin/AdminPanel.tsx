@@ -257,7 +257,8 @@ export default function AdminPanel({ initialLocations = [] }: AdminPanelProps) {
         {/* Read-only notice */}
         {readOnly && (
           <div className="mb-6 px-4 py-3 rounded-xl text-sm font-medium bg-amber-50 text-amber-700 border border-amber-200">
-            Skrivskyddat läge — redigering kräver lokal utvecklingsmiljö (<code>npm run dev</code>).
+            Skrivskyddat läge — redigering kräver lokal utvecklingsmiljö (
+            <code>npm run dev</code>).
           </div>
         )}
         {/* Message */}
@@ -273,140 +274,144 @@ export default function AdminPanel({ initialLocations = [] }: AdminPanelProps) {
           </div>
         )}
 
-        <div className={readOnly ? "" : "grid lg:grid-cols-2 gap-8"}>
-          {/* Form — hidden in read-only mode */}
-          {!readOnly && (
-          <div className="bg-white rounded-2xl shadow-sm border border-border p-6">
-            <h2 className="text-lg font-semibold mb-4 font-sans">
-              {editing ? "Redigera klinik" : "Lägg till ny klinik"}
-            </h2>
-            <form onSubmit={handleSave} className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-foreground mb-1">
-                  Namn
-                </label>
-                <input
-                  type="text"
-                  value={form.name}
-                  onChange={(e) => setForm({ ...form, name: e.target.value })}
-                  className="w-full px-4 py-2.5 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary text-sm"
-                  required
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-foreground mb-1">
-                  Adress
-                </label>
-                <div className="flex gap-2">
+        <div className="grid lg:grid-cols-2 gap-8">
+          {/* Form — disabled in read-only mode */}
+          <fieldset disabled={readOnly} className={readOnly ? "opacity-60" : ""}>
+            <div className="bg-white rounded-2xl shadow-sm border border-border p-6">
+              <h2 className="text-lg font-semibold mb-4 font-sans">
+                {editing ? "Redigera klinik" : "Lägg till ny klinik"}
+              </h2>
+              <form onSubmit={handleSave} className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-foreground mb-1">
+                    Namn
+                  </label>
                   <input
                     type="text"
-                    value={form.address}
-                    onChange={(e) =>
-                      setForm({ ...form, address: e.target.value })
-                    }
-                    placeholder="Gatuadress, Stad"
-                    className="flex-1 px-4 py-2.5 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary text-sm"
+                    value={form.name}
+                    onChange={(e) => setForm({ ...form, name: e.target.value })}
+                    className="w-full px-4 py-2.5 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary text-sm"
                     required
                   />
-                  <button
-                    type="button"
-                    onClick={geocodeAddress}
-                    disabled={geocoding || !form.address.trim()}
-                    className="px-3 py-2.5 rounded-xl bg-primary-light text-primary text-xs font-medium hover:bg-primary/20 transition-colors disabled:opacity-50 shrink-0"
-                    title="Hämta koordinater från adressen"
-                  >
-                    {geocoding ? "Söker..." : "📍 Hämta koord."}
-                  </button>
-                </div>
-              </div>
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium text-foreground mb-1">
-                    Telefon
-                  </label>
-                  <input
-                    type="tel"
-                    value={form.phone}
-                    onChange={(e) =>
-                      setForm({ ...form, phone: e.target.value })
-                    }
-                    className="w-full px-4 py-2.5 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary text-sm"
-                  />
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-foreground mb-1">
-                    Öppettider
+                    Adress
+                  </label>
+                  <div className="flex gap-2">
+                    <input
+                      type="text"
+                      value={form.address}
+                      onChange={(e) =>
+                        setForm({ ...form, address: e.target.value })
+                      }
+                      placeholder="Gatuadress, Stad"
+                      className="flex-1 px-4 py-2.5 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary text-sm"
+                      required
+                    />
+                    <button
+                      type="button"
+                      onClick={geocodeAddress}
+                      disabled={geocoding || !form.address.trim()}
+                      className="px-3 py-2.5 rounded-xl bg-primary-light text-primary text-xs font-medium hover:bg-primary/20 transition-colors disabled:opacity-50 shrink-0"
+                      title="Hämta koordinater från adressen"
+                    >
+                      {geocoding ? "Söker..." : "📍 Hämta koord."}
+                    </button>
+                  </div>
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-foreground mb-1">
+                      Telefon
+                    </label>
+                    <input
+                      type="tel"
+                      value={form.phone}
+                      onChange={(e) =>
+                        setForm({ ...form, phone: e.target.value })
+                      }
+                      className="w-full px-4 py-2.5 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary text-sm"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-foreground mb-1">
+                      Öppettider
+                    </label>
+                    <input
+                      type="text"
+                      value={form.hours}
+                      onChange={(e) =>
+                        setForm({ ...form, hours: e.target.value })
+                      }
+                      className="w-full px-4 py-2.5 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary text-sm"
+                    />
+                  </div>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-foreground mb-1">
+                    Hemsida
                   </label>
                   <input
-                    type="text"
-                    value={form.hours}
+                    type="url"
+                    value={form.website || ""}
                     onChange={(e) =>
-                      setForm({ ...form, hours: e.target.value })
+                      setForm({ ...form, website: e.target.value })
                     }
+                    placeholder="https://example.com"
                     className="w-full px-4 py-2.5 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary text-sm"
                   />
                 </div>
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-foreground mb-1">
-                  Hemsida
-                </label>
-                <input
-                  type="url"
-                  value={form.website || ""}
-                  onChange={(e) =>
-                    setForm({ ...form, website: e.target.value })
-                  }
-                  placeholder="https://example.com"
-                  className="w-full px-4 py-2.5 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary text-sm"
-                />
-              </div>
-              {/* Lat/Lng — auto-filled, shown as small read-only hint */}
-              <div className="flex items-center gap-4 text-xs text-muted-dark bg-muted rounded-xl px-4 py-2.5">
-                <span>
-                  Lat: <strong>{form.lat.toFixed(4)}</strong>
-                </span>
-                <span>
-                  Lng: <strong>{form.lng.toFixed(4)}</strong>
-                </span>
-                <span className="ml-auto opacity-60">
-                  Auto-fylls från adress
-                </span>
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-foreground mb-1">
-                  Beskrivning
-                </label>
-                <textarea
-                  value={form.description}
-                  onChange={(e) =>
-                    setForm({ ...form, description: e.target.value })
-                  }
-                  rows={3}
-                  className="w-full px-4 py-2.5 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary text-sm resize-none"
-                />
-              </div>
-              <div className="flex gap-3 pt-2">
-                <button
-                  type="submit"
-                  disabled={loading}
-                  className="flex-1 py-2.5 rounded-xl bg-primary text-white font-medium hover:bg-primary-dark transition-colors text-sm disabled:opacity-50"
-                >
-                  {loading ? "Sparar..." : editing ? "Uppdatera" : "Lägg till"}
-                </button>
-                {editing && (
+                {/* Lat/Lng — auto-filled, shown as small read-only hint */}
+                <div className="flex items-center gap-4 text-xs text-muted-dark bg-muted rounded-xl px-4 py-2.5">
+                  <span>
+                    Lat: <strong>{form.lat.toFixed(4)}</strong>
+                  </span>
+                  <span>
+                    Lng: <strong>{form.lng.toFixed(4)}</strong>
+                  </span>
+                  <span className="ml-auto opacity-60">
+                    Auto-fylls från adress
+                  </span>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-foreground mb-1">
+                    Beskrivning
+                  </label>
+                  <textarea
+                    value={form.description}
+                    onChange={(e) =>
+                      setForm({ ...form, description: e.target.value })
+                    }
+                    rows={3}
+                    className="w-full px-4 py-2.5 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary text-sm resize-none"
+                  />
+                </div>
+                <div className="flex gap-3 pt-2">
                   <button
-                    type="button"
-                    onClick={cancelEdit}
-                    className="px-6 py-2.5 rounded-xl border border-border text-sm font-medium hover:bg-muted transition-colors"
+                    type="submit"
+                    disabled={loading}
+                    className="flex-1 py-2.5 rounded-xl bg-primary text-white font-medium hover:bg-primary-dark transition-colors text-sm disabled:opacity-50"
                   >
-                    Avbryt
+                    {loading
+                      ? "Sparar..."
+                      : editing
+                        ? "Uppdatera"
+                        : "Lägg till"}
                   </button>
-                )}
-              </div>
-            </form>
-          </div>
-          )}
+                  {editing && (
+                    <button
+                      type="button"
+                      onClick={cancelEdit}
+                      className="px-6 py-2.5 rounded-xl border border-border text-sm font-medium hover:bg-muted transition-colors"
+                    >
+                      Avbryt
+                    </button>
+                  )}
+                </div>
+              </form>
+            </div>
+          </fieldset>
 
           {/* Existing locations */}
           <div className="space-y-4">
@@ -440,21 +445,21 @@ export default function AdminPanel({ initialLocations = [] }: AdminPanelProps) {
                     </p>
                   </div>
                   {!readOnly && (
-                  <div className="flex gap-2 shrink-0">
-                    <button
-                      onClick={() => startEdit(location)}
-                      className="px-3 py-1.5 rounded-lg text-xs font-medium bg-primary-light text-primary hover:bg-primary/20 transition-colors"
-                    >
-                      Redigera
-                    </button>
-                    <button
-                      onClick={() => handleDelete(location.id)}
-                      disabled={loading}
-                      className="px-3 py-1.5 rounded-lg text-xs font-medium bg-red-50 text-red-600 hover:bg-red-100 transition-colors disabled:opacity-50"
-                    >
-                      Ta bort
-                    </button>
-                  </div>
+                    <div className="flex gap-2 shrink-0">
+                      <button
+                        onClick={() => startEdit(location)}
+                        className="px-3 py-1.5 rounded-lg text-xs font-medium bg-primary-light text-primary hover:bg-primary/20 transition-colors"
+                      >
+                        Redigera
+                      </button>
+                      <button
+                        onClick={() => handleDelete(location.id)}
+                        disabled={loading}
+                        className="px-3 py-1.5 rounded-lg text-xs font-medium bg-red-50 text-red-600 hover:bg-red-100 transition-colors disabled:opacity-50"
+                      >
+                        Ta bort
+                      </button>
+                    </div>
                   )}
                 </div>
               </div>
