@@ -38,7 +38,7 @@ export default function Locations({
   }, []);
 
   return (
-    <section id="locations" className="py-24 bg-white">
+    <section id="locations" className="py-24 bg-surface">
       <div className="max-w-6xl mx-auto px-6">
         {/* Section header */}
         <div className="text-center max-w-2xl mx-auto mb-16">
@@ -65,7 +65,7 @@ export default function Locations({
               className={`w-full text-left p-5 rounded-xl border transition-all ${
                 activeId === location.id
                   ? "border-primary bg-primary-light shadow-md ring-1 ring-primary/20"
-                  : "border-border hover:border-primary/30 hover:shadow-sm bg-white"
+                  : "border-border hover:border-primary/30 hover:shadow-sm bg-surface"
               }`}
             >
               <h3 className="text-sm font-semibold text-foreground font-sans mb-1 leading-snug">

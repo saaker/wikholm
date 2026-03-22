@@ -206,7 +206,7 @@ export default function AdminPanel({ initialLocations = [] }: AdminPanelProps) {
       <div className="min-h-screen bg-muted flex items-center justify-center p-6">
         <form
           onSubmit={handleLogin}
-          className="bg-white rounded-2xl shadow-lg p-8 w-full max-w-sm"
+          className="bg-surface rounded-2xl shadow-lg p-8 w-full max-w-sm"
         >
           <h1 className="text-2xl font-serif font-semibold mb-2">Admin</h1>
           <p className="text-sm text-muted-dark mb-6">
@@ -234,7 +234,7 @@ export default function AdminPanel({ initialLocations = [] }: AdminPanelProps) {
   return (
     <div className="min-h-screen bg-muted">
       {/* Top bar */}
-      <div className="bg-white border-b border-border">
+      <div className="bg-surface border-b border-border">
         <div className="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
           <div>
             <h1 className="text-xl font-serif font-semibold">
@@ -280,7 +280,7 @@ export default function AdminPanel({ initialLocations = [] }: AdminPanelProps) {
             disabled={readOnly}
             className={readOnly ? "opacity-60" : ""}
           >
-            <div className="bg-white rounded-2xl shadow-sm border border-border p-6">
+            <div className="bg-surface rounded-2xl shadow-sm border border-border p-6">
               <h2 className="text-lg font-semibold mb-4 font-sans">
                 {editing ? "Redigera klinik" : "Lägg till ny klinik"}
               </h2>
@@ -429,7 +429,7 @@ export default function AdminPanel({ initialLocations = [] }: AdminPanelProps) {
             {locations.map((location) => (
               <div
                 key={location.id}
-                className={`bg-white rounded-2xl shadow-sm border p-5 ${
+                className={`bg-surface rounded-2xl shadow-sm border p-5 ${
                   editing?.id === location.id
                     ? "border-primary"
                     : "border-border"

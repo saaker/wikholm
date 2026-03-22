@@ -159,7 +159,7 @@ export default function Invisalign() {
           {benefits.map((benefit) => (
             <div
               key={t(benefit.titleKey)}
-              className="bg-white rounded-2xl p-6 sm:p-8 shadow-sm hover:shadow-md transition-shadow border border-border/50 flex gap-4 sm:block"
+              className="bg-surface rounded-2xl p-6 sm:p-8 shadow-sm hover:shadow-md transition-shadow border border-border/50 flex gap-4 sm:block"
             >
               <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-primary-light flex items-center justify-center text-primary shrink-0 sm:mb-5">
                 {benefit.icon}
@@ -178,7 +178,7 @@ export default function Invisalign() {
 
         {/* CTA within section */}
         <div className="text-center mt-16">
-          <div className="inline-flex flex-col sm:flex-row items-center gap-4 p-8 rounded-2xl bg-white border border-border/50 shadow-sm">
+          <div className="inline-flex flex-col sm:flex-row items-center gap-4 p-8 rounded-2xl bg-surface border border-border/50 shadow-sm">
             <div className="text-left">
               <p className="font-semibold text-foreground">{t("ctaReady")}</p>
               <p className="text-sm text-muted-dark">{t("ctaBook")}</p>

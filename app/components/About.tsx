@@ -9,7 +9,7 @@ export default function About() {
   const { ref, visible } = useAnimateIn();
 
   return (
-    <section id="about" className="py-24 bg-white">
+    <section id="about" className="py-24 bg-surface">
       <div ref={ref} className="max-w-6xl mx-auto px-6">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Photo */}

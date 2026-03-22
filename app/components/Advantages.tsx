@@ -115,7 +115,7 @@ export default function Advantages() {
           {advantages.map((adv, i) => (
             <div
               key={t(adv.titleKey)}
-              className={`bg-white rounded-2xl p-8 border border-border/50 shadow-sm hover:shadow-md transition-shadow animate-fade-up delay-${i + 1} ${visible ? "visible" : ""}`}
+              className={`bg-surface rounded-2xl p-8 border border-border/50 shadow-sm hover:shadow-md transition-shadow animate-fade-up delay-${i + 1} ${visible ? "visible" : ""}`}
             >
               <div className="w-14 h-14 rounded-xl bg-primary-light flex items-center justify-center text-primary mb-5">
                 {adv.icon}

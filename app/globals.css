@@ -1,8 +1,9 @@
 @import "tailwindcss";
 
-@theme inline {
+@theme {
   --color-background: #ffffff;
   --color-foreground: #1a1a2e;
+  --color-surface: #ffffff;
   --color-primary: #2a7a6e;
   --color-primary-light: #e8f5f2;
   --color-primary-dark: #1d5c53;
@@ -11,6 +12,7 @@
   --color-muted: #f8f9fa;
   --color-muted-dark: #6b7280;
   --color-border: #e5e7eb;
+  --color-footer-bg: #1a1a2e;
   --font-sans: var(--font-geist-sans);
   --font-serif: var(--font-playfair);
 }
@@ -27,6 +29,35 @@ body {
 
 h1, h2, h3 {
   font-family: var(--font-serif), Georgia, serif;
+}
+
+/* Dark mode overrides */
+.dark {
+  color-scheme: dark;
+  --color-background: #0c0e14;
+  --color-foreground: #e4e6eb;
+  --color-surface: #161921;
+  --color-primary: #3bbaa8;
+  --color-primary-light: #1a2e2b;
+  --color-primary-dark: #5cd4c3;
+  --color-accent: #d4a574;
+  --color-accent-light: #2a231d;
+  --color-muted: #111318;
+  --color-muted-dark: #94a0b0;
+  --color-border: #252832;
+  --color-footer-bg: #080a0f;
+}
+
+.dark input,
+.dark textarea,
+.dark select {
+  background-color: var(--color-muted);
+  color: var(--color-foreground);
+  border-color: var(--color-border);
+}
+
+.dark .leaflet-tile-pane {
+  filter: invert(1) hue-rotate(180deg) brightness(0.95) contrast(0.9);
 }
 
 .leaflet-container {

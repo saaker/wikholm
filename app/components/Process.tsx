@@ -20,7 +20,7 @@ export default function Process() {
   const { ref, visible } = useAnimateIn();
 
   return (
-    <section id="process" className="py-24 bg-white">
+    <section id="process" className="py-24 bg-surface">
       <div ref={ref} className="max-w-6xl mx-auto px-6">
         {/* Header */}
         <div

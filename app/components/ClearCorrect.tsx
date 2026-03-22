@@ -68,7 +68,7 @@ export default function ClearCorrect() {
   ];
 
   return (
-    <section id="clearcorrect" className="py-24 bg-white">
+    <section id="clearcorrect" className="py-24 bg-surface">
       <div ref={ref} className="max-w-6xl mx-auto px-6">
         {/* Header */}
         <div

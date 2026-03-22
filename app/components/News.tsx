@@ -39,7 +39,7 @@ export default function News() {
   const { ref, visible } = useAnimateIn();
 
   return (
-    <section id="news" className="py-24 bg-white">
+    <section id="news" className="py-24 bg-surface">
       <div ref={ref} className="max-w-6xl mx-auto px-6">
         {/* Header */}
         <div
@@ -60,7 +60,7 @@ export default function News() {
           {articles.map((article, i) => (
             <article
               key={t(article.titleKey)}
-              className={`group bg-white rounded-2xl border border-border/50 shadow-sm hover:shadow-md transition-all overflow-hidden animate-fade-up delay-${i + 1} ${visible ? "visible" : ""}`}
+              className={`group bg-surface rounded-2xl border border-border/50 shadow-sm hover:shadow-md transition-all overflow-hidden animate-fade-up delay-${i + 1} ${visible ? "visible" : ""}`}
             >
               {/* Colored top bar */}
               <div className="h-1.5 bg-primary" />
