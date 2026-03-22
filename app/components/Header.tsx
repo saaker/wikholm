@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { useI18n } from "./I18nProvider";
 import { useTheme } from "./useTheme";
+import basePath from "@/lib/basePath";
 
 import logo from "../../public/logo.jpg";
 
@@ -21,7 +22,7 @@ export default function Header({
     { label: t("navServices"), href: "#services" },
     { label: t("navNews"), href: "#news" },
     { label: t("navContact"), href: "#contact" },
-    { label: t("navPatients"), href: "/for-patienter" },
+    { label: t("navPatients"), href: `${basePath}/for-patienter` },
   ];
 
   const patientNav = [
@@ -30,7 +31,7 @@ export default function Header({
     { label: t("navLocations"), href: "#locations" },
     { label: t("navFaq"), href: "#faq" },
     { label: t("navContact"), href: "#contact" },
-    { label: t("navDentists"), href: "/" },
+    { label: t("navDentists"), href: `${basePath}/` },
   ];
 
   const navItems = variant === "patient" ? patientNav : b2bNav;
@@ -40,7 +41,7 @@ export default function Header({
       <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between relative">
         {/* Logo + title (inline on desktop, logo-only on mobile) */}
         <a
-          href="/"
+          href={`${basePath}/`}
           onClick={(e) => {
             const path = window.location.pathname;
             const isHome =
@@ -69,7 +70,7 @@ export default function Header({
 
         {/* Centered title — mobile/tablet only */}
         <a
-          href="/"
+          href={`${basePath}/`}
           onClick={(e) => {
             const path = window.location.pathname;
             const isHome =

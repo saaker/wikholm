@@ -7,6 +7,9 @@ const nextConfig: NextConfig = {
     output: "export",
     basePath: "/wilkholm-orthodontics",
   }),
+  env: {
+    NEXT_PUBLIC_BASE_PATH: isGhPages ? "/wilkholm-orthodontics" : "",
+  },
   images: {
     unoptimized: true,
     remotePatterns: [

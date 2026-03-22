@@ -2,6 +2,7 @@
 
 import { useI18n } from "./I18nProvider";
 import { useAnimateIn } from "./useAnimateIn";
+import basePath from "@/lib/basePath";
 import type { TranslationKey } from "@/lib/i18n";
 
 interface HeroProps {
@@ -23,7 +24,7 @@ export default function Hero({
   ctaKey = "heroCta",
   ctaHref = "#services",
   secondaryKey = "heroSecondary",
-  secondaryHref = "/for-patienter",
+  secondaryHref = `${basePath}/for-patienter`,
 }: HeroProps) {
   const { t } = useI18n();
   const { ref, visible } = useAnimateIn(0.05);

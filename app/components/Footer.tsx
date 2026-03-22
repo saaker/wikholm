@@ -1,6 +1,7 @@
 "use client";
 
 import { useI18n } from "./I18nProvider";
+import basePath from "@/lib/basePath";
 
 export default function Footer() {
   const { t } = useI18n();
@@ -8,7 +9,7 @@ export default function Footer() {
   const navItems = [
     { label: t("navAbout"), href: "#about" },
     { label: t("navServices"), href: "#services" },
-    { label: t("navPatients"), href: "/for-patienter" },
+    { label: t("navPatients"), href: `${basePath}/for-patienter` },
     { label: t("navContact"), href: "#contact" },
   ];
 
