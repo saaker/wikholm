@@ -9,6 +9,7 @@ export const translations = {
     // Nav
     navAbout: "Om mig",
     navInvisalign: "Invisalign",
+    navAligners: "Aligners",
     navProcess: "Process",
     navLocations: "Kliniker",
     navNews: "Nyheter",
@@ -199,6 +200,7 @@ export const translations = {
     // Nav
     navAbout: "About",
     navInvisalign: "Invisalign",
+    navAligners: "Aligners",
     navProcess: "Process",
     navLocations: "Clinics",
     navNews: "News",

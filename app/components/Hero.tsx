@@ -8,7 +8,10 @@ export default function Hero() {
   const { ref, visible } = useAnimateIn(0.05);
 
   return (
-    <section className="relative min-h-[85vh] flex items-center justify-center bg-linear-to-br from-surface via-primary-light to-surface">
+    <section
+      id="top"
+      className="relative min-h-[85vh] flex items-center justify-center bg-linear-to-br from-surface via-primary-light to-surface"
+    >
       {/* Decorative background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-24 -right-24 w-96 h-96 rounded-full bg-primary/5 blur-3xl" />

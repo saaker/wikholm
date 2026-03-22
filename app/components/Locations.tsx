@@ -68,13 +68,13 @@ export default function Locations({
                   : "border-border hover:border-primary/30 hover:shadow-sm bg-surface"
               }`}
             >
-              <h3 className="text-sm font-semibold text-foreground font-sans mb-1 leading-snug">
+              <h3 className="text-base font-semibold text-foreground font-sans mb-1.5 leading-snug">
                 {location.name}
               </h3>
-              <div className="space-y-1 text-xs text-muted-dark">
-                <div className="flex items-start gap-1.5">
+              <div className="space-y-1.5 text-sm text-muted-dark">
+                <div className="flex items-start gap-2">
                   <svg
-                    className="w-3.5 h-3.5 mt-0.5 shrink-0 text-primary"
+                    className="w-4 h-4 mt-0.5 shrink-0 text-primary"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -94,9 +94,9 @@ export default function Locations({
                   </svg>
                   <span>{location.address}</span>
                 </div>
-                <div className="flex items-center gap-1.5">
+                <div className="flex items-center gap-2">
                   <svg
-                    className="w-3.5 h-3.5 shrink-0 text-primary"
+                    className="w-4 h-4 shrink-0 text-primary"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -117,9 +117,9 @@ export default function Locations({
                   </a>
                 </div>
                 {location.website && (
-                  <div className="flex items-center gap-1.5">
+                  <div className="flex items-center gap-2">
                     <svg
-                      className="w-3.5 h-3.5 shrink-0 text-primary"
+                      className="w-4 h-4 shrink-0 text-primary"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
