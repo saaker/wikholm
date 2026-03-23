@@ -39,7 +39,7 @@ export default function News() {
   const { ref, visible } = useAnimateIn();
 
   return (
-    <section id="news" className="py-24 bg-surface">
+    <section id="news" className="py-24 bg-muted">
       <div ref={ref} className="max-w-6xl mx-auto px-6">
         {/* Header */}
         <div
