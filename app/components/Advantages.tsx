@@ -111,21 +111,25 @@ export default function Advantages() {
         </div>
 
         {/* 2x2 grid */}
-        <div className="grid sm:grid-cols-2 gap-6">
+        <div className="grid md:grid-cols-2 gap-6">
           {advantages.map((adv, i) => (
             <div
               key={t(adv.titleKey)}
               className={`bg-surface rounded-2xl p-8 border border-border/50 shadow-sm hover:shadow-md transition-shadow animate-fade-up delay-${i + 1} ${visible ? "visible" : ""}`}
             >
-              <div className="w-14 h-14 rounded-xl bg-primary-light flex items-center justify-center text-primary mb-5">
-                {adv.icon}
+              <div className="flex gap-5">
+                <div className="w-12 h-12 rounded-xl bg-primary-light flex items-center justify-center text-[#96692a] shrink-0">
+                  {adv.icon}
+                </div>
+                <div className="min-w-0">
+                  <h3 className="text-lg font-semibold text-foreground font-sans mb-2">
+                    {t(adv.titleKey)}
+                  </h3>
+                  <p className="text-sm text-muted-dark leading-relaxed">
+                    {t(adv.descKey)}
+                  </p>
+                </div>
               </div>
-              <h3 className="text-lg font-semibold text-foreground font-sans mb-2">
-                {t(adv.titleKey)}
-              </h3>
-              <p className="text-sm text-muted-dark leading-relaxed">
-                {t(adv.descKey)}
-              </p>
             </div>
           ))}
         </div>

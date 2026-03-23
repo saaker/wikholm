@@ -43,7 +43,7 @@ export default function Process() {
               className={`relative animate-fade-up delay-${i + 1} ${visible ? "visible" : ""}`}
             >
               <div className="relative z-10">
-                <span className="text-5xl font-serif font-bold text-primary/15 leading-none">
+                <span className="text-5xl font-serif font-bold text-primary/40 leading-none">
                   {step.num}
                 </span>
                 <h3 className="text-lg font-semibold text-foreground font-sans mt-2 mb-2">

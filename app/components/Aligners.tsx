@@ -167,22 +167,24 @@ export default function Aligners() {
         </div>
 
         {/* Benefits grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {benefits.map((benefit) => (
+        <div className="grid md:grid-cols-2 gap-6">
+          {benefits.map((benefit, i) => (
             <div
               key={t(benefit.titleKey)}
-              className="bg-surface rounded-2xl p-6 sm:p-8 shadow-sm hover:shadow-md transition-shadow border border-border/50 flex gap-4 sm:block"
+              className={`bg-surface rounded-2xl p-8 shadow-sm hover:shadow-md transition-shadow border border-border/50 animate-fade-up delay-${Math.min(i + 1, 4)} ${visible ? "visible" : ""}`}
             >
-              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-primary-light flex items-center justify-center text-primary shrink-0 sm:mb-5">
-                {benefit.icon}
-              </div>
-              <div>
-                <h3 className="text-base sm:text-lg font-semibold text-foreground font-sans mb-1 sm:mb-2">
-                  {t(benefit.titleKey)}
-                </h3>
-                <p className="text-sm text-muted-dark leading-relaxed">
-                  {t(benefit.descKey)}
-                </p>
+              <div className="flex gap-5">
+                <div className="w-12 h-12 rounded-xl bg-primary-light flex items-center justify-center text-[#96692a] shrink-0">
+                  {benefit.icon}
+                </div>
+                <div className="min-w-0">
+                  <h3 className="text-lg font-semibold text-foreground font-sans mb-2">
+                    {t(benefit.titleKey)}
+                  </h3>
+                  <p className="text-sm text-muted-dark leading-relaxed">
+                    {t(benefit.descKey)}
+                  </p>
+                </div>
               </div>
             </div>
           ))}
@@ -197,7 +199,7 @@ export default function Aligners() {
             </div>
             <a
               href="#locations"
-              className="shrink-0 inline-flex items-center gap-2 px-6 py-3 rounded-full bg-primary text-white font-medium hover:bg-primary-dark transition-colors text-sm"
+              className="shrink-0 inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#96692A] text-[#FDFDF8] font-medium hover:bg-primary-dark transition-colors text-sm"
             >
               {t("ctaViewClinics")}
             </a>

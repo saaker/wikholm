@@ -5,6 +5,7 @@ import {
   useContext,
   useState,
   useCallback,
+  useEffect,
   type ReactNode,
 } from "react";
 import { translations, type Locale, type TranslationKey } from "@/lib/i18n";
@@ -26,8 +27,18 @@ export function I18nProvider({
 }) {
   const [locale, setLocaleState] = useState<Locale>(defaultLocale);
 
+  // Restore saved locale after mount
+  useEffect(() => {
+    const saved = localStorage.getItem("locale") as Locale | null;
+    if (saved && (saved === "en" || saved === "sv") && saved !== locale) {
+      setLocaleState(saved);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const setLocale = useCallback((newLocale: Locale) => {
     setLocaleState(newLocale);
+    localStorage.setItem("locale", newLocale);
     document.documentElement.lang = newLocale;
   }, []);
 

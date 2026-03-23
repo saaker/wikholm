@@ -36,14 +36,14 @@ export default function Footer({
             <h3 className="text-xl font-serif font-semibold mb-4">
               {t("brandName")}
             </h3>
-            <p className="text-white/70 text-sm leading-relaxed">
+            <p className="text-white/80 text-[0.9375rem] leading-relaxed">
               {t("footerDesc")}
             </p>
           </div>
 
           {/* Quick links */}
           <div>
-            <h4 className="text-sm font-semibold uppercase tracking-wider mb-4 text-white/50">
+            <h4 className="text-sm font-semibold uppercase tracking-wider mb-4 text-white/70">
               {t("footerQuickLinks")}
             </h4>
             <ul className="space-y-2">
@@ -51,7 +51,7 @@ export default function Footer({
                 <li key={item.href}>
                   <a
                     href={item.href}
-                    className="text-sm text-white/70 hover:text-white transition-colors"
+                    className="text-[0.9375rem] text-white/80 hover:text-white transition-colors"
                   >
                     {item.label}
                   </a>
@@ -62,10 +62,10 @@ export default function Footer({
 
           {/* Contact */}
           <div>
-            <h4 className="text-sm font-semibold uppercase tracking-wider mb-4 text-white/50">
+            <h4 className="text-sm font-semibold uppercase tracking-wider mb-4 text-white/70">
               {t("footerContact")}
             </h4>
-            <ul className="space-y-2 text-sm text-white/70">
+            <ul className="space-y-2 text-[0.9375rem] text-white/80">
               <li>
                 <a
                   href="https://www.instagram.com/wikholmort/"

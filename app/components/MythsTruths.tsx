@@ -47,16 +47,14 @@ export default function MythsTruths() {
             return (
               <div
                 key={i}
-                className="bg-muted rounded-xl border border-border/50 shadow-sm overflow-hidden"
+                className="bg-surface rounded-xl border border-border shadow-sm overflow-hidden"
               >
                 <button
                   onClick={() => setOpenIndex(isOpen ? null : i)}
                   className="w-full flex items-center justify-between p-5 text-left gap-4"
                 >
                   <div className="flex items-center gap-3 min-w-0">
-                    <span
-                      className="shrink-0 inline-flex items-center justify-center px-2.5 py-0.5 rounded-full text-xs font-bold uppercase tracking-wide bg-myth-bg text-myth-text"
-                    >
+                    <span className="shrink-0 inline-flex items-center justify-center px-2.5 py-0.5 rounded-full text-xs font-bold uppercase tracking-wide bg-myth-bg text-myth-text">
                       {t("mythsMyth")}
                     </span>
                     <span className="text-sm font-semibold text-foreground leading-snug">
@@ -83,9 +81,7 @@ export default function MythsTruths() {
                   <div className="overflow-hidden">
                     <div className="px-5 pb-5 border-t border-border/50 pt-4">
                       <div className="flex items-start gap-3">
-                        <span
-                          className="shrink-0 inline-flex items-center justify-center px-2.5 py-0.5 rounded-full text-xs font-bold uppercase tracking-wide mt-0.5 bg-truth-bg text-truth-text"
-                        >
+                        <span className="shrink-0 inline-flex items-center justify-center px-2.5 py-0.5 rounded-full text-xs font-bold uppercase tracking-wide mt-0.5 bg-truth-bg text-truth-text">
                           {t("mythsTruth")}
                         </span>
                         <p className="text-sm text-muted-dark leading-relaxed">

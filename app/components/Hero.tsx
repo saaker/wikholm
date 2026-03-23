@@ -37,7 +37,7 @@ export default function Hero({
       {/* Decorative background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-24 -right-24 w-96 h-96 rounded-full bg-primary/5 blur-3xl" />
-        <div className="absolute -bottom-32 -left-32 w-125 h-125 rounded-full bg-accent/5 blur-3xl" />
+        <div className="absolute -bottom-32 -left-32 w-125 h-125 rounded-full bg-primary/5 blur-3xl" />
       </div>
 
       <div
@@ -63,7 +63,7 @@ export default function Hero({
         >
           <a
             href={ctaHref}
-            className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-primary text-white font-medium hover:bg-primary-dark transition-colors shadow-lg shadow-primary/20"
+            className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-[#96692A] text-[#FDFDF8] font-semibold hover:bg-primary-dark transition-colors shadow-sm"
           >
             {t(ctaKey)}
             <svg
@@ -82,7 +82,7 @@ export default function Hero({
           </a>
           <a
             href={secondaryHref}
-            className="inline-flex items-center gap-2 px-8 py-4 rounded-full border border-border text-foreground font-medium hover:bg-muted transition-colors"
+            className="inline-flex items-center gap-2 px-8 py-4 rounded-full border border-primary/30 bg-primary/10 text-foreground font-medium hover:bg-primary/15 transition-colors"
           >
             {t(secondaryKey)}
           </a>

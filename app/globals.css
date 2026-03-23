@@ -1,21 +1,21 @@
 @import "tailwindcss";
 
 @theme {
-  --color-background: #ffffff;
-  --color-foreground: #1a1a2e;
+  --color-background: #fdfdf8;
+  --color-foreground: #2c1e10;
   --color-surface: #ffffff;
-  --color-primary: #2a7a6e;
-  --color-primary-light: #e8f5f2;
-  --color-primary-dark: #1d5c53;
-  --color-accent: #d4a574;
-  --color-accent-light: #faf3eb;
-  --color-muted: #f8f9fa;
-  --color-muted-dark: #6b7280;
-  --color-border: #e5e7eb;
-  --color-footer-bg: #1a1a2e;
+  --color-primary: #b8863a;
+  --color-primary-light: #fde9cd;
+  --color-primary-dark: #96692a;
+  --color-accent: #3d6b5a;
+  --color-accent-light: #e6f0eb;
+  --color-muted: #f7f3ed;
+  --color-muted-dark: #4a3f33;
+  --color-border: #e8ddd0;
+  --color-footer-bg: #1a1008;
   --color-myth-bg: #991b1b;
   --color-myth-text: #ffffff;
-  --color-truth-bg: #166534;
+  --color-truth-bg: #2d6a4f;
   --color-truth-text: #ffffff;
   --font-sans: var(--font-geist-sans);
   --font-serif: var(--font-playfair);
@@ -38,22 +38,22 @@ h1, h2, h3 {
 /* Dark mode overrides */
 .dark {
   color-scheme: dark;
-  --color-background: #0c0e14;
-  --color-foreground: #e4e6eb;
-  --color-surface: #161921;
-  --color-primary: #3bbaa8;
-  --color-primary-light: #1a2e2b;
-  --color-primary-dark: #5cd4c3;
-  --color-accent: #d4a574;
-  --color-accent-light: #2a231d;
-  --color-muted: #111318;
-  --color-muted-dark: #94a0b0;
-  --color-border: #252832;
-  --color-footer-bg: #080a0f;
-  --color-myth-bg: rgba(127, 29, 29, 0.3);
+  --color-background: #111111;
+  --color-foreground: #eee9e2;
+  --color-surface: #222222;
+  --color-primary: #d4a55a;
+  --color-primary-light: #3d3022;
+  --color-primary-dark: #e8bf7e;
+  --color-accent: #5bbfa3;
+  --color-accent-light: #1a2622;
+  --color-muted: #171717;
+  --color-muted-dark: #d5cfc7;
+  --color-border: #444444;
+  --color-footer-bg: #0a0a0a;
+  --color-myth-bg: rgba(153, 27, 27, 0.3);
   --color-myth-text: #f87171;
-  --color-truth-bg: rgba(6, 78, 59, 0.3);
-  --color-truth-text: #34d399;
+  --color-truth-bg: rgba(45, 106, 79, 0.3);
+  --color-truth-text: #52b788;
 }
 
 .dark input,
@@ -65,7 +65,7 @@ h1, h2, h3 {
 }
 
 .dark .leaflet-tile-pane {
-  filter: invert(1) hue-rotate(180deg) brightness(0.95) contrast(0.9);
+  /* Keep map in normal light mode style in dark mode */
 }
 
 .leaflet-container {

@@ -185,7 +185,7 @@ export default function Services() {
               className={`relative bg-surface rounded-2xl p-8 shadow-sm hover:shadow-md transition-shadow border ${service.highlight ? "border-primary/30 ring-1 ring-primary/10" : "border-border/50"} animate-fade-up delay-${Math.min(i + 1, 4)} ${visible ? "visible" : ""}`}
             >
               <div className="flex gap-5">
-                <div className="w-12 h-12 rounded-xl bg-primary-light flex items-center justify-center text-primary shrink-0">
+                <div className="w-12 h-12 rounded-xl bg-primary-light flex items-center justify-center text-[#96692a] shrink-0">
                   {service.icon}
                 </div>
                 <div className="min-w-0">
@@ -197,8 +197,8 @@ export default function Services() {
                       <span
                         className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold uppercase tracking-wide ${
                           service.highlight
-                            ? "bg-primary/10 text-primary"
-                            : "bg-muted text-muted-dark"
+                            ? "bg-primary/20 text-primary-dark font-bold"
+                            : "bg-primary/10 text-primary-dark"
                         }`}
                       >
                         {t(service.tagKey)}
@@ -209,7 +209,7 @@ export default function Services() {
                     {t(service.descKey)}
                   </p>
                   {service.priceKey && (
-                    <span className="inline-flex items-center px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-semibold">
+                    <span className="inline-flex items-center px-3 py-1 rounded-full bg-primary/20 text-primary-dark text-sm font-bold">
                       {t(service.priceKey)}
                     </span>
                   )}

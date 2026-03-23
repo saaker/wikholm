@@ -60,7 +60,7 @@ export default function News() {
           {articles.map((article, i) => (
             <article
               key={t(article.titleKey)}
-              className={`group bg-surface rounded-2xl border border-border/50 shadow-sm hover:shadow-md transition-all overflow-hidden animate-fade-up delay-${i + 1} ${visible ? "visible" : ""}`}
+              className={`group bg-surface rounded-2xl border border-border shadow-md hover:shadow-lg transition-all overflow-hidden animate-fade-up delay-${i + 1} ${visible ? "visible" : ""}`}
             >
               {/* Colored top bar */}
               <div className="h-1.5 bg-primary" />

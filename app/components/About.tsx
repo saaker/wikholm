@@ -27,7 +27,7 @@ export default function About() {
               />
             </div>
             {/* Decorative accent */}
-            <div className="absolute -bottom-4 -right-4 w-24 h-24 rounded-2xl bg-accent/20 -z-10" />
+            <div className="absolute -bottom-4 -right-4 w-24 h-24 rounded-2xl bg-primary/20 -z-10" />
           </div>
 
           {/* Text content */}

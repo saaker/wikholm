@@ -65,7 +65,7 @@ export default function Locations({
               className={`w-full text-left p-5 rounded-xl border transition-all ${
                 activeId === location.id
                   ? "border-primary bg-primary-light shadow-md ring-1 ring-primary/20"
-                  : "border-border hover:border-primary/30 hover:shadow-sm bg-surface"
+                  : "border-border shadow-sm hover:border-primary/30 hover:shadow-md bg-surface"
               }`}
             >
               <h3 className="text-base font-semibold text-foreground font-sans mb-1.5 leading-snug">

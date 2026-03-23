@@ -12,8 +12,8 @@ interface MapLocation {
   lng: number;
 }
 
-const PIN_COLOR = "#2a7a6e";
-const PIN_ACTIVE = "#1d5c53";
+const PIN_COLOR = "#96692a";
+const PIN_ACTIVE = "#7a5522";
 
 function createIcon(active: boolean) {
   const size = active ? 18 : 14;
