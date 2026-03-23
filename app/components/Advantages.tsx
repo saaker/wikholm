@@ -33,7 +33,7 @@ export default function Advantages() {
   const { ref, visible } = useAnimateIn();
 
   return (
-    <section id="advantages" className="py-24">
+    <section id="advantages" className="py-24 bg-background">
       <div ref={ref} className="max-w-6xl mx-auto px-6">
         <div className="grid md:grid-cols-2 gap-12 md:gap-20">
           {/* Left: sticky header, positioned ~1/3 from top */}

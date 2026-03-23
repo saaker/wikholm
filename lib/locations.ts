@@ -9,6 +9,7 @@ export interface Location {
   hours: string;
   lat: number;
   lng: number;
+  type: "onsite" | "partner";
   description: string;
 }
 

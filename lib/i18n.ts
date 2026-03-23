@@ -80,7 +80,11 @@ export const translations = {
     locationsTitle1: "Hitta din",
     locationsTitle2: "närmaste klinik",
     locationsIntro:
-      "Jag tar emot patienter på kliniker i Stockholmsområdet, Enköping och Örnsköldsvik. Välj den som passar dig bäst.",
+      "Jag är fysiskt på plats för remisser och konsultationer på utvalda kliniker. Övriga är partnerkliniker där jag planerar fallen på distans.",
+    clinicOnsite: "På plats",
+    clinicPartner: "Partnerklinik",
+    clinicOnsiteHeading: "Kliniker med mottagning",
+    clinicPartnerHeading: "Partnerkliniker",
     loadingMap: "Laddar karta...",
 
     // Process
@@ -336,7 +340,11 @@ export const translations = {
     locationsTitle1: "Find your",
     locationsTitle2: "nearest clinic",
     locationsIntro:
-      "I see patients at clinics in the Stockholm area, Enköping, and Örnsköldsvik. Choose the one that suits you best.",
+      "I am physically on-site for referrals and consultations at selected clinics. The others are partner clinics where I plan cases remotely.",
+    clinicOnsite: "On-site",
+    clinicPartner: "Partner clinic",
+    clinicOnsiteHeading: "On-site clinics",
+    clinicPartnerHeading: "Partner clinics",
     loadingMap: "Loading map...",
 
     // Process
