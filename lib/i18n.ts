@@ -183,6 +183,8 @@ export const translations = {
     beforeAfterDisclaimer:
       "Bilderna är från verkliga behandlingar. Resultaten varierar beroende på individuella förutsättningar.",
     beforeAfterComingSoon: "Bilder kommer snart",
+    beforeAfterShowMore: "Visa fler resultat",
+    beforeAfterShowLess: "Visa färre",
 
     // Dental Monitoring
     dmLabel: "DENTAL MONITORING",
@@ -478,6 +480,8 @@ export const translations = {
     beforeAfterDisclaimer:
       "Images are from real treatments. Results vary depending on individual circumstances.",
     beforeAfterComingSoon: "Photos coming soon",
+    beforeAfterShowMore: "Show more results",
+    beforeAfterShowLess: "Show less",
 
     // Dental Monitoring
     dmLabel: "DENTAL MONITORING",
