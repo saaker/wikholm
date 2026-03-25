@@ -1,4 +1,5 @@
 import { useState, useCallback } from "react";
+import basePath from "@/lib/basePath";
 
 function getSavedSecret() {
   if (typeof window !== "undefined") {
@@ -29,7 +30,7 @@ export function useAdminAuth() {
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
     try {
-      const res = await fetch("/api/locations");
+      const res = await fetch(`${basePath}/api/locations`);
       if (res.ok) {
         sessionStorage.setItem("admin_secret", secret);
         setAuthenticated(true);

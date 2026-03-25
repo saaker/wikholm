@@ -9,6 +9,7 @@ import {
   type ReactNode,
 } from "react";
 import { translations, type Locale, type TranslationKey } from "@/lib/i18n";
+import basePath from "@/lib/basePath";
 
 type Overrides = Record<string, Record<string, string>>;
 
@@ -41,7 +42,7 @@ export function I18nProvider({
 
   // Load content overrides
   useEffect(() => {
-    fetch("/api/content")
+    fetch(`${basePath}/api/content`)
       .then((r) => (r.ok ? r.json() : null))
       .then((data) => {
         if (data) setOverrides(data);

@@ -1,5 +1,7 @@
 "use client";
 
+import basePath from "@/lib/basePath";
+
 interface ImageManagerProps {
   folders: string[];
   activeFolder: string | null;
@@ -109,7 +111,7 @@ export function ImageManager({
                     <div className="aspect-square">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
-                        src={`/images/${activeFolder}/${img}`}
+                        src={`${basePath}/images/${activeFolder}/${img}`}
                         alt={img}
                         className="w-full h-full object-cover"
                       />

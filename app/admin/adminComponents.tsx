@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Icon, ICON_REGISTRY, ICON_NAMES } from "@/lib/icons";
 import { inputCls } from "./adminTypes";
+import basePath from "@/lib/basePath";
 
 /* ═══════════════════════════════════════════════════
    Field — generic text / textarea input
@@ -129,7 +130,7 @@ export function ImagePickerField({
 
   function openPicker() {
     setOpen(true);
-    fetch("/api/images")
+    fetch(`${basePath}/api/images`)
       .then((r) => r.json())
       .then((d) => setFolders(d.folders ?? []))
       .catch(() => {});
@@ -137,7 +138,7 @@ export function ImagePickerField({
 
   function loadFolder(f: string) {
     setSelFolder(f);
-    fetch(`/api/images?folder=${encodeURIComponent(f)}`)
+    fetch(`${basePath}/api/images?folder=${encodeURIComponent(f)}`)
       .then((r) => r.json())
       .then((d) => setImages(d.images ?? []))
       .catch(() => setImages([]));
@@ -153,7 +154,7 @@ export function ImagePickerField({
           <div className="w-20 h-20 rounded-xl overflow-hidden border border-border bg-muted shrink-0">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src={value.startsWith("http") ? value : value}
+              src={value.startsWith("http") ? value : `${basePath}${value}`}
               alt="Preview"
               className="w-full h-full object-cover"
             />
@@ -231,7 +232,7 @@ export function ImagePickerField({
                           <div className="aspect-square">
                             {/* eslint-disable-next-line @next/next/no-img-element */}
                             <img
-                              src={`/images/${selFolder}/${img}`}
+                              src={`${basePath}/images/${selFolder}/${img}`}
                               alt={img}
                               className="w-full h-full object-cover"
                             />

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import basePath from "@/lib/basePath";
 
 export function useImageManager(
   tab: string,
@@ -15,7 +16,7 @@ export function useImageManager(
   // Load image folders when images tab is opened
   useEffect(() => {
     if (tab !== "images") return;
-    fetch("/api/images")
+    fetch(`${basePath}/api/images`)
       .then((r) => r.json())
       .then((d) => {
         setImageFolders(d.folders ?? []);
@@ -27,7 +28,7 @@ export function useImageManager(
   // Load images when folder changes
   useEffect(() => {
     if (tab !== "images" || !activeFolder) return;
-    fetch(`/api/images?folder=${encodeURIComponent(activeFolder)}`)
+    fetch(`${basePath}/api/images?folder=${encodeURIComponent(activeFolder)}`)
       .then((r) => r.json())
       .then((d) => setFolderImages(d.images ?? []))
       .catch(() => setFolderImages([]));
@@ -40,7 +41,7 @@ export function useImageManager(
     form.append("folder", activeFolder);
     for (const f of Array.from(files)) form.append("files", f);
     try {
-      const res = await fetch("/api/images", {
+      const res = await fetch(`${basePath}/api/images`, {
         method: "POST",
         headers: { Authorization: `Bearer ${secret}` },
         body: form,
@@ -49,7 +50,7 @@ export function useImageManager(
         const { uploaded } = await res.json();
         showMessage("success", `${uploaded.length} bild(er) uppladdade!`);
         const r2 = await fetch(
-          `/api/images?folder=${encodeURIComponent(activeFolder)}`,
+          `${basePath}/api/images?folder=${encodeURIComponent(activeFolder)}`,
         );
         if (r2.ok) setFolderImages((await r2.json()).images ?? []);
       } else showMessage("error", "Kunde inte ladda upp");
@@ -65,7 +66,7 @@ export function useImageManager(
     if (!confirm(`Ta bort ${fileName}?`)) return;
     try {
       const res = await fetch(
-        `/api/images?folder=${encodeURIComponent(activeFolder)}&file=${encodeURIComponent(fileName)}`,
+        `${basePath}/api/images?folder=${encodeURIComponent(activeFolder)}&file=${encodeURIComponent(fileName)}`,
         { method: "DELETE", headers: { Authorization: `Bearer ${secret}` } },
       );
       if (res.ok) {

@@ -1,6 +1,7 @@
 "use client";
 
 import type { SectionField } from "./adminTypes";
+import basePath from "@/lib/basePath";
 
 export function SectionPreview({
   sectionId,
@@ -54,7 +55,7 @@ export function SectionPreview({
           {v("aboutImage") ? (
             /* eslint-disable-next-line @next/next/no-img-element */
             <img
-              src={v("aboutImage")}
+              src={`${basePath}${v("aboutImage")}`}
               alt=""
               className="w-full h-full object-cover"
             />

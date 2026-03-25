@@ -1,6 +1,7 @@
 import { useEffect, useState, useCallback } from "react";
 import { translations } from "@/lib/i18n";
 import type { SectionsData } from "@/lib/sectionsDefaults";
+import basePath from "@/lib/basePath";
 import {
   type ContentOverrides,
   type SidebarItem,
@@ -27,7 +28,7 @@ export function useContentEditor(
 
   async function fetchContent() {
     try {
-      const res = await fetch("/api/content");
+      const res = await fetch(`${basePath}/api/content`);
       if (res.ok) setContentOverrides(await res.json());
     } catch {
       /* ignore */
@@ -36,7 +37,7 @@ export function useContentEditor(
 
   async function fetchSections() {
     try {
-      const res = await fetch("/api/sections");
+      const res = await fetch(`${basePath}/api/sections`);
       if (res.ok) setSectionsData(await res.json());
     } catch {
       /* ignore */
@@ -94,7 +95,7 @@ export function useContentEditor(
     }
 
     try {
-      const res = await fetch("/api/content", {
+      const res = await fetch(`${basePath}/api/content`, {
         method: "PUT",
         headers: authHeaders,
         body: JSON.stringify(payload),
@@ -114,7 +115,7 @@ export function useContentEditor(
     if (!sectionsData) return;
     setSaving(true);
     try {
-      const res = await fetch("/api/sections", {
+      const res = await fetch(`${basePath}/api/sections`, {
         method: "PUT",
         headers: authHeaders,
         body: JSON.stringify(sectionsData),

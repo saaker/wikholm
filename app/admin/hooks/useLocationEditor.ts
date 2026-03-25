@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { type Location, emptyLocation } from "../adminTypes";
+import basePath from "@/lib/basePath";
 
 export function useLocationEditor(
   initialLocations: Location[],
@@ -17,7 +18,7 @@ export function useLocationEditor(
 
   async function fetchLocations() {
     try {
-      const res = await fetch("/api/locations");
+      const res = await fetch(`${basePath}/api/locations`);
       if (res.ok) {
         setLocations(await res.json());
         return;
@@ -65,7 +66,7 @@ export function useLocationEditor(
     try {
       const method = editing ? "PUT" : "POST";
       const body = editing ? { ...locForm, id: editing.id } : locForm;
-      const res = await fetch("/api/locations", {
+      const res = await fetch(`${basePath}/api/locations`, {
         method,
         headers: authHeaders,
         body: JSON.stringify(body),
@@ -93,7 +94,7 @@ export function useLocationEditor(
     if (!confirm("Är du säker på att du vill ta bort denna klinik?")) return;
     setLoading(true);
     try {
-      const res = await fetch("/api/locations", {
+      const res = await fetch(`${basePath}/api/locations`, {
         method: "DELETE",
         headers: authHeaders,
         body: JSON.stringify({ id }),
