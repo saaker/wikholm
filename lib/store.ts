@@ -11,11 +11,23 @@ let redis: import("@upstash/redis").Redis | null = null;
 
 async function getRedis() {
   if (redis) return redis;
-  // Vercel Upstash integration uses UPSTASH_REDIS_REST_* env vars;
-  // fallback to KV_REST_API_* for compatibility
-  const url = process.env.UPSTASH_REDIS_REST_URL || process.env.KV_REST_API_URL;
-  const token =
+
+  let url = process.env.UPSTASH_REDIS_REST_URL || process.env.KV_REST_API_URL;
+  let token =
     process.env.UPSTASH_REDIS_REST_TOKEN || process.env.KV_REST_API_TOKEN;
+
+  // Vercel may only provide REDIS_URL (rediss://default:TOKEN@HOST:PORT)
+  // Parse it to extract the REST API URL and token for @upstash/redis
+  if (!url && process.env.REDIS_URL) {
+    try {
+      const parsed = new URL(process.env.REDIS_URL);
+      url = `https://${parsed.hostname}`;
+      token = parsed.password;
+    } catch {
+      // invalid URL, skip
+    }
+  }
+
   if (!url || !token) return null;
 
   const { Redis } = await import("@upstash/redis");
