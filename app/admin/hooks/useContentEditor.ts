@@ -1,6 +1,7 @@
 import { useEffect, useState, useCallback } from "react";
 import { translations } from "@/lib/i18n";
 import type { SectionsData } from "@/lib/sectionsDefaults";
+import { DEFAULT_SECTIONS, mergeSections } from "@/lib/sectionsDefaults";
 import basePath from "@/lib/basePath";
 import {
   type ContentOverrides,
@@ -38,9 +39,13 @@ export function useContentEditor(
   async function fetchSections() {
     try {
       const res = await fetch(`${basePath}/api/sections`);
-      if (res.ok) setSectionsData(await res.json());
+      if (res.ok) {
+        setSectionsData(mergeSections(await res.json()));
+      } else {
+        setSectionsData(DEFAULT_SECTIONS);
+      }
     } catch {
-      /* ignore */
+      setSectionsData(DEFAULT_SECTIONS);
     }
   }
 
