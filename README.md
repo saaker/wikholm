@@ -6,11 +6,11 @@ Professional website for André Wikholm — specialist orthodontist and Invisali
 
 ## Tech Stack
 
-- Next.js 16 (App Router, static export)
+- Next.js 16 (App Router)
 - React 19
 - Tailwind CSS v4
 - Leaflet + OpenStreetMap
-- GitHub Pages deployment via GitHub Actions
+- Vercel deployment with Blob storage
 
 ## Development
 

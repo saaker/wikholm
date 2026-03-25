@@ -1,23 +1,20 @@
 import type { NextConfig } from "next";
 
-const isGhPages = process.env.DEPLOY_TARGET === "gh-pages";
-
 const nextConfig: NextConfig = {
-  ...(isGhPages && {
-    output: "export",
-    basePath: "/wikholm",
-  }),
-  env: {
-    NEXT_PUBLIC_BASE_PATH: isGhPages ? "/wikholm" : "",
-  },
   images: {
     unoptimized: true,
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "swedishdental.com",
-      },
-    ],
+  },
+  // When an image isn't found as a static file in public/images/,
+  // fall through to the Blob-serving API route.
+  async rewrites() {
+    return {
+      afterFiles: [
+        {
+          source: "/images/:path*",
+          destination: "/api/images/serve/:path*",
+        },
+      ],
+    };
   },
 };
 

@@ -26,7 +26,7 @@ export function useImageManager(
         if (!activeFolder && d.folders?.length) setActiveFolder(d.folders[0]);
       })
       .catch(() => {
-        // Fallback: load static manifest for GitHub Pages
+        // Fallback: load static manifest
         fetch(`${basePath}/images/manifest.json`)
           .then((r) => r.json())
           .then((manifest: Record<string, string[]>) => {
