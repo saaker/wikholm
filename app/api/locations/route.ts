@@ -24,7 +24,12 @@ export async function POST(request: NextRequest) {
     id: body.id || crypto.randomUUID(),
   };
   locations.push(newLocation);
-  await saveLocations(locations);
+  try {
+    await saveLocations(locations);
+  } catch (err) {
+    console.error("Failed to save locations:", err);
+    return Response.json({ error: String(err) }, { status: 500 });
+  }
 
   return Response.json(newLocation, { status: 201 });
 }
@@ -44,7 +49,12 @@ export async function PUT(request: NextRequest) {
   }
 
   locations[index] = body;
-  await saveLocations(locations);
+  try {
+    await saveLocations(locations);
+  } catch (err) {
+    console.error("Failed to save locations:", err);
+    return Response.json({ error: String(err) }, { status: 500 });
+  }
 
   return Response.json(body);
 }
@@ -63,6 +73,11 @@ export async function DELETE(request: NextRequest) {
     return Response.json({ error: "Location not found" }, { status: 404 });
   }
 
-  await saveLocations(filtered);
+  try {
+    await saveLocations(filtered);
+  } catch (err) {
+    console.error("Failed to save locations:", err);
+    return Response.json({ error: String(err) }, { status: 500 });
+  }
   return Response.json({ success: true });
 }

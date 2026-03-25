@@ -35,6 +35,11 @@ export async function PUT(request: NextRequest) {
     }
   }
 
-  await saveSections(body);
+  try {
+    await saveSections(body);
+  } catch (err) {
+    console.error("Failed to save sections:", err);
+    return Response.json({ error: String(err) }, { status: 500 });
+  }
   return Response.json(body);
 }

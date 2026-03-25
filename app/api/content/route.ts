@@ -22,6 +22,11 @@ export async function PUT(request: NextRequest) {
   }
 
   // Full replace — the client sends the complete desired state
-  await saveContent({ sv: body.sv, en: body.en });
+  try {
+    await saveContent({ sv: body.sv, en: body.en });
+  } catch (err) {
+    console.error("Failed to save content:", err);
+    return Response.json({ error: "Failed to save" }, { status: 500 });
+  }
   return Response.json({ sv: body.sv, en: body.en });
 }
