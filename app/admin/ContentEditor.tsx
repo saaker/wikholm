@@ -85,7 +85,7 @@ export function ContentEditor({
           <button
             onClick={onSave}
             disabled={saving}
-            className="px-6 py-2.5 rounded-xl bg-primary text-white font-medium hover:bg-primary-dark transition-colors text-sm disabled:opacity-50"
+            className="px-6 py-2.5 rounded-xl bg-primary text-white dark:text-black font-medium hover:bg-primary-dark transition-colors text-sm disabled:opacity-50"
           >
             {saving ? "Sparar..." : "Spara ändringar"}
           </button>

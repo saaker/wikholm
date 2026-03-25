@@ -53,6 +53,7 @@ export interface NewsItem {
   id: string;
   color: string;
   image?: string;
+  hidden?: boolean;
   sv: { tag: string; date: string; title: string; desc: string; body?: string };
   en: { tag: string; date: string; title: string; desc: string; body?: string };
 }

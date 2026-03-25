@@ -43,53 +43,57 @@ export default function News() {
 
         {/* Article cards */}
         <div className="grid md:grid-cols-3 gap-6">
-          {sections.news.map((article, i) => {
-            const text = article[locale];
-            const hasBody = !!text.body?.trim();
-            return (
-              <article
-                key={article.id}
-                className={`group bg-surface rounded-2xl border border-border shadow-md hover:shadow-lg transition-all overflow-hidden animate-fade-up delay-${i + 1} ${visible ? "visible" : ""} ${hasBody ? "cursor-pointer" : ""}`}
-                {...(hasBody
-                  ? {
-                      onClick: () => setSelected(article),
-                      role: "button",
-                      tabIndex: 0,
-                      onKeyDown: (e) => {
-                        if (e.key === "Enter" || e.key === " ") {
-                          e.preventDefault();
-                          setSelected(article);
-                        }
-                      },
-                    }
-                  : {})}
-              >
-                {/* Colored top bar */}
-                <div className="h-1.5 bg-primary" />
-                <div className="p-6">
-                  <div className="flex items-center gap-3 mb-4">
-                    <span
-                      className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full ${article.color}`}
-                    >
-                      {text.tag}
-                    </span>
-                    <span className="text-xs text-muted-dark">{text.date}</span>
+          {sections.news
+            .filter((a) => !a.hidden)
+            .map((article, i) => {
+              const text = article[locale];
+              const hasBody = !!text.body?.trim();
+              return (
+                <article
+                  key={article.id}
+                  className={`group bg-surface rounded-2xl border border-border shadow-md hover:shadow-lg transition-all overflow-hidden animate-fade-up delay-${i + 1} ${visible ? "visible" : ""} ${hasBody ? "cursor-pointer" : ""}`}
+                  {...(hasBody
+                    ? {
+                        onClick: () => setSelected(article),
+                        role: "button",
+                        tabIndex: 0,
+                        onKeyDown: (e) => {
+                          if (e.key === "Enter" || e.key === " ") {
+                            e.preventDefault();
+                            setSelected(article);
+                          }
+                        },
+                      }
+                    : {})}
+                >
+                  {/* Colored top bar */}
+                  <div className="h-1.5 bg-primary" />
+                  <div className="p-6">
+                    <div className="flex items-center gap-3 mb-4">
+                      <span
+                        className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full ${article.color}`}
+                      >
+                        {text.tag}
+                      </span>
+                      <span className="text-xs text-muted-dark">
+                        {text.date}
+                      </span>
+                    </div>
+                    <h3 className="text-base font-semibold text-foreground font-sans mb-2 leading-snug group-hover:text-primary transition-colors">
+                      {text.title}
+                    </h3>
+                    <p className="text-sm text-muted-dark leading-relaxed mb-4">
+                      {text.desc}
+                    </p>
+                    {hasBody && (
+                      <span className="text-sm font-medium text-primary inline-flex items-center gap-1 group-hover:gap-2 transition-all">
+                        {t("newsReadMore")} &rarr;
+                      </span>
+                    )}
                   </div>
-                  <h3 className="text-base font-semibold text-foreground font-sans mb-2 leading-snug group-hover:text-primary transition-colors">
-                    {text.title}
-                  </h3>
-                  <p className="text-sm text-muted-dark leading-relaxed mb-4">
-                    {text.desc}
-                  </p>
-                  {hasBody && (
-                    <span className="text-sm font-medium text-primary inline-flex items-center gap-1 group-hover:gap-2 transition-all">
-                      {t("newsReadMore")} &rarr;
-                    </span>
-                  )}
-                </div>
-              </article>
-            );
-          })}
+                </article>
+              );
+            })}
         </div>
       </div>
 

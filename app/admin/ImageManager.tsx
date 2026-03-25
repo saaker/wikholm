@@ -80,7 +80,7 @@ export function ImageManager({
                 <p className="text-xs text-muted-dark/70 mb-3">
                   JPG, PNG, WebP eller SVG — max 10 MB
                 </p>
-                <label className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-primary text-white text-sm font-medium cursor-pointer hover:bg-primary-dark transition-colors">
+                <label className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-primary text-white dark:text-black text-sm font-medium cursor-pointer hover:bg-primary-dark transition-colors">
                   Välj filer
                   <input
                     type="file"
@@ -127,10 +127,21 @@ export function ImageManager({
                     {!readOnly && (
                       <button
                         onClick={() => onDelete(img)}
-                        className="absolute top-1.5 right-1.5 p-1 rounded-lg bg-red-500/80 text-white text-xs opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-600"
+                        className="absolute top-1.5 right-1.5 p-1.5 rounded-lg bg-red-500/80 text-white opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-600"
                         title="Ta bort"
                       >
-                        🗑
+                        <svg
+                          className="w-3.5 h-3.5"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                          strokeWidth={2}
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <polyline points="3 6 5 6 21 6" />
+                          <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+                        </svg>
                       </button>
                     )}
                   </div>

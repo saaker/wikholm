@@ -137,7 +137,7 @@ export function LocationsEditor({
               <button
                 type="submit"
                 disabled={loading}
-                className="flex-1 py-2.5 rounded-xl bg-primary text-white font-medium hover:bg-primary-dark transition-colors text-sm disabled:opacity-50"
+                className="flex-1 py-2.5 rounded-xl bg-primary text-white dark:text-black font-medium hover:bg-primary-dark transition-colors text-sm disabled:opacity-50"
               >
                 {loading ? "Sparar..." : editing ? "Uppdatera" : "Lägg till"}
               </button>
@@ -190,7 +190,7 @@ export function LocationsEditor({
                   <button
                     onClick={() => onDelete(loc.id)}
                     disabled={loading}
-                    className="px-3 py-1.5 rounded-lg text-xs font-medium bg-red-50 text-red-600 hover:bg-red-100 transition-colors disabled:opacity-50"
+                    className="px-3 py-1.5 rounded-lg text-xs font-medium bg-red-800 text-white hover:bg-red-900 transition-colors disabled:opacity-50"
                   >
                     Ta bort
                   </button>

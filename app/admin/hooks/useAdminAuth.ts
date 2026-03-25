@@ -1,23 +1,23 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import basePath from "@/lib/basePath";
 
-function getSavedSecret() {
-  if (typeof window !== "undefined") {
-    return sessionStorage.getItem("admin_secret") || "";
-  }
-  return "";
-}
-
 export function useAdminAuth() {
-  const [secret, setSecret] = useState(getSavedSecret);
-  const [authenticated, setAuthenticated] = useState(
-    () => getSavedSecret() !== "",
-  );
+  const [secret, setSecret] = useState("");
+  const [authenticated, setAuthenticated] = useState(false);
   const [readOnly, setReadOnly] = useState(false);
   const [message, setMessage] = useState<{
     type: "success" | "error";
     text: string;
   } | null>(null);
+
+  // Restore session after mount to avoid hydration mismatch
+  useEffect(() => {
+    const saved = sessionStorage.getItem("admin_secret") || "";
+    if (saved) {
+      setSecret(saved);
+      setAuthenticated(true);
+    }
+  }, []);
 
   const showMessage = useCallback((type: "success" | "error", text: string) => {
     setMessage({ type, text });

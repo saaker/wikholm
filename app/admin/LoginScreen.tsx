@@ -29,7 +29,7 @@ export function LoginScreen({
         />
         <button
           type="submit"
-          className="w-full py-3 rounded-xl bg-primary text-white font-medium hover:bg-primary-dark transition-colors"
+          className="w-full py-3 rounded-xl bg-primary text-white dark:text-black font-medium hover:bg-primary-dark transition-colors"
         >
           Logga in
         </button>
