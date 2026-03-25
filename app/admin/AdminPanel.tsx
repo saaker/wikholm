@@ -79,6 +79,7 @@ export default function AdminPanel({ initialLocations = [] }: AdminPanelProps) {
         secret={auth.secret}
         setSecret={auth.setSecret}
         onSubmit={auth.handleLogin}
+        errorMessage={auth.message?.type === "error" ? auth.message.text : null}
       />
     );
   }

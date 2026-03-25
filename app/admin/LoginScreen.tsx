@@ -4,10 +4,12 @@ export function LoginScreen({
   secret,
   setSecret,
   onSubmit,
+  errorMessage,
 }: {
   secret: string;
   setSecret: (v: string) => void;
   onSubmit: (e: React.FormEvent) => void;
+  errorMessage?: string | null;
 }) {
   return (
     <div className="min-h-screen bg-muted flex items-center justify-center p-6">
@@ -19,6 +21,11 @@ export function LoginScreen({
         <p className="text-sm text-muted-dark mb-6">
           Ange ditt admin-lösenord för att hantera webbplatsen.
         </p>
+        {errorMessage && (
+          <p className="text-sm text-red-600 bg-red-50 border border-red-200 rounded-lg px-3 py-2 mb-4">
+            {errorMessage}
+          </p>
+        )}
         <input
           type="password"
           value={secret}
