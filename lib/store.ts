@@ -11,8 +11,10 @@ let redis: import("@upstash/redis").Redis | null = null;
 
 function getRedis() {
   if (redis) return redis;
-  const url = process.env.KV_REST_API_URL;
-  const token = process.env.KV_REST_API_TOKEN;
+  // Vercel Upstash integration uses UPSTASH_REDIS_REST_* env vars;
+  // fallback to KV_REST_API_* for compatibility
+  const url = process.env.UPSTASH_REDIS_REST_URL || process.env.KV_REST_API_URL;
+  const token = process.env.UPSTASH_REDIS_REST_TOKEN || process.env.KV_REST_API_TOKEN;
   if (!url || !token) return null;
 
   // Dynamic import avoids bundling issues in dev
