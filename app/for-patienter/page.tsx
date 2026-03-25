@@ -10,6 +10,8 @@ import FAQ from "../components/for-patients/FAQ";
 import Footer from "../components/Footer";
 import { getLocations } from "@/lib/locations";
 
+export const dynamic = "force-dynamic";
+
 export default async function PatientPage() {
   const locations = await getLocations();
 

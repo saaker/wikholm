@@ -33,14 +33,19 @@ async function writeLocal<T>(key: string, value: T): Promise<void> {
 
 export async function kvGet<T>(key: string, fallback: T): Promise<T> {
   if (hasBlob()) {
-    const { list } = await import("@vercel/blob");
-    // Check if blob exists
-    const { blobs } = await list({ prefix: `data/${key}.json`, limit: 1 });
-    if (blobs.length > 0) {
-      const res = await fetch(blobs[0].url);
-      if (res.ok) return (await res.json()) as T;
+    const { get } = await import("@vercel/blob");
+    try {
+      const resp = await get(`data/${key}.json`, {
+        access: "private",
+        useCache: false,
+      });
+      if (resp) {
+        const data = await new Response(resp.stream).json();
+        return data as T;
+      }
+    } catch {
+      // Blob not found → seed from local
     }
-    // Blob doesn't exist → seed from local bundled file
     const local = await readLocal(key, fallback);
     await kvSet(key, local);
     return local;
@@ -52,7 +57,7 @@ export async function kvSet<T>(key: string, value: T): Promise<void> {
   if (hasBlob()) {
     const { put } = await import("@vercel/blob");
     await put(`data/${key}.json`, JSON.stringify(value, null, 2), {
-      access: "public",
+      access: "private",
       addRandomSuffix: false,
     });
     return;
