@@ -14,8 +14,11 @@ export function useAdminAuth() {
   useEffect(() => {
     const saved = sessionStorage.getItem("admin_secret") || "";
     if (saved) {
-      setSecret(saved);
-      setAuthenticated(true);
+      // Use functional updates to batch state changes
+      queueMicrotask(() => {
+        setSecret(saved);
+        setAuthenticated(true);
+      });
     }
   }, []);
 
@@ -32,18 +35,19 @@ export function useAdminAuth() {
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
     try {
-      const res = await fetch(`${basePath}/api/locations`);
-      if (res.ok) {
-        sessionStorage.setItem("admin_secret", secret);
-        setAuthenticated(true);
+      const res = await fetch(`${basePath}/api/auth-check`, {
+        method: "POST",
+        headers: { Authorization: `Bearer ${secret}` },
+      });
+      if (res.status === 401) {
+        showMessage("error", "Fel lösenord");
         return;
       }
+      sessionStorage.setItem("admin_secret", secret);
+      setAuthenticated(true);
     } catch {
-      /* allow read-only */
+      showMessage("error", "Kunde inte ansluta till servern");
     }
-    sessionStorage.setItem("admin_secret", secret);
-    setAuthenticated(true);
-    setReadOnly(true);
   }
 
   function logout() {

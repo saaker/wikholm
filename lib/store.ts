@@ -9,17 +9,16 @@ import path from "path";
 
 let redis: import("@upstash/redis").Redis | null = null;
 
-function getRedis() {
+async function getRedis() {
   if (redis) return redis;
   // Vercel Upstash integration uses UPSTASH_REDIS_REST_* env vars;
   // fallback to KV_REST_API_* for compatibility
   const url = process.env.UPSTASH_REDIS_REST_URL || process.env.KV_REST_API_URL;
-  const token = process.env.UPSTASH_REDIS_REST_TOKEN || process.env.KV_REST_API_TOKEN;
+  const token =
+    process.env.UPSTASH_REDIS_REST_TOKEN || process.env.KV_REST_API_TOKEN;
   if (!url || !token) return null;
 
-  // Dynamic import avoids bundling issues in dev
-  const { Redis } =
-    require("@upstash/redis") as typeof import("@upstash/redis");
+  const { Redis } = await import("@upstash/redis");
   redis = new Redis({ url, token });
   return redis;
 }
@@ -45,7 +44,7 @@ async function writeLocal<T>(key: string, value: T): Promise<void> {
 }
 
 export async function kvGet<T>(key: string, fallback: T): Promise<T> {
-  const kv = getRedis();
+  const kv = await getRedis();
   if (kv) {
     const data = await kv.get<T>(key);
     if (data !== null && data !== undefined) return data;
@@ -58,7 +57,7 @@ export async function kvGet<T>(key: string, fallback: T): Promise<T> {
 }
 
 export async function kvSet<T>(key: string, value: T): Promise<void> {
-  const kv = getRedis();
+  const kv = await getRedis();
   if (kv) {
     await kv.set(key, value);
     return;
