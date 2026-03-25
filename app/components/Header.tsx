@@ -47,8 +47,8 @@ export default function Header({
             const isHome =
               path === "/" ||
               path.replace(/\/+$/, "") === "" ||
-              path.endsWith("/wilkholm-orthodontics") ||
-              path === "/wilkholm-orthodontics/";
+              path.endsWith("/wikholm") ||
+              path === "/wikholm/";
             if (isHome) {
               e.preventDefault();
               window.scrollTo({ top: 0, behavior: "smooth" });
@@ -76,8 +76,8 @@ export default function Header({
             const isHome =
               path === "/" ||
               path.replace(/\/+$/, "") === "" ||
-              path.endsWith("/wilkholm-orthodontics") ||
-              path === "/wilkholm-orthodontics/";
+              path.endsWith("/wikholm") ||
+              path === "/wikholm/";
             if (isHome) {
               e.preventDefault();
               window.scrollTo({ top: 0, behavior: "smooth" });

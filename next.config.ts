@@ -5,10 +5,10 @@ const isGhPages = process.env.DEPLOY_TARGET === "gh-pages";
 const nextConfig: NextConfig = {
   ...(isGhPages && {
     output: "export",
-    basePath: "/wilkholm-orthodontics",
+    basePath: "/wikholm",
   }),
   env: {
-    NEXT_PUBLIC_BASE_PATH: isGhPages ? "/wilkholm-orthodontics" : "",
+    NEXT_PUBLIC_BASE_PATH: isGhPages ? "/wikholm" : "",
   },
   images: {
     unoptimized: true,

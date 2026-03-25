@@ -2,7 +2,7 @@
 
 Professional website for André Wikholm — specialist orthodontist and Invisalign Diamond Provider.
 
-**Live site:** [saaker.github.io/wilkholm-orthodontics](https://saaker.github.io/wilkholm-orthodontics/)
+**Live site:** [wikholm.vercel.app](https://wikholm.vercel.app/)
 
 ## Tech Stack
 
