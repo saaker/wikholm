@@ -1,18 +1,16 @@
-import { readFile, writeFile } from "fs/promises";
-import path from "path";
+import { kvGet, kvSet } from "./store";
 
 export type ContentOverrides = {
   sv: Record<string, string>;
   en: Record<string, string>;
 };
 
-const DATA_PATH = path.join(process.cwd(), "data", "content.json");
+const EMPTY: ContentOverrides = { sv: {}, en: {} };
 
 export async function getContent(): Promise<ContentOverrides> {
-  const data = await readFile(DATA_PATH, "utf-8");
-  return JSON.parse(data);
+  return kvGet<ContentOverrides>("content", EMPTY);
 }
 
 export async function saveContent(content: ContentOverrides): Promise<void> {
-  await writeFile(DATA_PATH, JSON.stringify(content, null, 2), "utf-8");
+  await kvSet("content", content);
 }

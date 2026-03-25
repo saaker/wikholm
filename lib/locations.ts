@@ -1,5 +1,4 @@
-import { readFile, writeFile } from "fs/promises";
-import path from "path";
+import { kvGet, kvSet } from "./store";
 
 export interface Location {
   id: string;
@@ -13,13 +12,10 @@ export interface Location {
   description: string;
 }
 
-const DATA_PATH = path.join(process.cwd(), "data", "locations.json");
-
 export async function getLocations(): Promise<Location[]> {
-  const data = await readFile(DATA_PATH, "utf-8");
-  return JSON.parse(data);
+  return kvGet<Location[]>("locations", []);
 }
 
 export async function saveLocations(locations: Location[]): Promise<void> {
-  await writeFile(DATA_PATH, JSON.stringify(locations, null, 2), "utf-8");
+  await kvSet("locations", locations);
 }
