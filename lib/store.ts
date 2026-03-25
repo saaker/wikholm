@@ -1,37 +1,21 @@
 /**
  * Unified key-value store.
- * Uses Upstash Redis on Vercel (when KV_REST_API_URL is set),
+ * Uses Redis on Vercel (when REDIS_URL is set),
  * falls back to local JSON files for development.
  */
 
 import { readFile, writeFile, mkdir } from "fs/promises";
 import path from "path";
+import Redis from "ioredis";
 
-let redis: import("@upstash/redis").Redis | null = null;
+let redis: Redis | null = null;
 
-async function getRedis() {
+function getRedis(): Redis | null {
   if (redis) return redis;
+  const url = process.env.REDIS_URL;
+  if (!url) return null;
 
-  let url = process.env.UPSTASH_REDIS_REST_URL || process.env.KV_REST_API_URL;
-  let token =
-    process.env.UPSTASH_REDIS_REST_TOKEN || process.env.KV_REST_API_TOKEN;
-
-  // Vercel may only provide REDIS_URL (rediss://default:TOKEN@HOST:PORT)
-  // Parse it to extract the REST API URL and token for @upstash/redis
-  if (!url && process.env.REDIS_URL) {
-    try {
-      const parsed = new URL(process.env.REDIS_URL);
-      url = `https://${parsed.hostname}`;
-      token = parsed.password;
-    } catch {
-      // invalid URL, skip
-    }
-  }
-
-  if (!url || !token) return null;
-
-  const { Redis } = await import("@upstash/redis");
-  redis = new Redis({ url, token });
+  redis = new Redis(url, { lazyConnect: true, maxRetriesPerRequest: 2 });
   return redis;
 }
 
@@ -56,22 +40,22 @@ async function writeLocal<T>(key: string, value: T): Promise<void> {
 }
 
 export async function kvGet<T>(key: string, fallback: T): Promise<T> {
-  const kv = await getRedis();
+  const kv = getRedis();
   if (kv) {
-    const data = await kv.get<T>(key);
-    if (data !== null && data !== undefined) return data;
+    const raw = await kv.get(key);
+    if (raw !== null) return JSON.parse(raw) as T;
     // Redis empty → seed from local bundled file
     const local = await readLocal(key, fallback);
-    await kv.set(key, local);
+    await kv.set(key, JSON.stringify(local));
     return local;
   }
   return readLocal(key, fallback);
 }
 
 export async function kvSet<T>(key: string, value: T): Promise<void> {
-  const kv = await getRedis();
+  const kv = getRedis();
   if (kv) {
-    await kv.set(key, value);
+    await kv.set(key, JSON.stringify(value));
     return;
   }
   await writeLocal(key, value);
