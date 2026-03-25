@@ -1,22 +1,14 @@
 /**
  * Unified key-value store.
- * Uses Redis on Vercel (when REDIS_URL is set),
+ * Uses Vercel Blob on production (when BLOB_READ_WRITE_TOKEN is set),
  * falls back to local JSON files for development.
  */
 
 import { readFile, writeFile, mkdir } from "fs/promises";
 import path from "path";
-import Redis from "ioredis";
 
-let redis: Redis | null = null;
-
-function getRedis(): Redis | null {
-  if (redis) return redis;
-  const url = process.env.REDIS_URL;
-  if (!url) return null;
-
-  redis = new Redis(url, { lazyConnect: true, maxRetriesPerRequest: 2 });
-  return redis;
+function hasBlob(): boolean {
+  return !!process.env.BLOB_READ_WRITE_TOKEN;
 }
 
 const DATA_DIR = path.join(process.cwd(), "data");
@@ -40,22 +32,29 @@ async function writeLocal<T>(key: string, value: T): Promise<void> {
 }
 
 export async function kvGet<T>(key: string, fallback: T): Promise<T> {
-  const kv = getRedis();
-  if (kv) {
-    const raw = await kv.get(key);
-    if (raw !== null) return JSON.parse(raw) as T;
-    // Redis empty → seed from local bundled file
+  if (hasBlob()) {
+    const { list } = await import("@vercel/blob");
+    // Check if blob exists
+    const { blobs } = await list({ prefix: `data/${key}.json`, limit: 1 });
+    if (blobs.length > 0) {
+      const res = await fetch(blobs[0].url);
+      if (res.ok) return (await res.json()) as T;
+    }
+    // Blob doesn't exist → seed from local bundled file
     const local = await readLocal(key, fallback);
-    await kv.set(key, JSON.stringify(local));
+    await kvSet(key, local);
     return local;
   }
   return readLocal(key, fallback);
 }
 
 export async function kvSet<T>(key: string, value: T): Promise<void> {
-  const kv = getRedis();
-  if (kv) {
-    await kv.set(key, JSON.stringify(value));
+  if (hasBlob()) {
+    const { put } = await import("@vercel/blob");
+    await put(`data/${key}.json`, JSON.stringify(value, null, 2), {
+      access: "public",
+      addRandomSuffix: false,
+    });
     return;
   }
   await writeLocal(key, value);
