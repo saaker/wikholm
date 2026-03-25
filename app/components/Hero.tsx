@@ -53,6 +53,13 @@ export default function Hero({
         ref={ref}
         className="relative max-w-6xl mx-auto px-6 py-32 text-center"
       >
+        {/* Badge */}
+        <span
+          className={`inline-block px-4 py-1.5 mb-6 text-sm font-medium tracking-wide text-primary-dark bg-surface border border-primary/30 rounded-full shadow-sm animate-fade-up ${visible ? "visible" : ""}`}
+        >
+          {t(badgeKey)}
+        </span>
+
         {/* Main heading */}
         <h1
           className={`text-5xl sm:text-6xl lg:text-7xl font-serif font-semibold text-foreground leading-tight tracking-tight mb-6 animate-fade-up delay-1 ${visible ? "visible" : ""}`}

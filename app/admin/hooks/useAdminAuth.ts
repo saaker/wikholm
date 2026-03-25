@@ -46,6 +46,13 @@ export function useAdminAuth() {
     setReadOnly(true);
   }
 
+  function logout() {
+    sessionStorage.removeItem("admin_secret");
+    setSecret("");
+    setAuthenticated(false);
+    setReadOnly(false);
+  }
+
   return {
     secret,
     setSecret,
@@ -56,5 +63,6 @@ export function useAdminAuth() {
     showMessage,
     authHeaders,
     handleLogin,
+    logout,
   };
 }

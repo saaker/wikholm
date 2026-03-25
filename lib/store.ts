@@ -16,7 +16,8 @@ function getRedis() {
   if (!url || !token) return null;
 
   // Dynamic import avoids bundling issues in dev
-  const { Redis } = require("@upstash/redis") as typeof import("@upstash/redis");
+  const { Redis } =
+    require("@upstash/redis") as typeof import("@upstash/redis");
   redis = new Redis({ url, token });
   return redis;
 }

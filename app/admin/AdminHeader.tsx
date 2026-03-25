@@ -8,9 +8,11 @@ type Tab = "dentist" | "patient" | "images";
 export function AdminHeader({
   tab,
   setTab,
+  onLogout,
 }: {
   tab: Tab;
   setTab: (t: Tab) => void;
+  onLogout: () => void;
 }) {
   const { dark, toggle } = useTheme();
 
@@ -65,6 +67,12 @@ export function AdminHeader({
               </svg>
             )}
             {dark ? "Ljust läge" : "Mörkt läge"}
+          </button>
+          <button
+            onClick={onLogout}
+            className="flex items-center gap-1.5 text-xs text-red-800 hover:text-red-950 dark:text-red-500 dark:hover:text-red-400 font-medium transition-colors"
+          >
+            Logga ut
           </button>
         </div>
       </div>

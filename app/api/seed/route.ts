@@ -35,5 +35,10 @@ export async function POST(req: NextRequest) {
     seeded.push("locations");
   }
 
-  return Response.json({ seeded, message: seeded.length ? "Done" : "All keys already exist. Use ?force=true to overwrite." });
+  return Response.json({
+    seeded,
+    message: seeded.length
+      ? "Done"
+      : "All keys already exist. Use ?force=true to overwrite.",
+  });
 }

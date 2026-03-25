@@ -20,7 +20,10 @@ export { DEFAULT_SECTIONS } from "./sectionsDefaults";
 import type { SectionsData } from "./sectionsDefaults";
 
 export async function getSections(): Promise<SectionsData> {
-  const saved = await kvGet<Partial<SectionsData>>("sections", DEFAULT_SECTIONS);
+  const saved = await kvGet<Partial<SectionsData>>(
+    "sections",
+    DEFAULT_SECTIONS,
+  );
   return mergeSections(saved);
 }
 

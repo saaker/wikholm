@@ -25,6 +25,11 @@ export function SectionPreview({
     const pfx = sectionId === "hero" ? "hero" : "patientHero";
     return (
       <div className="bg-linear-to-br from-surface via-primary-light to-surface rounded-xl p-8 text-center">
+        {v(`${pfx}Badge`) && (
+          <span className="inline-block px-3 py-1 mb-4 text-xs font-medium tracking-wide text-primary-dark bg-surface border border-primary/30 rounded-full">
+            {v(`${pfx}Badge`)}
+          </span>
+        )}
         <h3 className="text-3xl font-serif font-semibold mb-3">
           {v(`${pfx}Title1`)}{" "}
           <span className="text-primary">{v(`${pfx}Title2`)}</span>

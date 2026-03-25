@@ -85,7 +85,7 @@ export default function AdminPanel({ initialLocations = [] }: AdminPanelProps) {
 
   return (
     <div className="min-h-screen bg-muted">
-      <AdminHeader tab={tab} setTab={setTab} />
+      <AdminHeader tab={tab} setTab={setTab} onLogout={auth.logout} />
 
       <div className="max-w-6xl mx-auto px-6 py-8">
         {/* Messages */}
