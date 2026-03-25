@@ -59,6 +59,7 @@ export async function kvSet<T>(key: string, value: T): Promise<void> {
     await put(`data/${key}.json`, JSON.stringify(value, null, 2), {
       access: "private",
       addRandomSuffix: false,
+      allowOverwrite: true,
     });
     return;
   }
