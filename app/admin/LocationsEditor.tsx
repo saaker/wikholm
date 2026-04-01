@@ -160,7 +160,7 @@ export function LocationsEditor({
                 Skenor (aligners)
               </label>
               <div className="flex gap-4">
-                {(["invisalign", "clearcorrect"] as const).map((brand) => (
+                {(["clearcorrect", "invisalign"] as const).map((brand) => (
                   <label
                     key={brand}
                     className="flex items-center gap-2 text-sm cursor-pointer"

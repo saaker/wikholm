@@ -15,7 +15,7 @@ interface LocationData {
   lng: number;
   website?: string;
   type: "onsite" | "partner";
-  alignerBrands?: ("invisalign" | "clearcorrect")[];
+  alignerBrands?: ("clearcorrect" | "invisalign")[];
 }
 
 const LocationMap = dynamic(() => import("./LocationMap"), {

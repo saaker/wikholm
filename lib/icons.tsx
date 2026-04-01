@@ -150,6 +150,12 @@ export const ICON_REGISTRY: Record<
       "M20 12v10H4V12M2 7h20v5H2V7zM12 22V7M12 7H7.5a2.5 2.5 0 010-5C11 2 12 7 12 7zM12 7h4.5a2.5 2.5 0 000-5C13 2 12 7 12 7z",
     ],
   },
+  clearcorrect: {
+    label: "ClearCorrect",
+    filled: true,
+    paths: ["M12 2a10 10 0 0 1 0 20a10 10 0 0 1 0-20Z M5 11a7 7 0 0 0 14 0Z"],
+    opacity: 0.75,
+  },
   invisalign: {
     label: "Invisalign",
     filled: true,
@@ -162,12 +168,6 @@ export const ICON_REGISTRY: Record<
       "M11.03 12.22 Q6.06 10.69 2.25 14.23 Q7.22 15.76 11.03 12.22Z",
       "M11.22 11.38 Q9.32 6.54 4.18 5.77 Q6.08 10.6 11.22 11.38Z",
     ],
-  },
-  clearcorrect: {
-    label: "ClearCorrect",
-    filled: true,
-    paths: ["M12 2a10 10 0 0 1 0 20a10 10 0 0 1 0-20Z M5 11a7 7 0 0 0 14 0Z"],
-    opacity: 0.75,
   },
 };
 
