@@ -324,47 +324,47 @@ export const DEFAULT_SECTIONS: SectionsData = {
   ],
   advantages: [
     {
-      id: "removable",
+      id: "analysis",
       sv: {
-        title: "Avtagbara skenor",
-        desc: "Ta enkelt ut skenorna när du äter, dricker eller borstar tänderna — för bättre munhygien under hela behandlingen.",
+        title: "Omsorgsful analys av ditt fall",
+        desc: "Varje uppdrag inleds med en grundlig analys av det tillhandahållna underlaget – detta säkerställer en välgrundad och effektiv fortsatt planering.",
       },
       en: {
-        title: "Removable aligners",
-        desc: "Simply remove the aligners when eating, drinking, or brushing — for better oral hygiene throughout treatment.",
+        title: "Thoughtful case analysis",
+        desc: "Every case begins with a thorough analysis of the provided material, ensuring a well-founded and efficient treatment plan moving forward.",
       },
     },
     {
-      id: "comfortable",
+      id: "therapy-plan",
       sv: {
-        title: "Bekvämt att bära",
-        desc: "Inga metalldelar som skaver. Skenorna är mjuka, släta och designade för maximal komfort.",
+        title: "Förslag till terapiplan till din journal",
+        desc: "I syfte att förenkla din dokumentation erbjuder jag ett genomarbetat förslag till terapiplan, innefattande diagnos, prognosbedömning samt – vid behov – en motivering för tillämpning av Försäkringskassans högkostnadsskydd.",
       },
       en: {
-        title: "Comfortable to wear",
-        desc: "No metal parts that irritate. The aligners are smooth, soft, and designed for maximum comfort.",
+        title: "Treatment plan proposal",
+        desc: "To simplify your documentation, I provide a well-developed treatment plan proposal, including diagnosis, prognosis assessment, and—when applicable—a justification for the application of the Swedish Social Insurance Agency's high-cost protection.",
       },
     },
     {
-      id: "fewer-visits",
+      id: "staging",
       sv: {
-        title: "Färre besök",
-        desc: "Genomskinlig tandreglering kräver generellt färre klinikbesök än traditionell tandställning, vilket sparar tid i din vardag.",
+        title: "Förslag till disposition av dina skenor",
+        desc: "Varje fall planeras med samma omsorg som om det vore mitt eget. Jag tar därför fram en genomtänkt strategi för hur skenorna bör disponeras, med målet att säkerställa en så smidig och effektiv behandling som möjligt.",
       },
       en: {
-        title: "Fewer visits",
-        desc: "Clear aligner treatment generally requires fewer clinic visits than traditional braces, saving time in your everyday life.",
+        title: "Proposed aligner staging strategy",
+        desc: "Each case is planned with the same level of care as if it were my own. I therefore develop a structured strategy for how the aligners should be staged, with the goal of ensuring a smooth and efficient treatment process.",
       },
     },
     {
       id: "predictable",
       sv: {
         title: "Förutsägbara resultat",
-        desc: "Avancerad digital planering gör det möjligt att förutse och följa behandlingens framsteg med hög precision.",
+        desc: "Genom avancerad digital planering kan behandlingens utveckling förutses och följas med hög precision. Jag lägger den tid och expertis som krävs för att du tryggt ska nå i mål med varje fall.",
       },
       en: {
         title: "Predictable results",
-        desc: "Advanced digital planning makes it possible to predict and track treatment progress with high precision.",
+        desc: "Through advanced digital planning, treatment progress can be predicted and monitored with high precision. I invest the necessary time and expertise to ensure that you successfully complete your cases.",
       },
     },
   ],
@@ -559,16 +559,16 @@ export const DEFAULT_SECTIONS: SectionsData = {
       },
     },
     {
-      id: "slower",
+      id: "all-same",
       sv: {
-        myth: "Behandlingen tar mycket längre tid än traditionell tandställning.",
+        myth: "Alla alignersbehandlingar är lika.",
         truth:
-          "Behandlingstiden är i de flesta fall jämförbar med — och ibland kortare än — traditionella tandställningar. Det beror helt på fallets komplexitet.",
+          "Att välja en specialist för alignerbehandling innebär högre precision, bättre kontroll och tryggare resultat.\nDet handlar inte bara om att räta tänder – utan om att skapa ett funktionellt, hållbart och estetiskt optimalt bett.",
       },
       en: {
-        myth: "Treatment takes much longer than traditional braces.",
+        myth: "All aligner treatments are the same.",
         truth:
-          "Treatment time is typically comparable to — and sometimes shorter than — traditional braces. It depends entirely on the complexity of the case.",
+          "Choosing a specialist for aligner treatment means higher precision, better control, and more predictable results.\nIt's not just about straightening teeth — it's about creating a functional, lasting, and aesthetically optimal bite.",
       },
     },
     {

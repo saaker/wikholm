@@ -124,6 +124,7 @@ export function useLocationEditor(
       lat: loc.lat,
       lng: loc.lng,
       website: loc.website || "",
+      type: loc.type,
       description: loc.description,
     });
   }

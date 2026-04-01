@@ -13,7 +13,8 @@ export interface Location {
 }
 
 export async function getLocations(): Promise<Location[]> {
-  return kvGet<Location[]>("locations", []);
+  const raw = await kvGet<Location[]>("locations", []);
+  return raw.map((loc) => ({ ...loc, type: loc.type || "onsite" }));
 }
 
 export async function saveLocations(locations: Location[]): Promise<void> {

@@ -34,9 +34,40 @@ export function LocationsEditor({
     <div className="grid lg:grid-cols-2 gap-8">
       <fieldset disabled={readOnly} className={readOnly ? "opacity-60" : ""}>
         <div className="bg-surface rounded-2xl shadow-sm border border-border p-6">
-          <h2 className="text-lg font-semibold mb-4 font-sans">
-            {editing ? "Redigera klinik" : "Lägg till ny klinik"}
-          </h2>
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-lg font-semibold font-sans">
+              {editing ? "Redigera klinik" : "Lägg till ny klinik"}
+            </h2>
+            <button
+              type="button"
+              onClick={() =>
+                setForm({
+                  ...form,
+                  type: form.type === "onsite" ? "partner" : "onsite",
+                })
+              }
+              className={`inline-flex items-center px-3 py-1.5 rounded-full text-[0.7rem] font-medium uppercase tracking-wide shrink-0 cursor-pointer transition-colors ${
+                form.type === "onsite"
+                  ? "bg-primary/15 text-primary"
+                  : "bg-muted text-muted-dark"
+              }`}
+            >
+              {form.type === "onsite" ? "På plats" : "Partnerklinik"}
+              <svg
+                className="w-3 h-3 ml-1.5 opacity-60"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M8 9l4-4 4 4m0 6l-4 4-4-4"
+                />
+              </svg>
+            </button>
+          </div>
           <form onSubmit={onSave} className="space-y-4">
             <div>
               <label className="block text-sm font-medium text-foreground mb-1">
@@ -167,36 +198,99 @@ export function LocationsEditor({
         {locations.map((loc) => (
           <div
             key={loc.id}
-            className={`bg-surface rounded-2xl shadow-sm border p-5 ${editing?.id === loc.id ? "border-primary" : "border-border"}`}
+            className={`bg-surface rounded-xl border p-5 transition-all ${editing?.id === loc.id ? "border-primary shadow-md ring-1 ring-primary/20" : "border-border shadow-sm"}`}
           >
-            <div className="flex items-start justify-between gap-4">
-              <div className="min-w-0">
-                <h3 className="font-semibold text-foreground font-sans">
-                  {loc.name}
-                </h3>
-                <p className="text-sm text-muted-dark mt-0.5">{loc.address}</p>
-                <p className="text-xs text-muted-dark mt-1">
-                  {loc.phone} &middot; {loc.hours}
-                </p>
+            <div className="flex items-start justify-between gap-2 mb-1.5">
+              <h3 className="text-base font-semibold text-foreground font-sans leading-snug">
+                {loc.name}
+              </h3>
+              <span
+                className={`text-[0.7rem] font-medium uppercase tracking-wide px-2 py-0.5 rounded-full shrink-0 ${
+                  loc.type === "onsite"
+                    ? "bg-primary/15 text-primary"
+                    : "bg-muted text-muted-dark"
+                }`}
+              >
+                {loc.type === "onsite" ? "På plats" : "Partnerklinik"}
+              </span>
+            </div>
+            <div className="space-y-1.5 text-sm text-muted-dark">
+              <div className="flex items-start gap-2">
+                <svg
+                  className="w-4 h-4 mt-0.5 shrink-0 text-primary"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                  />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                  />
+                </svg>
+                <span>{loc.address}</span>
               </div>
-              {!readOnly && (
-                <div className="flex gap-2 shrink-0">
-                  <button
-                    onClick={() => onEdit(loc)}
-                    className="px-3 py-1.5 rounded-lg text-xs font-medium bg-primary-light text-primary hover:bg-primary/20 transition-colors"
+              <div className="flex items-center gap-2">
+                <svg
+                  className="w-4 h-4 shrink-0 text-primary"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+                  />
+                </svg>
+                <span>{loc.phone}</span>
+              </div>
+              {loc.website && (
+                <div className="flex items-center gap-2">
+                  <svg
+                    className="w-4 h-4 shrink-0 text-primary"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
                   >
-                    Redigera
-                  </button>
-                  <button
-                    onClick={() => onDelete(loc.id)}
-                    disabled={loading}
-                    className="px-3 py-1.5 rounded-lg text-xs font-medium bg-red-800 text-white hover:bg-red-900 transition-colors disabled:opacity-50"
-                  >
-                    Ta bort
-                  </button>
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"
+                    />
+                  </svg>
+                  <span className="truncate">
+                    {loc.website.replace(/^https?:\/\//, "")}
+                  </span>
                 </div>
               )}
             </div>
+            {!readOnly && (
+              <div className="flex justify-end gap-2 mt-3 pt-3 border-t border-border/50">
+                <button
+                  onClick={() => onEdit(loc)}
+                  className="px-3 py-1.5 rounded-lg text-xs font-medium bg-primary-light text-primary hover:bg-primary/20 transition-colors"
+                >
+                  Redigera
+                </button>
+                <button
+                  onClick={() => onDelete(loc.id)}
+                  disabled={loading}
+                  className="px-3 py-1.5 rounded-lg text-xs font-medium bg-red-800 text-white hover:bg-red-900 transition-colors disabled:opacity-50"
+                >
+                  Ta bort
+                </button>
+              </div>
+            )}
           </div>
         ))}
       </div>

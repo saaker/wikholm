@@ -37,7 +37,7 @@ export const translations = {
     aboutTitle2: "naturliga resultat",
     aboutImage: "/images/team/AndreHeadshot.jpeg",
     aboutBio:
-      "Legitimerad tandläkare sedan 2003 och specialisttandläkare inom tandreglering sedan 2014. Arbetar idag uteslutande med genomskinliga aligners och har gjort det sedan 2017.\nMed Invisalign Diamond Provider-status och mångårig erfarenhet har jag startat ett stort antal fall och byggt upp bred kompetens inom alignerbehandling för både ungdomar och vuxna. Min filosofi är enkel: varje patient förtjänar en individuell behandlingsplan.\nJag är medlem i Svenska Ortodontiföreningen, Sveriges Tandläkarförbund, Swedish Aligner Society och European Aligner Society. Utanför kliniken hittar du mig med familjen eller ute i naturen.",
+      "Legitimerad tandläkare sedan 2003 och specialist i ortodonti sedan 2014. Sedan 2020 arbetar jag uteslutande med behandlingar med genomskinliga aligners.\n\nUnder flera år har jag uppnått Invisalign Diamond Provider-status, och genom att ha arbetat med flera olika alignersystem har jag byggt upp en bred och djup erfarenhet inom modern alignerbaserad tandreglering. Jag har initierat och följt upp ett stort antal behandlingar, samt kontinuerligt utvärderat och förfinat mina egna behandlingsplaner – något som gett mig en gedigen kompetens inom både enkla och mer komplexa fall hos såväl ungdomar som vuxna.\n\nMin filosofi är tydlig: varje patient är unik och förtjänar en individuellt utformad behandlingsplan. Det är just planeringen som lägger grunden för ett förutsägbart och framgångsrikt behandlingsresultat.\n\nJag är medlem i Svenska Ortodontiföreningen och Sveriges Tandläkarförbund, medgrundare till Swedish Aligner Society samt medlem i European Aligner Society.\n\nUtanför kliniken tillbringar jag gärna tid med min familj eller i naturen.",
     aboutPhotoPlaceholder: "Foto kommer snart",
     aboutParagraph1:
       "Legitimerad tandläkare sedan 2003 och specialisttandläkare inom tandreglering sedan 2014. Arbetar idag uteslutande med genomskinliga aligners och har gjort det sedan 2017.",
@@ -50,7 +50,7 @@ export const translations = {
     bragValue2: "2 000+",
     bragTitle2: "Nöjda patienter",
     bragValue3: "Diamond",
-    bragTitle3: "Diamond Provider",
+    bragTitle3: "Invisalign Diamond Provider",
     statYears: "Års erfarenhet",
     statPatients: "Nöjda patienter",
     statProvider: "Diamond Provider",
@@ -107,7 +107,7 @@ export const translations = {
       "En grundlig undersökning och digital scanning av dina tänder för att skapa en personlig behandlingsplan.",
     processStep2Title: "Behandlingsplan",
     processStep2Desc:
-      "Med 3D-teknologi skapas en detaljerad plan som visar varje steg i din behandling — från start till slutresultat.",
+      "Med 3D-teknologi skapas en detaljerad plan som visar varje steg i din behandling — från start till slutresultat. Detta är det mest avgörande steget i alla alignersbehandlingar.",
     processStep3Title: "Skräddarsydda skenor",
     processStep3Desc:
       "Du får en serie individuellt anpassade, genomskinliga skenor som gradvis flyttar dina tänder till rätt position.",
@@ -118,21 +118,21 @@ export const translations = {
     // Advantages
     advantagesLabel: "FÖRDELAR",
     advantagesTitle1: "Varför välja",
-    advantagesTitle2: "genomskinlig tandreglering?",
+    advantagesTitle2: "mig som partner i samband med aligner tandreglering?",
     advantagesIntro:
-      "Aligners erbjuder en rad fördelar jämfört med traditionell tandreglering, speciellt för vuxna och ungdomar som vill ha en diskret behandling.",
-    advRemovable: "Avtagbara skenor",
+      "Aligners erbjuder en rad fördelar jämfört med traditionell tandreglering, speciellt för vuxna och ungdomar som vill ha en diskret behandling. För att uppnå optimalt resultat bör planeringen ha en central roll.",
+    advRemovable: "Omsorgsful analys av ditt fall",
     advRemovableDesc:
-      "Ta enkelt ut skenorna när du äter, dricker eller borstar tänderna — för bättre munhygien under hela behandlingen.",
-    advComfortable: "Bekvämt att bära",
+      "Varje uppdrag inleds med en grundlig analys av det tillhandahållna underlaget – detta säkerställer en välgrundad och effektiv fortsatt planering.",
+    advComfortable: "Förslag till terapiplan till din journal",
     advComfortableDesc:
-      "Inga metalldelar som skaver. Skenorna är mjuka, släta och designade för maximal komfort.",
-    advFewerVisits: "Färre besök",
+      "I syfte att förenkla din dokumentation erbjuder jag ett genomarbetat förslag till terapiplan, innefattande diagnos, prognosbedömning samt – vid behov – en motivering för tillämpning av Försäkringskassans högkostnadsskydd.",
+    advFewerVisits: "Förslag till disposition av dina skenor",
     advFewerVisitsDesc:
-      "Genomskinlig tandreglering kräver generellt färre klinikbesök än traditionell tandställning, vilket sparar tid i din vardag.",
+      "Varje fall planeras med samma omsorg som om det vore mitt eget. Jag tar därför fram en genomtänkt strategi för hur skenorna bör disponeras, med målet att säkerställa en så smidig och effektiv behandling som möjligt.",
     advPredictable: "Förutsägbara resultat",
     advPredictableDesc:
-      "Avancerad digital planering gör det möjligt att förutse och följa behandlingens framsteg med hög precision.",
+      "Genom avancerad digital planering kan behandlingens utveckling förutses och följas med hög precision. Jag lägger den tid och expertis som krävs för att du tryggt ska nå i mål med varje fall.",
 
     // News & Tips
     newsLabel: "NYHETER & TIPS",
@@ -304,9 +304,12 @@ export const translations = {
     linkedinPersonal: "André Wikholm",
     linkedinCompany: "Wikholm Ortodonti AB",
 
+    // Contact
+    contactEmail: "Andre.Wikholm@WikholmOrt.com",
+
     // Footer
     footerDesc:
-      "Specialisttandläkare inom tandreglering med genomskinliga aligners. Invisalign Diamond Provider.",
+      "Specialisttandläkare i ortodonti med särskild expertis inom behandling med genomskinliga aligners.\nClinical Expert inom ClearCorrect samt föreläsare, Invisalign Diamond Provider.",
     footerQuickLinks: "Snabblänkar",
     footerContact: "Kontakt",
     footerCopyright: "Wikholm Ortodonti. Alla rättigheter förbehållna.",
@@ -348,7 +351,7 @@ export const translations = {
     aboutTitle2: "natural results",
     aboutImage: "/images/team/AndreHeadshot.jpeg",
     aboutBio:
-      "Licensed dentist since 2003 and specialist orthodontist since 2014. Working exclusively with clear aligners since 2017.\nWith Invisalign Diamond Provider status and years of experience, I have started a large number of cases and built extensive expertise in aligner treatment for both teenagers and adults. My philosophy is simple: every patient deserves an individual treatment plan.\nI'm a member of the Swedish Orthodontic Society, the Swedish Dental Association, the Swedish Aligner Society, and the European Aligner Society. Outside the clinic, you'll find me with my family or out in nature.",
+      "Licensed dentist since 2003 and specialist in orthodontics since 2014. Since 2020, I work exclusively with clear aligner treatments.\n\nOver several years I have achieved Invisalign Diamond Provider status, and by working with multiple aligner systems I have built broad and deep experience in modern aligner-based orthodontics. I have initiated and followed up a large number of treatments, and continuously evaluated and refined my own treatment plans — giving me solid expertise in both straightforward and more complex cases for teenagers and adults alike.\n\nMy philosophy is clear: every patient is unique and deserves an individually designed treatment plan. It is the planning that lays the foundation for a predictable and successful treatment outcome.\n\nI am a member of the Swedish Orthodontic Society and the Swedish Dental Association, co-founder of the Swedish Aligner Society, and a member of the European Aligner Society.\n\nOutside the clinic, I enjoy spending time with my family or in nature.",
     aboutPhotoPlaceholder: "Photo coming soon",
     aboutParagraph1:
       "Licensed dentist since 2003 and specialist orthodontist since 2014. Working exclusively with clear aligners since 2017.",
@@ -361,7 +364,7 @@ export const translations = {
     bragValue2: "2,000+",
     bragTitle2: "Happy patients",
     bragValue3: "Diamond",
-    bragTitle3: "Diamond Provider",
+    bragTitle3: "Invisalign Diamond Provider",
     statYears: "Years of experience",
     statPatients: "Happy patients",
     statProvider: "Diamond Provider",
@@ -418,7 +421,7 @@ export const translations = {
       "A thorough examination and digital scanning of your teeth to create a personalized treatment plan.",
     processStep2Title: "Treatment plan",
     processStep2Desc:
-      "Using 3D technology, a detailed plan is created showing every step of your treatment — from start to finish.",
+      "Using 3D technology, a detailed plan is created showing every step of your treatment — from start to finish. This is the most critical step in any aligner treatment.",
     processStep3Title: "Custom aligners",
     processStep3Desc:
       "You receive a series of individually tailored, clear aligners that gradually move your teeth into the right position.",
@@ -429,21 +432,21 @@ export const translations = {
     // Advantages
     advantagesLabel: "ADVANTAGES",
     advantagesTitle1: "Why choose",
-    advantagesTitle2: "clear aligner treatment?",
+    advantagesTitle2: "me as your partner for aligner orthodontics?",
     advantagesIntro:
-      "Aligners offer a range of advantages over traditional braces, especially for adults and teenagers who want a discreet treatment.",
-    advRemovable: "Removable aligners",
+      "Aligners offer a range of advantages over traditional braces, especially for adults and teenagers who want a discreet treatment. To achieve optimal results, planning should play a central role.",
+    advRemovable: "Thoughtful case analysis",
     advRemovableDesc:
-      "Simply remove the aligners when eating, drinking, or brushing — for better oral hygiene throughout treatment.",
-    advComfortable: "Comfortable to wear",
+      "Every case begins with a thorough analysis of the provided material, ensuring a well-founded and efficient treatment plan moving forward.",
+    advComfortable: "Treatment plan proposal",
     advComfortableDesc:
-      "No metal parts that irritate. The aligners are smooth, soft, and designed for maximum comfort.",
-    advFewerVisits: "Fewer visits",
+      "To simplify your documentation, I provide a well-developed treatment plan proposal, including diagnosis, prognosis assessment, and—when applicable—a justification for the application of the Swedish Social Insurance Agency's high-cost protection.",
+    advFewerVisits: "Proposed aligner staging strategy",
     advFewerVisitsDesc:
-      "Clear aligner treatment generally requires fewer clinic visits than traditional braces, saving time in your everyday life.",
+      "Each case is planned with the same level of care as if it were my own. I therefore develop a structured strategy for how the aligners should be staged, with the goal of ensuring a smooth and efficient treatment process.",
     advPredictable: "Predictable results",
     advPredictableDesc:
-      "Advanced digital planning makes it possible to predict and track treatment progress with high precision.",
+      "Through advanced digital planning, treatment progress can be predicted and monitored with high precision. I invest the necessary time and expertise to ensure that you successfully complete your cases.",
 
     // News & Tips
     newsLabel: "NEWS & TIPS",
@@ -614,9 +617,12 @@ export const translations = {
     linkedinPersonal: "André Wikholm",
     linkedinCompany: "Wikholm Orthodontics AB",
 
+    // Contact
+    contactEmail: "Andre.Wikholm@WikholmOrt.com",
+
     // Footer
     footerDesc:
-      "Specialist orthodontist focusing on teeth straightening with clear aligners. Invisalign Diamond Provider.",
+      "Specialist Orthodontist with expertise in clear aligner therapy.\nClearCorrect Clinical Expert and Lecturer, Invisalign Diamond Provider.",
     footerQuickLinks: "Quick links",
     footerContact: "Contact",
     footerCopyright: "Wikholm Orthodontics. All rights reserved.",

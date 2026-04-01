@@ -193,51 +193,63 @@
         "title": "Treats most bite issues",
         "desc": "Crowding, spacing, overbite, underbite, and crossbite — modern aligners can effectively treat most orthodontic problems."
       }
+    },
+    {
+      "id": "leading-brands",
+      "icon": "star",
+      "sv": {
+        "title": "Ledande varumärken",
+        "desc": "Jag arbetar med alla de ledande alignersvarumärkena, såsom Invisalign och ClearCorrect. Du får alltid samma noggranna behandlingsplan och högklassig service, oavsett klinik eller alignersystem."
+      },
+      "en": {
+        "title": "Leading brands",
+        "desc": "I work with all leading aligner brands, such as Invisalign and ClearCorrect. You always receive the same meticulous treatment plan and high-quality service, regardless of clinic or aligner system."
+      }
     }
   ],
   "advantages": [
     {
-      "id": "removable",
+      "id": "analysis",
       "sv": {
-        "title": "Avtagbara skenor",
-        "desc": "Ta enkelt ut skenorna när du äter, dricker eller borstar tänderna — för bättre munhygien under hela behandlingen."
+        "title": "Omsorgsful analys av ditt fall",
+        "desc": "Varje uppdrag inleds med en grundlig analys av det tillhandahållna underlaget – detta säkerställer en välgrundad och effektiv fortsatt planering."
       },
       "en": {
-        "title": "Removable aligners",
-        "desc": "Simply remove the aligners when eating, drinking, or brushing — for better oral hygiene throughout treatment."
+        "title": "Thoughtful case analysis",
+        "desc": "Every case begins with a thorough analysis of the provided material, ensuring a well-founded and efficient treatment plan moving forward."
       }
     },
     {
-      "id": "comfortable",
+      "id": "therapy-plan",
       "sv": {
-        "title": "Bekvämt att bära",
-        "desc": "Inga metalldelar som skaver. Skenorna är mjuka, släta och designade för maximal komfort."
+        "title": "Förslag till terapiplan till din journal",
+        "desc": "I syfte att förenkla din dokumentation erbjuder jag ett genomarbetat förslag till terapiplan, innefattande diagnos, prognosbedömning samt – vid behov – en motivering för tillämpning av Försäkringskassans högkostnadsskydd."
       },
       "en": {
-        "title": "Comfortable to wear",
-        "desc": "No metal parts that irritate. The aligners are smooth, soft, and designed for maximum comfort."
+        "title": "Treatment plan proposal",
+        "desc": "To simplify your documentation, I provide a well-developed treatment plan proposal, including diagnosis, prognosis assessment, and—when applicable—a justification for the application of the Swedish Social Insurance Agency's high-cost protection."
       }
     },
     {
-      "id": "fewer-visits",
+      "id": "staging",
       "sv": {
-        "title": "Färre besök",
-        "desc": "Genomskinlig tandreglering kräver generellt färre klinikbesök än traditionell tandställning, vilket sparar tid i din vardag."
+        "title": "Förslag till disposition av dina skenor",
+        "desc": "Varje fall planeras med samma omsorg som om det vore mitt eget. Jag tar därför fram en genomtänkt strategi för hur skenorna bör disponeras, med målet att säkerställa en så smidig och effektiv behandling som möjligt."
       },
       "en": {
-        "title": "Fewer visits",
-        "desc": "Clear aligner treatment generally requires fewer clinic visits than traditional braces, saving time in your everyday life."
+        "title": "Proposed aligner staging strategy",
+        "desc": "Each case is planned with the same level of care as if it were my own. I therefore develop a structured strategy for how the aligners should be staged, with the goal of ensuring a smooth and efficient treatment process."
       }
     },
     {
       "id": "predictable",
       "sv": {
         "title": "Förutsägbara resultat",
-        "desc": "Avancerad digital planering gör det möjligt att förutse och följa behandlingens framsteg med hög precision."
+        "desc": "Genom avancerad digital planering kan behandlingens utveckling förutses och följas med hög precision. Jag lägger den tid och expertis som krävs för att du tryggt ska nå i mål med varje fall."
       },
       "en": {
         "title": "Predictable results",
-        "desc": "Advanced digital planning makes it possible to predict and track treatment progress with high precision."
+        "desc": "Through advanced digital planning, treatment progress can be predicted and monitored with high precision. I invest the necessary time and expertise to ensure that you successfully complete your cases."
       }
     }
   ],
@@ -257,11 +269,11 @@
       "id": "plan",
       "sv": {
         "title": "Behandlingsplan",
-        "desc": "Med 3D-teknologi skapas en detaljerad plan som visar varje steg i din behandling — från start till slutresultat."
+        "desc": "Med 3D-teknologi skapas en detaljerad plan som visar varje steg i din behandling — från start till slutresultat. Detta är det mest avgörande steget i alla alignersbehandlingar."
       },
       "en": {
         "title": "Treatment plan",
-        "desc": "Using 3D technology, a detailed plan is created showing every step of your treatment — from start to finish."
+        "desc": "Using 3D technology, a detailed plan is created showing every step of your treatment — from start to finish. This is the most critical step in any aligner treatment."
       }
     },
     {
@@ -335,9 +347,32 @@
         "title": "Full transparency",
         "desc": "Follow your own treatment journey in the app and watch your teeth slowly but surely reach the goal."
       }
+    },
+    {
+      "id": "dm-clearcorrect",
+      "icon": "star",
+      "sv": {
+        "title": "Dental Monitoring + ClearCorrect = Sant",
+        "desc": "Dental Monitoring är tillgänlig helt kostnadsfritt i samband med alla ClearCorrect behandlingar med fler än 30 skenor i en första omgång."
+      },
+      "en": {
+        "title": "Dental Monitoring + ClearCorrect = A perfect match",
+        "desc": "Dental Monitoring is available completely free of charge with all ClearCorrect treatments that include more than 30 aligners in the first round."
+      }
     }
   ],
   "faq": [
+    {
+      "id": "systems",
+      "sv": {
+        "question": "Finns det olika alignersystem?",
+        "answer": "Ja, det finns flera etablerade system på marknaden med olika styrkor. André har lång erfarenhet av de ledande systemen och hjälper dig välja den lösning som bäst passar dina behov och din situation. I kliniklistan ser du vilka av systemen ClearCorrect eller Invisalign som erbjuds."
+      },
+      "en": {
+        "question": "Are there different aligner systems?",
+        "answer": "Yes, there are several established systems on the market with different strengths. André has extensive experience with the leading systems and will help you choose the solution that best suits your needs and situation. In the clinic list you can see which systems — ClearCorrect or Invisalign — are offered."
+      }
+    },
     {
       "id": "duration",
       "sv": {
@@ -372,6 +407,17 @@
       }
     },
     {
+      "id": "cost",
+      "sv": {
+        "question": "Vad kostar en behandling?",
+        "answer": "Kostnaden varierar beroende på behandlingens omfattning. Under en konsultation får du en tydlig kostnadsuppskattning. Alla kliniker erbjuder delbetalning via finansieringslösningar. I vissa fall kan behandlingen delvis finansieras via Försäkringskassans högkostnadsskydd. Vid en konsultation får du alltid information om detta är aktuellt för dig."
+      },
+      "en": {
+        "question": "How much does treatment cost?",
+        "answer": "Cost varies depending on the scope of treatment. During a consultation, you'll receive a clear cost estimate. All clinics offer installment payment through financing solutions. In some cases, treatment may be partially funded through the Swedish Social Insurance Agency's high-cost protection. During a consultation you will always be informed whether this applies to you."
+      }
+    },
+    {
       "id": "eligibility",
       "sv": {
         "question": "Kan alla behandlas med aligners?",
@@ -380,28 +426,6 @@
       "en": {
         "question": "Can everyone be treated with aligners?",
         "answer": "Most orthodontic problems can be treated with aligners, but not all cases are suitable. More complex bite issues may require other methods. A consultation will tell you if aligners are right for you."
-      }
-    },
-    {
-      "id": "systems",
-      "sv": {
-        "question": "Finns det olika alignersystem?",
-        "answer": "Ja, det finns flera etablerade system på marknaden med olika styrkor. André har lång erfarenhet av de ledande systemen och hjälper dig välja den lösning som bäst passar dina behov och din situation."
-      },
-      "en": {
-        "question": "Are there different aligner systems?",
-        "answer": "Yes, there are several established systems on the market with different strengths. André has extensive experience with the leading systems and will help you choose the solution that best suits your needs and situation."
-      }
-    },
-    {
-      "id": "cost",
-      "sv": {
-        "question": "Vad kostar en behandling?",
-        "answer": "Kostnaden varierar beroende på behandlingens omfattning. Under en konsultation får du en tydlig kostnadsuppskattning. Många kliniker erbjuder delbetalning. I vissa regioner i Sverige kan behandlingen helt eller delvis omfattas av lokala hälso- och sjukvårdsbestämmelser — kontrollera med Försäkringskassan vad som gäller i ditt fall."
-      },
-      "en": {
-        "question": "How much does treatment cost?",
-        "answer": "Cost varies depending on the scope of treatment. During a consultation, you'll receive a clear cost estimate. Many clinics offer payment plans. In some regions of Sweden, treatment may be partially covered by local healthcare regulations — check with Försäkringskassan for your situation."
       }
     }
   ],
@@ -418,14 +442,14 @@
       }
     },
     {
-      "id": "slower",
+      "id": "all-same",
       "sv": {
-        "myth": "Behandlingen tar mycket längre tid än traditionell tandställning.",
-        "truth": "Behandlingstiden är i de flesta fall jämförbar med — och ibland kortare än — traditionella tandställningar. Det beror helt på fallets komplexitet."
+        "myth": "Alla alignersbehandlingar är lika.",
+        "truth": "Att välja en specialist för alignerbehandling innebär högre precision, bättre kontroll och tryggare resultat.\nDet handlar inte bara om att räta tänder – utan om att skapa ett funktionellt, hållbart och estetiskt optimalt bett."
       },
       "en": {
-        "myth": "Treatment takes much longer than traditional braces.",
-        "truth": "Treatment time is typically comparable to — and sometimes shorter than — traditional braces. It depends entirely on the complexity of the case."
+        "myth": "All aligner treatments are the same.",
+        "truth": "Choosing a specialist for aligner treatment means higher precision, better control, and more predictable results.\nIt's not just about straightening teeth — it's about creating a functional, lasting, and aesthetically optimal bite."
       }
     },
     {
@@ -493,23 +517,37 @@
         "myth": "Aligners are far more expensive than braces.",
         "truth": "The cost of aligner treatment is generally comparable to traditional braces. Many clinics also offer payment plans that make treatment more accessible."
       }
+    },
+    {
+      "id": "brand-myth",
+      "sv": {
+        "myth": "Alignersvarumärket är avgörande för resultatet.",
+        "truth": "Det finns skillnader mellan olika varumärken, såsom Invisalign, ClearCorrect eller Spark. Det som är helt avgörande för resultatet är dock personen som ansvarar för planeringen av behandlingen. Detta är den absolut mest avgörande faktorn för ett lyckat resultat."
+      },
+      "en": {
+        "myth": "The aligner brand is what determines the result.",
+        "truth": "There are differences between various brands, such as Invisalign, ClearCorrect, or Spark. However, what truly determines the outcome is the person responsible for planning the treatment. This is by far the most decisive factor for a successful result."
+      }
     }
   ],
   "news": [
     {
       "id": "guide",
       "color": "bg-primary/10 text-primary",
+      "image": "/images/news/clear-aligners-benfits.jpg",
       "sv": {
         "tag": "GUIDE",
         "date": "15 mars 2026",
         "title": "Aligners vs traditionell tandställning: Vilken behandling passar dig?",
-        "desc": "En jämförelse av genomskinliga skenor och traditionell tandreglering — material, process, kostnad och resultat."
+        "desc": "En jämförelse av genomskinliga skenor och traditionell tandreglering — material, process, kostnad och resultat.",
+        "body": "Aligners och traditionell tandställning är de två vanligaste metoderna för tandreglering idag. Genomskinliga skenor (aligners) är nästan osynliga, avtagbara och kräver färre besök hos tandläkaren. Traditionella metallställningar ger ortodontisten mer direkt kontroll och kan hantera komplexa fall.\n\nKostnaden för de två behandlingarna är i allmänhet jämförbar. Alignerbehandling tar vanligtvis 6–18 månader beroende på fallets komplexitet. I vissa fall är traditionell tandreglering mer effektiv, framför allt när stora tandförlyttningar krävs. Många gånger kan man uppnå likvärdiga resultat även med aligners, men man behöver då planera för kompletterande mekanik med gummisnoddar eller element från konventionell tandreglering.\n\nBåda metoderna ger således utmärkta resultat — valet beror på livsstil, fallets komplexitet och personliga preferenser. Boka en kostnadsfri bedömning för att ta reda på vilken metod som passar dig bäst."
       },
       "en": {
         "tag": "GUIDE",
         "date": "March 15, 2026",
         "title": "Aligners vs traditional braces: Which treatment suits you?",
-        "desc": "A comparison of clear aligners and traditional braces — materials, process, cost, and results."
+        "desc": "A comparison of clear aligners and traditional braces — materials, process, cost, and results.",
+        "body": "Aligners and traditional braces are the two most common orthodontic methods today. Clear aligners are nearly invisible, removable, and require fewer dental visits. Traditional metal braces give the orthodontist more direct control and can handle complex cases.\n\nThe cost of both treatments is generally comparable. Aligner treatment typically takes 6–18 months depending on complexity, while traditional braces are often worn for 18–24 months.\n\nBoth methods deliver excellent results — the choice depends on lifestyle, case complexity, and personal preference. Book a free assessment to find out which method suits you best."
       }
     },
     {
@@ -519,13 +557,15 @@
         "tag": "TIPS",
         "date": "1 mars 2026",
         "title": "5 tips för att få ut mest av din skenbehandling",
-        "desc": "Praktiska råd som hjälper dig hålla behandlingen på rätt spår — från rengöring till bärtid och kontroller."
+        "desc": "Praktiska råd som hjälper dig hålla behandlingen på rätt spår — från rengöring till bärtid och kontroller.",
+        "body": "1. Bär dina skenor minst 22 timmar per dag — ta bara ut dem vid måltider och tandborstning.\n\n2. Rengör skenorna dagligen med ljummet vatten och en mjuk tandborste. Undvik varmt vatten som kan deformera plasten.\n\n3. Byt till nästa skena enligt schemat — hoppa inte över steg även om det känns bra.\n\n4. Använd Dental Monitoring-appen för att skicka in regelbundna bilder så att din ortodontist kan följa framstegen på distans.\n\n5. Kom ihåg att använda retainer efter avslutad behandling för att behålla resultatet."
       },
       "en": {
         "tag": "TIPS",
         "date": "March 1, 2026",
         "title": "5 tips to get the most out of your aligner treatment",
-        "desc": "Practical advice to keep your treatment on track — from cleaning to wear time and check-ups."
+        "desc": "Practical advice to keep your treatment on track — from cleaning to wear time and check-ups.",
+        "body": "1. Wear your aligners at least 22 hours per day — only remove them for meals and brushing.\n\n2. Clean your aligners daily with lukewarm water and a soft toothbrush. Avoid hot water which can warp the plastic.\n\n3. Switch to the next aligner on schedule — don't skip steps even if things feel fine.\n\n4. Use the Dental Monitoring app to send regular photos so your orthodontist can track progress remotely.\n\n5. Remember to wear your retainer after treatment is complete to maintain the results."
       }
     },
     {
@@ -535,14 +575,78 @@
         "tag": "MUNHÄLSA",
         "date": "14 februari 2026",
         "title": "Varför raka tänder handlar om mer än estetik",
-        "desc": "Felställda tänder kan påverka tuggfunktion, munhygien och till och med huvudvärk. Läs om hälsofördelarna med ortodonti."
+        "desc": "Felställda tänder kan påverka tuggfunktion, munhygien och till och med huvudvärk. Läs om hälsofördelarna med ortodonti.",
+        "body": "Många tänker på tandreglering som en kosmetisk behandling, men fördelarna sträcker sig långt bortom ett vackert leende.\n\nFelställda tänder kan göra det svårare att borsta och använda tandtråd ordentligt, vilket ökar risken för karies och tandköttsproblem. Ett ojämnt bett kan dessutom belasta käkleden och leda till huvudvärk, nacksmärtor och till och med sömnproblem.\n\nGenom att rätta till tandställningen förbättras tuggfunktionen, munhygienen blir enklare att upprätthålla och belastningen på käkleden minskar. Det är en investering i din hälsa — inte bara ditt utseende."
       },
       "en": {
         "tag": "ORAL HEALTH",
         "date": "February 14, 2026",
         "title": "Why straight teeth are about more than aesthetics",
-        "desc": "Misaligned teeth can affect chewing, oral hygiene, and even headaches. Read about the health benefits of orthodontics."
+        "desc": "Misaligned teeth can affect chewing, oral hygiene, and even headaches. Read about the health benefits of orthodontics.",
+        "body": "Many think of orthodontics as a cosmetic treatment, but the benefits extend far beyond a beautiful smile.\n\nMisaligned teeth can make it harder to brush and floss properly, increasing the risk of cavities and gum disease. An uneven bite can also strain the jaw joint, leading to headaches, neck pain, and even sleep problems.\n\nBy correcting tooth alignment, chewing function improves, oral hygiene becomes easier to maintain, and strain on the jaw joint is reduced. It's an investment in your health — not just your appearance."
       }
+    }
+  ],
+  "beforeAfter": [
+    {
+      "id": "1",
+      "before": "/images/before-after/Före1.jpg",
+      "after": "/images/before-after/Efter1.jpg"
+    },
+    {
+      "id": "2",
+      "before": "/images/before-after/Före2.jpg",
+      "after": "/images/before-after/Efter2.jpg"
+    },
+    {
+      "id": "2a",
+      "before": "/images/before-after/Före2a.jpg",
+      "after": "/images/before-after/Efter2a.jpg"
+    },
+    {
+      "id": "4",
+      "before": "/images/before-after/Före4.jpg",
+      "after": "/images/before-after/Efter4.jpg"
+    },
+    {
+      "id": "4a",
+      "before": "/images/before-after/Före4a.jpg",
+      "after": "/images/before-after/Efter4a.jpg"
+    },
+    {
+      "id": "5",
+      "before": "/images/before-after/Före5.jpg",
+      "after": "/images/before-after/Efter5.jpg"
+    },
+    {
+      "id": "6",
+      "before": "/images/before-after/Före6.jpg",
+      "after": "/images/before-after/Efter6.jpg"
+    },
+    {
+      "id": "7",
+      "before": "/images/before-after/Före7.jpg",
+      "after": "/images/before-after/Efter7.jpg"
+    },
+    {
+      "id": "8",
+      "before": "/images/before-after/Före8.jpg",
+      "after": "/images/before-after/Efter8.jpg"
+    },
+    {
+      "id": "10",
+      "before": "/images/before-after/Före10.jpg",
+      "after": "/images/before-after/Efter10.jpg"
+    },
+    {
+      "id": "11",
+      "before": "/images/before-after/Före11.jpg",
+      "after": "/images/before-after/Efter11.jpg"
+    },
+    {
+      "id": "12",
+      "before": "/images/before-after/Före12.jpg",
+      "after": "/images/before-after/Efter12.jpg"
     }
   ]
 }

@@ -13,6 +13,7 @@ export interface Location {
   lat: number;
   lng: number;
   website?: string;
+  type: "onsite" | "partner";
   description: string;
 }
 
@@ -24,6 +25,7 @@ export const emptyLocation: Omit<Location, "id"> = {
   lat: 59.33,
   lng: 18.07,
   website: "",
+  type: "onsite",
   description: "",
 };
 
@@ -167,6 +169,7 @@ export const dentistContentSections: ContentSection[] = [
       { key: "brandName", label: "Varumärkesnamn" },
       { key: "brandTagline", label: "Tagline" },
       { key: "footerDesc", label: "Footer beskrivning", multiline: true },
+      { key: "contactEmail", label: "E-postadress" },
       { key: "linkedinPersonal", label: "LinkedIn (personlig)" },
       { key: "linkedinCompany", label: "LinkedIn (företag)" },
       { key: "footerCopyright", label: "Copyright" },

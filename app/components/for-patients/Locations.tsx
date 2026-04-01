@@ -38,7 +38,7 @@ export default function Locations({
     setActiveId(id);
   }, []);
 
-  const onsite = locations.filter((l) => l.type === "onsite");
+  const onsite = locations.filter((l) => (l.type || "onsite") === "onsite");
   const partner = locations.filter((l) => l.type === "partner");
 
   const renderCard = (location: LocationData) => (
@@ -158,20 +158,28 @@ export default function Locations({
         </div>
 
         {/* On-site clinics */}
-        <h3 className="text-lg font-semibold text-foreground font-sans mb-4">
-          {t("clinicOnsiteHeading")}
-        </h3>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-10">
-          {onsite.map(renderCard)}
-        </div>
+        {onsite.length > 0 && (
+          <>
+            <h3 className="text-lg font-semibold text-foreground font-sans mb-4">
+              {t("clinicOnsiteHeading")}
+            </h3>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-10">
+              {onsite.map(renderCard)}
+            </div>
+          </>
+        )}
 
         {/* Partner clinics */}
-        <h3 className="text-lg font-semibold text-foreground font-sans mb-4">
-          {t("clinicPartnerHeading")}
-        </h3>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
-          {partner.map(renderCard)}
-        </div>
+        {partner.length > 0 && (
+          <>
+            <h3 className="text-lg font-semibold text-foreground font-sans mb-4">
+              {t("clinicPartnerHeading")}
+            </h3>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
+              {partner.map(renderCard)}
+            </div>
+          </>
+        )}
 
         {/* Full-width map */}
         <div className="rounded-2xl overflow-hidden border border-border shadow-sm h-[500px]">
