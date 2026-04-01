@@ -87,7 +87,7 @@ export default function News() {
                     </p>
                     {hasBody && (
                       <span className="text-sm font-medium text-primary inline-flex items-center gap-1 group-hover:gap-2 transition-all">
-                        {t("newsReadMore")} &rarr;
+                        {t("newsReadMore")}
                       </span>
                     )}
                   </div>
