@@ -2,6 +2,7 @@
 
 import type { Location } from "./adminTypes";
 import { inputCls } from "./adminTypes";
+import { ICON_REGISTRY } from "@/lib/icons";
 
 export function LocationsEditor({
   locations,
@@ -105,6 +106,17 @@ export function LocationsEditor({
                   {geocoding ? "Söker..." : "📍 Hämta koord."}
                 </button>
               </div>
+              <div className="flex items-center gap-4 text-xs text-muted-dark bg-muted rounded-xl px-4 py-2.5 mt-2">
+                <span>
+                  Lat: <strong>{form.lat.toFixed(4)}</strong>
+                </span>
+                <span>
+                  Lng: <strong>{form.lng.toFixed(4)}</strong>
+                </span>
+                <span className="ml-auto opacity-60">
+                  Auto-fylls från adress
+                </span>
+              </div>
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div>
@@ -142,27 +154,36 @@ export function LocationsEditor({
                 className={inputCls}
               />
             </div>
-            <div className="flex items-center gap-4 text-xs text-muted-dark bg-muted rounded-xl px-4 py-2.5">
-              <span>
-                Lat: <strong>{form.lat.toFixed(4)}</strong>
-              </span>
-              <span>
-                Lng: <strong>{form.lng.toFixed(4)}</strong>
-              </span>
-              <span className="ml-auto opacity-60">Auto-fylls från adress</span>
-            </div>
+
             <div>
-              <label className="block text-sm font-medium text-foreground mb-1">
-                Beskrivning
+              <label className="block text-sm font-medium text-foreground mb-2">
+                Skenor (aligners)
               </label>
-              <textarea
-                value={form.description}
-                onChange={(e) =>
-                  setForm({ ...form, description: e.target.value })
-                }
-                rows={3}
-                className={`${inputCls} resize-none`}
-              />
+              <div className="flex gap-4">
+                {(["invisalign", "clearcorrect"] as const).map((brand) => (
+                  <label
+                    key={brand}
+                    className="flex items-center gap-2 text-sm cursor-pointer"
+                  >
+                    <input
+                      type="checkbox"
+                      checked={(form.alignerBrands ?? []).includes(brand)}
+                      onChange={(e) => {
+                        const cur = form.alignerBrands ?? [];
+                        setForm({
+                          ...form,
+                          alignerBrands: e.target.checked
+                            ? [...cur, brand]
+                            : cur.filter((b) => b !== brand),
+                        });
+                      }}
+                      className="appearance-none w-4 h-4 rounded border border-border bg-surface checked:bg-primary checked:border-primary focus:ring-primary relative
+                        after:content-[''] after:absolute after:left-[4.5px] after:top-[1.5px] after:w-[5px] after:h-[9px] after:border-r-2 after:border-b-2 after:border-white after:rotate-45 after:opacity-0 checked:after:opacity-100"
+                    />
+                    {brand === "invisalign" ? "Invisalign" : "ClearCorrect"}
+                  </label>
+                ))}
+              </div>
             </div>
             <div className="flex gap-3 pt-2">
               <button
@@ -204,15 +225,17 @@ export function LocationsEditor({
               <h3 className="text-base font-semibold text-foreground font-sans leading-snug">
                 {loc.name}
               </h3>
-              <span
-                className={`text-[0.7rem] font-medium uppercase tracking-wide px-2 py-0.5 rounded-full shrink-0 ${
-                  loc.type === "onsite"
-                    ? "bg-primary/15 text-primary"
-                    : "bg-muted text-muted-dark"
-                }`}
-              >
-                {loc.type === "onsite" ? "På plats" : "Partnerklinik"}
-              </span>
+              <div className="flex gap-1.5 shrink-0">
+                <span
+                  className={`text-[0.7rem] font-medium uppercase tracking-wide px-2 py-0.5 rounded-full ${
+                    loc.type === "onsite"
+                      ? "bg-primary/15 text-primary"
+                      : "bg-muted text-muted-dark"
+                  }`}
+                >
+                  {loc.type === "onsite" ? "På plats" : "Partnerklinik"}
+                </span>
+              </div>
             </div>
             <div className="space-y-1.5 text-sm text-muted-dark">
               <div className="flex items-start gap-2">
@@ -274,6 +297,41 @@ export function LocationsEditor({
                 </div>
               )}
             </div>
+            {(loc.alignerBrands ?? []).length > 0 && (
+              <div className="flex items-center gap-2 mt-2 pt-2 border-t border-border/50">
+                {loc.alignerBrands!.map((b, idx) => {
+                  const icon = ICON_REGISTRY[b];
+                  return (
+                    <span
+                      key={b}
+                      className="inline-flex items-center gap-1 text-sm text-muted-dark"
+                    >
+                      {idx > 0 && <span className="text-border mx-0.5">·</span>}
+                      {icon && (
+                        <svg
+                          className="w-3.5 h-3.5 text-primary"
+                          fill={icon.filled ? "currentColor" : "none"}
+                          stroke={icon.filled ? "none" : "currentColor"}
+                          viewBox="0 0 24 24"
+                        >
+                          {icon.paths.map((d, i) => (
+                            <path
+                              key={i}
+                              strokeLinecap={icon.filled ? undefined : "round"}
+                              strokeLinejoin={icon.filled ? undefined : "round"}
+                              strokeWidth={icon.filled ? undefined : 1.5}
+                              fillOpacity={icon.opacity}
+                              d={d}
+                            />
+                          ))}
+                        </svg>
+                      )}
+                      {b === "invisalign" ? "Invisalign" : "ClearCorrect"}
+                    </span>
+                  );
+                })}
+              </div>
+            )}
             {!readOnly && (
               <div className="flex justify-end gap-2 mt-3 pt-3 border-t border-border/50">
                 <button

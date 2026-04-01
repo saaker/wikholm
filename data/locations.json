@@ -9,7 +9,9 @@
     "lng": 18.0392,
     "website": "https://swedishdental.com",
     "type": "onsite",
-    "description": "Kungsholmen, centrala Stockholm."
+    "alignerBrands": [
+      "invisalign"
+    ]
   },
   {
     "id": "2",
@@ -21,7 +23,10 @@
     "lng": 18.0732,
     "website": "https://erikssonkliniken.se",
     "type": "onsite",
-    "description": "Södermalm, Stockholm."
+    "alignerBrands": [
+      "invisalign",
+      "clearcorrect"
+    ]
   },
   {
     "id": "3",
@@ -33,19 +38,24 @@
     "lng": 18.0018,
     "website": "https://samdent.se",
     "type": "onsite",
-    "description": "Precis utanför Mall of Scandinavia, Solna."
+    "alignerBrands": [
+      "invisalign",
+      "clearcorrect"
+    ]
   },
   {
     "id": "7",
-    "name": "Dentalum Tandläkarhuset Enköping",
+    "name": "Tandläkarhuset Enköping (Dentalum)",
     "address": "Kryddgårdsgatan 21A, Enköping",
     "phone": "+46 171 42 81 60",
     "hours": "",
     "lat": 59.6357,
     "lng": 17.0767,
-    "website": "https://dentalum.se",
+    "website": "https://entand.se/",
     "type": "onsite",
-    "description": "Enköping."
+    "alignerBrands": [
+      "invisalign"
+    ]
   },
   {
     "id": "10",
@@ -55,9 +65,9 @@
     "hours": "",
     "lat": 60.4856,
     "lng": 15.4367,
-    "website": "https://dentalum.se",
+    "website": "https://gylletandvard.se/",
     "type": "onsite",
-    "description": "Borlänge."
+    "alignerBrands": []
   },
   {
     "id": "4",
@@ -69,7 +79,7 @@
     "lng": 18.0573,
     "website": "https://wasatandklinik.se",
     "type": "partner",
-    "description": "Vasastan, centrala Stockholm."
+    "alignerBrands": []
   },
   {
     "id": "5",
@@ -81,7 +91,10 @@
     "lng": 18.0565,
     "website": "https://tegnertandlakarna.se",
     "type": "partner",
-    "description": "Vasastan, centrala Stockholm."
+    "alignerBrands": [
+      "invisalign",
+      "clearcorrect"
+    ]
   },
   {
     "id": "6",
@@ -91,9 +104,11 @@
     "hours": "",
     "lat": 59.3491,
     "lng": 18.0006,
-    "website": "https://ssdental.se",
+    "website": "https://www.snsdental.se/",
     "type": "partner",
-    "description": "Huvudsta Centrum, Solna."
+    "alignerBrands": [
+      "invisalign"
+    ]
   },
   {
     "id": "8",
@@ -105,7 +120,9 @@
     "lng": 17.9654,
     "website": "https://tandvardsgruppen.se",
     "type": "partner",
-    "description": "Fruängen, södra Stockholm."
+    "alignerBrands": [
+      "clearcorrect"
+    ]
   },
   {
     "id": "9",
@@ -117,6 +134,8 @@
     "lng": 18.7153,
     "website": "https://dorelltandvard.se",
     "type": "partner",
-    "description": "Örnsköldsvik."
+    "alignerBrands": [
+      "invisalign"
+    ]
   }
 ]

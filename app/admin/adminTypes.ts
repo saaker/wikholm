@@ -14,7 +14,7 @@ export interface Location {
   lng: number;
   website?: string;
   type: "onsite" | "partner";
-  description: string;
+  alignerBrands: ("invisalign" | "clearcorrect")[];
 }
 
 export const emptyLocation: Omit<Location, "id"> = {
@@ -26,7 +26,7 @@ export const emptyLocation: Omit<Location, "id"> = {
   lng: 18.07,
   website: "",
   type: "onsite",
-  description: "",
+  alignerBrands: [],
 };
 
 export type ContentOverrides = {

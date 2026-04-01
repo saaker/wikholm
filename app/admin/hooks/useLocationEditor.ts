@@ -125,7 +125,7 @@ export function useLocationEditor(
       lng: loc.lng,
       website: loc.website || "",
       type: loc.type,
-      description: loc.description,
+      alignerBrands: loc.alignerBrands || [],
     });
   }
 

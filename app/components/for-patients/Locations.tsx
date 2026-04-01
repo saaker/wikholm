@@ -3,6 +3,7 @@
 import { useState, useCallback } from "react";
 import dynamic from "next/dynamic";
 import { useI18n } from "../I18nProvider";
+import { ICON_REGISTRY } from "@/lib/icons";
 
 interface LocationData {
   id: string;
@@ -14,7 +15,7 @@ interface LocationData {
   lng: number;
   website?: string;
   type: "onsite" | "partner";
-  description: string;
+  alignerBrands?: ("invisalign" | "clearcorrect")[];
 }
 
 const LocationMap = dynamic(() => import("./LocationMap"), {
@@ -45,7 +46,7 @@ export default function Locations({
     <button
       key={location.id}
       onClick={() => setActiveId(activeId === location.id ? null : location.id)}
-      className={`w-full text-left p-5 rounded-xl border transition-all ${
+      className={`w-full text-left p-5 rounded-xl border transition-all flex flex-col ${
         activeId === location.id
           ? "border-primary bg-primary-light shadow-md ring-1 ring-primary/20"
           : "border-border shadow-sm hover:border-primary/30 hover:shadow-md bg-surface"
@@ -137,6 +138,41 @@ export default function Locations({
           </div>
         )}
       </div>
+      {(location.alignerBrands ?? []).length > 0 && (
+        <div className="flex items-center gap-2 mt-2 pt-2 border-t border-border/50">
+          {location.alignerBrands!.map((b, idx) => {
+            const icon = ICON_REGISTRY[b];
+            return (
+              <span
+                key={b}
+                className="inline-flex items-center gap-1 text-sm text-muted-dark"
+              >
+                {idx > 0 && <span className="text-border mx-0.5">·</span>}
+                {icon && (
+                  <svg
+                    className="w-3.5 h-3.5 text-primary"
+                    fill={icon.filled ? "currentColor" : "none"}
+                    stroke={icon.filled ? "none" : "currentColor"}
+                    viewBox="0 0 24 24"
+                  >
+                    {icon.paths.map((d, i) => (
+                      <path
+                        key={i}
+                        strokeLinecap={icon.filled ? undefined : "round"}
+                        strokeLinejoin={icon.filled ? undefined : "round"}
+                        strokeWidth={icon.filled ? undefined : 1.5}
+                        fillOpacity={icon.opacity}
+                        d={d}
+                      />
+                    ))}
+                  </svg>
+                )}
+                {b === "invisalign" ? "Invisalign" : "ClearCorrect"}
+              </span>
+            );
+          })}
+        </div>
+      )}
     </button>
   );
 

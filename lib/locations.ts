@@ -9,12 +9,16 @@ export interface Location {
   lat: number;
   lng: number;
   type: "onsite" | "partner";
-  description: string;
+  alignerBrands: ("invisalign" | "clearcorrect")[];
 }
 
 export async function getLocations(): Promise<Location[]> {
   const raw = await kvGet<Location[]>("locations", []);
-  return raw.map((loc) => ({ ...loc, type: loc.type || "onsite" }));
+  return raw.map((loc) => ({
+    ...loc,
+    type: loc.type || "onsite",
+    alignerBrands: loc.alignerBrands || [],
+  }));
 }
 
 export async function saveLocations(locations: Location[]): Promise<void> {

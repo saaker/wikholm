@@ -4,7 +4,13 @@
 
 export const ICON_REGISTRY: Record<
   string,
-  { label: string; paths: string[]; polyline?: string }
+  {
+    label: string;
+    paths: string[];
+    polyline?: string;
+    filled?: boolean;
+    opacity?: number;
+  }
 > = {
   "check-circle": {
     label: "Bock i cirkel",
@@ -144,6 +150,25 @@ export const ICON_REGISTRY: Record<
       "M20 12v10H4V12M2 7h20v5H2V7zM12 22V7M12 7H7.5a2.5 2.5 0 010-5C11 2 12 7 12 7zM12 7h4.5a2.5 2.5 0 000-5C13 2 12 7 12 7z",
     ],
   },
+  invisalign: {
+    label: "Invisalign",
+    filled: true,
+    paths: [
+      "M12 11 Q14.6 6.5 12 2 Q9.4 6.5 12 11Z",
+      "M12.78 11.38 Q17.92 10.6 19.82 5.77 Q14.68 6.54 12.78 11.38Z",
+      "M12.97 12.22 Q16.78 15.76 21.75 14.23 Q17.94 10.69 12.97 12.22Z",
+      "M12.43 12.9 Q12.04 18.08 16.34 21.01 Q16.73 15.83 12.43 12.9Z",
+      "M11.57 12.9 Q7.27 15.83 7.66 21.01 Q11.96 18.08 11.57 12.9Z",
+      "M11.03 12.22 Q6.06 10.69 2.25 14.23 Q7.22 15.76 11.03 12.22Z",
+      "M11.22 11.38 Q9.32 6.54 4.18 5.77 Q6.08 10.6 11.22 11.38Z",
+    ],
+  },
+  clearcorrect: {
+    label: "ClearCorrect",
+    filled: true,
+    paths: ["M12 2a10 10 0 0 1 0 20a10 10 0 0 1 0-20Z M5 11a7 7 0 0 0 14 0Z"],
+    opacity: 0.75,
+  },
 };
 
 export const ICON_NAMES = Object.keys(ICON_REGISTRY);
@@ -162,16 +187,18 @@ export function Icon({
   return (
     <svg
       className={className}
-      fill="none"
-      stroke="currentColor"
+      fill={entry.filled ? "currentColor" : "none"}
+      stroke={entry.filled ? "none" : "currentColor"}
+      style={entry.opacity != null ? { opacity: entry.opacity } : undefined}
       viewBox="0 0 24 24"
     >
       {entry.paths.map((d, i) => (
         <path
           key={i}
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth={1.5}
+          strokeLinecap={entry.filled ? undefined : "round"}
+          strokeLinejoin={entry.filled ? undefined : "round"}
+          strokeWidth={entry.filled ? undefined : 1.5}
+          fillOpacity={entry.opacity}
           d={d}
         />
       ))}
