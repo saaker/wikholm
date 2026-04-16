@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Header from "../components/Header";
 import Hero from "../components/Hero";
 import Aligners from "../components/for-patients/Aligners";
@@ -9,8 +10,19 @@ import Locations from "../components/for-patients/Locations";
 import FAQ from "../components/for-patients/FAQ";
 import Footer from "../components/Footer";
 import { getLocations } from "@/lib/locations";
+import { pageMetadata } from "@/lib/seo";
 
 export const dynamic = "force-dynamic";
+
+export const metadata: Metadata = {
+  title: pageMetadata.patients.title,
+  description: pageMetadata.patients.description,
+  keywords: [...pageMetadata.patients.keywords],
+  openGraph: {
+    title: pageMetadata.patients.openGraph.title,
+    description: pageMetadata.patients.openGraph.description,
+  },
+};
 
 export default async function PatientPage() {
   const locations = await getLocations();

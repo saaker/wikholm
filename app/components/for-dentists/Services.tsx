@@ -4,11 +4,14 @@ import { useI18n } from "../I18nProvider";
 import { useSections } from "../SectionsProvider";
 import { useAnimateIn } from "../hooks/useAnimateIn";
 import { Icon } from "@/lib/icons";
+import { useState } from "react";
+import CaseAssessmentModal from "../CaseAssessmentModal";
 
 export default function Services() {
   const { t, locale } = useI18n();
   const { sections } = useSections();
   const { ref, visible } = useAnimateIn();
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
     <section id="services" className="py-24 bg-muted">
@@ -30,100 +33,129 @@ export default function Services() {
         </div>
 
         {/* Services grid */}
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="space-y-6">
           {sections.services.map((service, i) => {
             const text = service[locale];
             const isCaseAssessment = service.id === "case";
-            const cardCls = `relative bg-surface rounded-2xl p-8 shadow-sm hover:shadow-md transition-all border ${service.highlight ? "border-primary/30 ring-1 ring-primary/10" : "border-border/50"} ${isCaseAssessment ? "cursor-pointer group" : ""} animate-fade-up delay-${Math.min(i + 1, 4)} ${visible ? "visible" : ""}`;
 
-            const cardContent = (
-              <div className="flex gap-5">
-                <div className="w-12 h-12 rounded-xl bg-primary-light flex items-center justify-center text-primary-dark shrink-0">
-                  <Icon name={service.icon} className="w-7 h-7" />
-                </div>
-                <div className="min-w-0">
-                  <div className="flex flex-wrap items-center gap-2 mb-2">
-                    <h3 className="text-lg font-semibold text-foreground font-sans">
-                      {text.title}
-                    </h3>
-                    {text.tag && (
-                      <span
-                        className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold uppercase tracking-wide ${
-                          service.highlight
-                            ? "bg-primary/20 text-primary-dark font-bold"
-                            : "bg-primary/10 text-primary-dark"
-                        }`}
-                      >
-                        {text.tag}
-                      </span>
-                    )}
-                  </div>
-                  <p className="text-sm text-muted-dark leading-relaxed mb-3">
-                    {text.desc}
-                  </p>
-                  {isCaseAssessment && (
-                    <span className="inline-flex items-center gap-1.5 text-sm font-medium text-primary group-hover:underline">
-                      <svg
-                        className="w-4 h-4"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                        />
-                      </svg>
-                      {locale === "sv"
-                        ? "Kontakta via e-post \u2192"
-                        : "Contact via email \u2192"}
-                    </span>
-                  )}
-                  {text.price && (
-                    <span className="inline-flex items-center px-3 py-1 rounded-full bg-primary/20 text-primary-dark text-sm font-bold">
-                      {text.price}
-                    </span>
-                  )}
-                </div>
-              </div>
-            );
-
+            // Case Assessment gets full width and special styling
             if (isCaseAssessment) {
               return (
                 <div
                   key={service.id}
-                  role="link"
+                  role="button"
                   tabIndex={0}
-                  onClick={() => {
-                    document
-                      .getElementById("contact")
-                      ?.scrollIntoView({ behavior: "smooth" });
-                  }}
+                  onClick={() => setIsModalOpen(true)}
                   onKeyDown={(e) => {
                     if (e.key === "Enter" || e.key === " ") {
                       e.preventDefault();
-                      document
-                        .getElementById("contact")
-                        ?.scrollIntoView({ behavior: "smooth" });
+                      setIsModalOpen(true);
                     }
                   }}
-                  className={cardCls}
+                  className={`relative bg-gradient-to-br from-primary/5 via-surface to-primary/5 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all border-2 border-primary/40 ring-2 ring-primary/20 cursor-pointer group animate-fade-up ${visible ? "visible" : ""}`}
                 >
-                  {cardContent}
+                  <div className="flex flex-col md:flex-row gap-6 items-start md:items-center">
+                    {/* Icon */}
+                    <div className="w-16 h-16 rounded-xl bg-primary flex items-center justify-center text-primary-contrast shrink-0 group-hover:scale-110 transition-transform">
+                      <Icon name={service.icon} className="w-9 h-9" />
+                    </div>
+
+                    {/* Content */}
+                    <div className="flex-1 min-w-0">
+                      <div className="flex flex-wrap items-center gap-3 mb-3">
+                        <h3 className="text-2xl font-semibold text-foreground font-sans">
+                          {text.title}
+                        </h3>
+                        {text.tag && (
+                          <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide bg-primary text-primary-contrast">
+                            {text.tag}
+                          </span>
+                        )}
+                      </div>
+                      <p className="text-base text-muted-dark leading-relaxed mb-4">
+                        {text.desc}
+                      </p>
+                      <span className="inline-flex items-center gap-2 text-base font-semibold text-primary group-hover:gap-3 transition-all">
+                        {locale === "sv"
+                          ? "Se hur du skickar ditt fall"
+                          : "See how to submit your case"}
+                        <svg
+                          className="w-5 h-5"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M13 7l5 5m0 0l-5 5m5-5H6"
+                          />
+                        </svg>
+                      </span>
+                    </div>
+                  </div>
                 </div>
               );
             }
 
-            return (
-              <div key={service.id} className={cardCls}>
-                {cardContent}
-              </div>
-            );
+            // Other services in a 2-column grid
+            return null;
           })}
+
+          {/* Other services grid */}
+          <div className="grid md:grid-cols-2 gap-6">
+            {sections.services.map((service, i) => {
+              if (service.id === "case") return null;
+
+              const text = service[locale];
+              const cardCls = `relative bg-surface rounded-2xl p-8 shadow-sm hover:shadow-md transition-all border ${service.highlight ? "border-primary/30 ring-1 ring-primary/10" : "border-border/50"} animate-fade-up delay-${Math.min(i + 1, 4)} ${visible ? "visible" : ""}`;
+
+              return (
+                <div key={service.id} className={cardCls}>
+                  <div className="flex gap-5">
+                    <div className="w-12 h-12 rounded-xl bg-primary-light flex items-center justify-center text-primary-dark shrink-0">
+                      <Icon name={service.icon} className="w-7 h-7" />
+                    </div>
+                    <div className="min-w-0">
+                      <div className="flex flex-wrap items-center gap-2 mb-2">
+                        <h3 className="text-lg font-semibold text-foreground font-sans">
+                          {text.title}
+                        </h3>
+                        {text.tag && (
+                          <span
+                            className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold uppercase tracking-wide ${
+                              service.highlight
+                                ? "bg-primary/20 text-primary-dark font-bold"
+                                : "bg-primary/10 text-primary-dark"
+                            }`}
+                          >
+                            {text.tag}
+                          </span>
+                        )}
+                      </div>
+                      <p className="text-sm text-muted-dark leading-relaxed mb-3">
+                        {text.desc}
+                      </p>
+                      {text.price && (
+                        <span className="inline-flex items-center px-3 py-1 rounded-full bg-primary/20 text-primary-dark text-sm font-bold">
+                          {text.price}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
+
+      {/* Case Assessment Modal */}
+      <CaseAssessmentModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
     </section>
   );
 }
