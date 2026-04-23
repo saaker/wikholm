@@ -17,6 +17,8 @@ export function LocationsEditor({
   loading,
   geocoding,
   readOnly,
+  locale,
+  setLocale,
 }: {
   locations: Location[];
   editing: Location | null;
@@ -30,15 +32,84 @@ export function LocationsEditor({
   loading: boolean;
   geocoding: boolean;
   readOnly: boolean;
+  locale: "sv" | "en";
+  setLocale: (l: "sv" | "en") => void;
 }) {
+  const translations = {
+    sv: {
+      editTitle: "Redigera klinik",
+      addTitle: "Lägg till ny klinik",
+      onsite: "På plats",
+      partner: "Partnerklinik",
+      name: "Namn",
+      address: "Adress",
+      addressPlaceholder: "Gatuadress, Stad",
+      geocode: "Hämta koordinater",
+      geocoding: "Hämtar...",
+      phone: "Telefon",
+      phonePlaceholder: "ex. 010-123 45 67",
+      hours: "Öppettider",
+      hoursPlaceholder: "ex. Mån-Fre 08:00-17:00",
+      website: "Webbplats",
+      websitePlaceholder: "https://exempel.se",
+      delete: "Ta bort",
+      cancel: "Avbryt",
+      save: "Spara",
+      saving: "Sparar...",
+      clinics: "Kliniker",
+      edit: "Redigera",
+    },
+    en: {
+      editTitle: "Edit clinic",
+      addTitle: "Add new clinic",
+      onsite: "On-site",
+      partner: "Partner clinic",
+      name: "Name",
+      address: "Address",
+      addressPlaceholder: "Street address, City",
+      geocode: "Get coordinates",
+      geocoding: "Fetching...",
+      phone: "Phone",
+      phonePlaceholder: "e.g. 010-123 45 67",
+      hours: "Hours",
+      hoursPlaceholder: "e.g. Mon-Fri 08:00-17:00",
+      website: "Website",
+      websitePlaceholder: "https://example.com",
+      delete: "Delete",
+      cancel: "Cancel",
+      save: "Save",
+      saving: "Saving...",
+      clinics: "Clinics",
+      edit: "Edit",
+    },
+  };
+
+  const t = translations[locale];
   return (
-    <div className="grid lg:grid-cols-2 gap-8">
-      <fieldset disabled={readOnly} className={readOnly ? "opacity-60" : ""}>
-        <div className="bg-surface rounded-2xl shadow-sm border border-border p-6">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-lg font-semibold font-sans">
-              {editing ? "Redigera klinik" : "Lägg till ny klinik"}
-            </h2>
+    <div className="bg-surface rounded-2xl shadow-sm border border-border p-6">
+      {/* Header with language toggle */}
+      <div className="flex items-center justify-between mb-6">
+        <h2 className="text-lg font-semibold font-sans">{t.clinics}</h2>
+        <div className="flex items-center gap-1 bg-muted rounded-lg p-0.5">
+          {(["sv", "en"] as const).map((l) => (
+            <button
+              key={l}
+              onClick={() => setLocale(l)}
+              className={`px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${locale === l ? "bg-surface text-foreground shadow-sm" : "text-muted-dark"}`}
+            >
+              {l === "sv" ? "Svenska" : "English"}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div className="grid lg:grid-cols-2 gap-8">
+        <fieldset disabled={readOnly} className={readOnly ? "opacity-60" : ""}>
+          <div className="bg-surface rounded-2xl shadow-sm border border-border p-6">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-base font-semibold font-sans">
+                {editing ? t.editTitle : t.addTitle}
+              </h3>
             <button
               type="button"
               onClick={() =>
@@ -49,11 +120,18 @@ export function LocationsEditor({
               }
               className={`inline-flex items-center px-3 py-1.5 rounded-full text-[0.7rem] font-medium uppercase tracking-wide shrink-0 cursor-pointer transition-colors ${
                 form.type === "onsite"
-                  ? "bg-primary/15 text-primary"
-                  : "bg-muted text-muted-dark"
+                  ? "bg-primary-dark text-white dark:bg-primary-dark"
+                  : "service-badge-text"
               }`}
+              style={
+                form.type === "partner"
+                  ? {
+                      backgroundColor: 'color-mix(in oklab, var(--color-primary) 20%, transparent)',
+                    }
+                  : undefined
+              }
             >
-              {form.type === "onsite" ? "På plats" : "Partnerklinik"}
+              {form.type === "onsite" ? t.onsite : t.partner}
               <svg
                 className="w-3 h-3 ml-1.5 opacity-60"
                 fill="none"
@@ -72,7 +150,7 @@ export function LocationsEditor({
           <form onSubmit={onSave} className="space-y-4">
             <div>
               <label className="block text-sm font-medium text-foreground mb-1">
-                Namn
+                {t.name}
               </label>
               <input
                 type="text"
@@ -84,7 +162,7 @@ export function LocationsEditor({
             </div>
             <div>
               <label className="block text-sm font-medium text-foreground mb-1">
-                Adress
+                {t.address}
               </label>
               <div className="flex gap-2">
                 <input
@@ -93,7 +171,7 @@ export function LocationsEditor({
                   onChange={(e) =>
                     setForm({ ...form, address: e.target.value })
                   }
-                  placeholder="Gatuadress, Stad"
+                  placeholder={t.addressPlaceholder}
                   className={`flex-1 ${inputCls}`}
                   required
                 />
@@ -103,7 +181,7 @@ export function LocationsEditor({
                   disabled={geocoding || !form.address.trim()}
                   className="px-3 py-2.5 rounded-xl bg-primary-light text-primary text-xs font-medium hover:bg-primary/20 transition-colors disabled:opacity-50 shrink-0"
                 >
-                  {geocoding ? "Söker..." : "📍 Hämta koord."}
+                  {geocoding ? t.geocoding : `📍 ${t.geocode}`}
                 </button>
               </div>
               <div className="flex items-center gap-4 text-xs text-muted-dark bg-muted rounded-xl px-4 py-2.5 mt-2">
@@ -121,36 +199,38 @@ export function LocationsEditor({
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-medium text-foreground mb-1">
-                  Telefon
+                  {t.phone}
                 </label>
                 <input
                   type="tel"
                   value={form.phone}
                   onChange={(e) => setForm({ ...form, phone: e.target.value })}
+                  placeholder={t.phonePlaceholder}
                   className={inputCls}
                 />
               </div>
               <div>
                 <label className="block text-sm font-medium text-foreground mb-1">
-                  Öppettider
+                  {t.hours}
                 </label>
                 <input
                   type="text"
                   value={form.hours}
                   onChange={(e) => setForm({ ...form, hours: e.target.value })}
+                  placeholder={t.hoursPlaceholder}
                   className={inputCls}
                 />
               </div>
             </div>
             <div>
               <label className="block text-sm font-medium text-foreground mb-1">
-                Hemsida
+                {t.website}
               </label>
               <input
                 type="url"
                 value={form.website || ""}
                 onChange={(e) => setForm({ ...form, website: e.target.value })}
-                placeholder="https://example.com"
+                placeholder={t.websitePlaceholder}
                 className={inputCls}
               />
             </div>
@@ -178,7 +258,7 @@ export function LocationsEditor({
                         });
                       }}
                       className="appearance-none w-4 h-4 rounded border border-border bg-surface checked:bg-primary checked:border-primary focus:ring-primary relative
-                        after:content-[''] after:absolute after:left-[4.5px] after:top-[1.5px] after:w-[5px] after:h-[9px] after:border-r-2 after:border-b-2 after:border-white after:rotate-45 after:opacity-0 checked:after:opacity-100"
+                        after:content-[''] after:absolute after:left-[4.5px] after:top-[1.5px] after:w-1.25 after:h-2.25 after:border-r-2 after:border-b-2 after:border-white after:rotate-45 after:opacity-0 checked:after:opacity-100"
                     />
                     {brand === "invisalign" ? "Invisalign" : "ClearCorrect"}
                   </label>
@@ -189,9 +269,9 @@ export function LocationsEditor({
               <button
                 type="submit"
                 disabled={loading}
-                className="flex-1 py-2.5 rounded-xl bg-primary text-white dark:text-black font-medium hover:bg-primary-dark transition-colors text-sm disabled:opacity-50"
+                className="flex-1 py-2.5 rounded-xl bg-primary text-white font-medium hover:bg-primary-dark transition-colors text-sm disabled:opacity-50"
               >
-                {loading ? "Sparar..." : editing ? "Uppdatera" : "Lägg till"}
+                {loading ? t.saving : t.save}
               </button>
               {editing && (
                 <button
@@ -199,7 +279,7 @@ export function LocationsEditor({
                   onClick={onCancel}
                   className="px-6 py-2.5 rounded-xl border border-border text-sm font-medium hover:bg-muted transition-colors"
                 >
-                  Avbryt
+                  {t.cancel}
                 </button>
               )}
             </div>
@@ -229,11 +309,18 @@ export function LocationsEditor({
                 <span
                   className={`text-[0.7rem] font-medium uppercase tracking-wide px-2 py-0.5 rounded-full ${
                     loc.type === "onsite"
-                      ? "bg-primary/15 text-primary"
-                      : "bg-muted text-muted-dark"
+                      ? "bg-primary-dark text-white dark:bg-primary-dark"
+                      : "service-badge-text"
                   }`}
+                  style={
+                    loc.type === "partner"
+                      ? {
+                          backgroundColor: 'color-mix(in oklab, var(--color-primary) 20%, transparent)',
+                        }
+                      : undefined
+                  }
                 >
-                  {loc.type === "onsite" ? "På plats" : "Partnerklinik"}
+                  {loc.type === "onsite" ? t.onsite : t.partner}
                 </span>
               </div>
             </div>
@@ -338,20 +425,21 @@ export function LocationsEditor({
                   onClick={() => onEdit(loc)}
                   className="px-3 py-1.5 rounded-lg text-xs font-medium bg-primary-light text-primary hover:bg-primary/20 transition-colors"
                 >
-                  Redigera
+                  {t.edit}
                 </button>
                 <button
                   onClick={() => onDelete(loc.id)}
                   disabled={loading}
                   className="px-3 py-1.5 rounded-lg text-xs font-medium bg-red-800 text-white hover:bg-red-900 transition-colors disabled:opacity-50"
                 >
-                  Ta bort
+                  {t.delete}
                 </button>
               </div>
             )}
           </div>
         ))}
       </div>
+    </div>
     </div>
   );
 }

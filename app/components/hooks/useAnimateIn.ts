@@ -15,7 +15,10 @@ export function useAnimateIn<T extends HTMLElement = HTMLDivElement>(
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setVisible(true);
+          // Ensure a minimum delay so CSS transitions always work
+          setTimeout(() => {
+            setVisible(true);
+          }, 50);
           observer.unobserve(el);
         }
       },

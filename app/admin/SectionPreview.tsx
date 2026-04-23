@@ -7,10 +7,12 @@ export function SectionPreview({
   sectionId,
   draft,
   fields,
+  locale = "sv",
 }: {
   sectionId: string;
   draft: Record<string, string>;
   fields: SectionField[];
+  locale?: "sv" | "en";
 }) {
   const v = (key: string) => draft[key] ?? "";
   const byLabel = (pattern: string) => {
@@ -26,7 +28,10 @@ export function SectionPreview({
     return (
       <div className="bg-linear-to-br from-surface via-primary-light to-surface rounded-xl p-8 text-center">
         {v(`${pfx}Badge`) && (
-          <span className="inline-block px-3 py-1 mb-4 text-xs font-medium tracking-wide text-primary-dark bg-surface border border-primary/30 rounded-full">
+          <span
+            className="inline-block px-3 py-1 mb-4 text-xs font-medium tracking-wide rounded-full badge-text"
+            style={{ backgroundColor: 'color-mix(in oklab, var(--color-primary) 20%, transparent)' }}
+          >
             {v(`${pfx}Badge`)}
           </span>
         )}
@@ -38,10 +43,23 @@ export function SectionPreview({
           {v(`${pfx}Subtitle`)}
         </p>
         <div className="flex justify-center gap-3">
-          <span className="px-4 py-2 rounded-full bg-primary text-white text-xs font-medium">
+          <span className="inline-flex items-center gap-1 px-4 py-2 rounded-full bg-primary-dark text-white text-xs font-medium">
             {v(`${pfx}Cta`)}
+            <svg
+              className="w-3 h-3"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M19 9l-7 7-7-7"
+              />
+            </svg>
           </span>
-          <span className="px-4 py-2 rounded-full border border-border text-xs font-medium text-foreground">
+          <span className="px-4 py-2 rounded-full border border-primary/30 bg-primary/10 text-foreground text-xs font-medium">
             {v(`${pfx}Secondary`)}
           </span>
         </div>
@@ -54,25 +72,29 @@ export function SectionPreview({
     const bioText = v("aboutBio");
     const paragraphs = bioText.split("\n").filter((p: string) => p.trim());
     return (
-      <div className="grid grid-cols-[auto_1fr] gap-4 py-6 px-4">
+      <div className="bg-surface rounded-xl grid grid-cols-[auto_1fr] gap-4 py-6 px-4">
         {/* Photo thumbnail */}
-        <div className="w-28 h-36 rounded-xl overflow-hidden bg-muted border border-border shrink-0">
-          {v("aboutImage") ? (
-            /* eslint-disable-next-line @next/next/no-img-element */
-            <img
-              src={`${basePath}${v("aboutImage")}`}
-              alt=""
-              className="w-full h-full object-cover"
-            />
-          ) : (
-            <div className="w-full h-full flex items-center justify-center text-muted-dark text-xs">
-              Ingen bild
-            </div>
-          )}
+        <div className="relative w-28 h-36 shrink-0">
+          <div className="relative z-10 w-full h-full rounded-xl overflow-hidden bg-muted border border-border">
+            {v("aboutImage") ? (
+              /* eslint-disable-next-line @next/next/no-img-element */
+              <img
+                src={`${basePath}${v("aboutImage")}`}
+                alt=""
+                className="w-full h-full object-cover"
+              />
+            ) : (
+              <div className="w-full h-full flex items-center justify-center text-muted-dark text-xs">
+                Ingen bild
+              </div>
+            )}
+          </div>
+          {/* Decorative accent */}
+          <div className="absolute -bottom-2 -right-2 w-8 h-8 rounded-lg bg-primary/20" />
         </div>
 
         <div className="min-w-0">
-          <span className="text-primary/70 text-xs font-medium uppercase tracking-wider">
+          <span className="text-primary text-xs font-medium uppercase tracking-wider">
             {v("aboutLabel")}
           </span>
           <h3 className="text-2xl font-serif font-semibold mt-1 mb-3">
@@ -103,6 +125,26 @@ export function SectionPreview({
 
   /* Brand & Footer */
   if (sectionId === "brand") {
+    const footerTranslations = {
+      sv: {
+        quickLinks: "Snabblänkar",
+        contact: "Kontakt",
+        aboutMe: "Om mig",
+        services: "Tjänster",
+        forPatients: "För patienter",
+        contactLink: "Kontakt",
+      },
+      en: {
+        quickLinks: "Quick Links",
+        contact: "Contact",
+        aboutMe: "About Me",
+        services: "Services",
+        forPatients: "For Patients",
+        contactLink: "Contact",
+      },
+    };
+    const t = footerTranslations[locale];
+
     return (
       <div className="bg-footer-bg rounded-xl overflow-hidden">
         <div className="px-6 py-8">
@@ -121,23 +163,23 @@ export function SectionPreview({
             {/* Quick links column */}
             <div>
               <h4 className="text-sm font-semibold uppercase tracking-wider mb-3 text-white/70">
-                Snabblänkar
+                {t.quickLinks}
               </h4>
               <ul className="space-y-1.5 text-[0.9375rem] text-white/80">
-                <li>Om mig</li>
-                <li>Tjänster</li>
-                <li>För patienter</li>
-                <li>Kontakt</li>
+                <li>{t.aboutMe}</li>
+                <li>{t.services}</li>
+                <li>{t.forPatients}</li>
+                <li>{t.contactLink}</li>
               </ul>
             </div>
 
             {/* Contact column */}
             <div>
               <h4 className="text-sm font-semibold uppercase tracking-wider mb-3 text-white/70">
-                Kontakt
+                {t.contact}
               </h4>
               <ul className="space-y-1.5 text-[0.9375rem] text-white/80">
-                <li className="flex items-center gap-1.5 break-all">
+                <li className="flex items-center gap-1.5 wrap-break-word">
                   <svg
                     className="w-4 h-4 shrink-0"
                     fill="none"
@@ -205,8 +247,8 @@ export function SectionPreview({
   /* Before & After */
   if (sectionId === "beforeAfter") {
     return (
-      <div className="text-center py-6 px-4">
-        <span className="text-primary/70 text-xs font-medium uppercase tracking-wider">
+      <div className="bg-background rounded-xl text-center py-6 px-4">
+        <span className="text-primary text-xs font-medium uppercase tracking-wider">
           {v("beforeAfterLabel")}
         </span>
         <h3 className="text-2xl font-serif font-semibold mt-2">
@@ -227,16 +269,81 @@ export function SectionPreview({
     );
   }
 
+  /* Aligners CTA */
+  if (sectionId === "aligners-cta") {
+    return (
+      <div className="bg-muted rounded-xl p-6 text-center">
+        <div className="inline-flex flex-col sm:flex-row items-center gap-4 p-8 rounded-2xl bg-surface border border-border/50 shadow-sm">
+          <div className="text-left">
+            <p className="font-semibold text-foreground">Redo att ta nästa steg?</p>
+            <p className="text-sm text-muted-dark">Boka en kostnadsfri konsultation på din närmaste klinik.</p>
+          </div>
+          <span className="px-6 py-3 rounded-full bg-primary-dark text-white text-sm font-medium whitespace-nowrap">
+            Se kliniker
+          </span>
+        </div>
+      </div>
+    );
+  }
+
+  /* Aligners Header with Educational Card */
+  if (sectionId === "aligners-header") {
+    return (
+      <div className="bg-muted rounded-xl space-y-4 py-6 px-4">
+        <div className="text-center">
+          <span className="text-primary text-xs font-medium uppercase tracking-wider">
+            {v("alignersLabel")}
+          </span>
+          <h3 className="text-2xl font-serif font-semibold mt-2">
+            {v("alignersTitle1")}{" "}
+            <span className="text-primary">{v("alignersTitle2")}</span>
+          </h3>
+          {v("alignersIntro") && (
+            <p className="text-muted-dark text-sm mt-2 max-w-md mx-auto">
+              {v("alignersIntro")}
+            </p>
+          )}
+        </div>
+
+        {/* Educational intro card - "How aligners work" */}
+        {v("alignersWhat") && (
+          <div className="bg-surface rounded-2xl p-8 border border-border/50 shadow-sm mt-4">
+            <h3 className="text-lg font-semibold text-foreground font-sans mb-3">
+              {v("alignersWhat")}
+            </h3>
+            <p className="text-muted-dark leading-relaxed">
+              {v("alignersWhatDesc") || "—"}
+            </p>
+          </div>
+        )}
+      </div>
+    );
+  }
+
   /* Generic section header (*-header) */
   if (sectionId.endsWith("-header")) {
     const label = byLabel("etikett") || byLabel("badge");
     const title1 = byLabel("titel rad 1");
     const title2 = byLabel("titel rad 2");
     const intro = byLabel("intro") || byLabel("undertext");
+
+    // Background colors matching live page
+    const bgColors: Record<string, string> = {
+      "services-header": "bg-muted",
+      "advantages-header": "bg-background",
+      "news-header": "bg-muted",
+      "myths-header": "bg-surface",
+      "process-header": "bg-surface",
+      "dm-header": "bg-muted",
+      "locations-header": "bg-surface",
+      "faq-header": "bg-muted",
+    };
+    const bgClass = bgColors[sectionId] || "bg-background";
+
     return (
-      <div className="text-center py-6 px-4">
+      <div className={`${bgClass} rounded-xl text-center py-6 px-4`}>
         {label && (
-          <span className="text-primary/70 text-xs font-medium uppercase tracking-wider">
+          <span className="text-primary text-xs font-medium uppercase tracking-wider">
             {label}
           </span>
         )}

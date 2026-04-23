@@ -30,13 +30,13 @@ export default function Footer({
   return (
     <footer id="contact" className="bg-footer-bg text-white">
       <div className="max-w-6xl mx-auto px-6 py-16">
-        <div className="grid md:grid-cols-3 gap-12">
+        <div className="grid md:grid-cols-[2fr_1fr_2fr] gap-12">
           {/* Brand */}
           <div>
             <h3 className="text-xl font-serif font-semibold mb-1">
               {t("brandName")}
             </h3>
-            <p className="text-sm text-white/50 mb-3">{t("brandTagline")}</p>
+            <p className="text-sm text-white/70 mb-3">{t("brandTagline")}</p>
             <p className="text-white/80 text-[0.9375rem] leading-relaxed">
               {t("footerDesc")}
             </p>
@@ -52,7 +52,7 @@ export default function Footer({
                 <li key={item.href}>
                   <a
                     href={item.href}
-                    className="text-[0.9375rem] text-white/80 hover:text-white transition-colors"
+                    className="text-[0.9375rem] text-white/80 hover:text-white transition-colors rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-footer-bg"
                   >
                     {item.label}
                   </a>
@@ -70,10 +70,10 @@ export default function Footer({
               <li>
                 <a
                   href={`mailto:${t("contactEmail")}`}
-                  className="hover:text-white transition-colors inline-flex items-center gap-1.5"
+                  className="hover:text-white transition-colors inline-flex items-center gap-1.5 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-footer-bg"
                 >
                   <svg
-                    className="w-4 h-4"
+                    className="w-4 h-4 shrink-0"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -85,7 +85,7 @@ export default function Footer({
                       d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
                     />
                   </svg>
-                  {t("contactEmail")}
+                  <span className="wrap-break-word">{t("contactEmail")}</span>
                 </a>
               </li>
               <li>
@@ -93,7 +93,7 @@ export default function Footer({
                   href="https://www.instagram.com/wikholmort/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-white transition-colors inline-flex items-center gap-1.5"
+                  className="hover:text-white transition-colors inline-flex items-center gap-1.5 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-footer-bg"
                 >
                   <svg
                     className="w-4 h-4"
@@ -110,7 +110,7 @@ export default function Footer({
                   href="https://www.linkedin.com/in/andr%C3%A9-w-879b9b80/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-white transition-colors inline-flex items-center gap-1.5"
+                  className="hover:text-white transition-colors inline-flex items-center gap-1.5 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-footer-bg"
                 >
                   <svg
                     className="w-4 h-4"
@@ -127,7 +127,7 @@ export default function Footer({
                   href="https://www.linkedin.com/company/wikholm-ortodonti-ab/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-white transition-colors inline-flex items-center gap-1.5"
+                  className="hover:text-white transition-colors inline-flex items-center gap-1.5 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-footer-bg"
                 >
                   <svg
                     className="w-4 h-4"
@@ -145,7 +145,7 @@ export default function Footer({
 
         {/* Bottom bar */}
         <div className="mt-12 pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-center gap-4">
-          <p className="text-sm text-white/40">
+          <p className="text-sm text-white/60">
             &copy; {new Date().getFullYear()} {t("footerCopyright")}
           </p>
         </div>

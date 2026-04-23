@@ -280,6 +280,55 @@ export function ImagePickerField({
 }
 
 /* ═══════════════════════════════════════════════════
+   CheckboxField — checkbox input
+   ═══════════════════════════════════════════════════ */
+export function CheckboxField({
+  label,
+  value,
+  onChange,
+}: {
+  label: string;
+  value: string;
+  onChange: (v: string) => void;
+}) {
+  const checked = value === "true";
+  return (
+    <div>
+      <label className="flex items-center gap-3 cursor-pointer group">
+        <div className="relative">
+          <input
+            type="checkbox"
+            checked={checked}
+            onChange={(e) => onChange(e.target.checked ? "true" : "false")}
+            className="peer sr-only"
+          />
+          <div className="w-5 h-5 rounded border-2 border-border bg-surface peer-checked:bg-primary peer-checked:border-primary transition-colors flex items-center justify-center">
+            {checked && (
+              <svg
+                className="w-3.5 h-3.5 text-white"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                strokeWidth={3}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M5 13l4 4L19 7"
+                />
+              </svg>
+            )}
+          </div>
+        </div>
+        <span className="text-sm font-medium text-foreground group-hover:text-primary transition-colors">
+          {label}
+        </span>
+      </label>
+    </div>
+  );
+}
+
+/* ═══════════════════════════════════════════════════
    MoveButtons — up/down reorder arrows
    ═══════════════════════════════════════════════════ */
 export function MoveButtons({
@@ -297,7 +346,7 @@ export function MoveButtons({
         type="button"
         disabled={index === 0}
         onClick={() => onMove(index, index - 1)}
-        className="w-[40px] h-[40px] flex items-center justify-center rounded-lg hover:bg-muted disabled:opacity-30"
+        className="w-10 h-10 flex items-center justify-center rounded-lg hover:bg-muted disabled:opacity-30"
         title="Flytta upp"
       >
         <svg
@@ -318,7 +367,7 @@ export function MoveButtons({
         type="button"
         disabled={index === total - 1}
         onClick={() => onMove(index, index + 1)}
-        className="w-[40px] h-[40px] flex items-center justify-center rounded-lg hover:bg-muted disabled:opacity-30"
+        className="w-10 h-10 flex items-center justify-center rounded-lg hover:bg-muted disabled:opacity-30"
         title="Flytta ner"
       >
         <svg

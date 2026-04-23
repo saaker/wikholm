@@ -46,7 +46,7 @@ export default function Locations({
     <button
       key={location.id}
       onClick={() => setActiveId(activeId === location.id ? null : location.id)}
-      className={`w-full text-left p-5 rounded-xl border transition-all flex flex-col ${
+      className={`w-full text-left p-5 rounded-xl border transition-all flex flex-col focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${
         activeId === location.id
           ? "border-primary bg-primary-light shadow-md ring-1 ring-primary/20"
           : "border-border shadow-sm hover:border-primary/30 hover:shadow-md bg-surface"
@@ -59,9 +59,17 @@ export default function Locations({
         <span
           className={`text-[0.7rem] font-medium uppercase tracking-wide px-2 py-0.5 rounded-full shrink-0 ${
             location.type === "onsite"
-              ? "bg-primary/15 text-primary"
-              : "bg-muted text-muted-dark"
+              ? "bg-primary-dark text-white dark:bg-primary-dark"
+              : ""
           }`}
+          style={
+            location.type === "partner"
+              ? {
+                  backgroundColor: 'color-mix(in oklab, var(--color-primary) 20%, transparent)',
+                  color: 'var(--badge-text-color, #694A1D)'
+                }
+              : undefined
+          }
         >
           {t(location.type === "onsite" ? "clinicOnsite" : "clinicPartner")}
         </span>
@@ -106,7 +114,7 @@ export default function Locations({
           <a
             href={`tel:${location.phone.replace(/\s/g, "")}`}
             onClick={(e) => e.stopPropagation()}
-            className="hover:text-primary transition-colors"
+            className="hover:text-primary transition-colors rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
           >
             {location.phone}
           </a>
@@ -131,7 +139,7 @@ export default function Locations({
               target="_blank"
               rel="noopener noreferrer"
               onClick={(e) => e.stopPropagation()}
-              className="hover:text-primary transition-colors truncate"
+              className="hover:text-primary transition-colors truncate rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
             >
               {location.website.replace(/^https?:\/\//, "")}
             </a>
@@ -218,7 +226,7 @@ export default function Locations({
         )}
 
         {/* Full-width map */}
-        <div className="rounded-2xl overflow-hidden border border-border shadow-sm h-[500px]">
+        <div className="rounded-2xl overflow-hidden border border-border shadow-sm h-125">
           <LocationMap
             locations={locations}
             activeId={activeId}

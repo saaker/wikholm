@@ -27,8 +27,8 @@ export function ServiceCardPreview({
       className={`bg-surface rounded-2xl p-8 shadow-sm border ${item.highlight ? "border-primary/30 ring-1 ring-primary/10" : "border-border/50"}`}
     >
       <div className="flex gap-5">
-        <div className="w-12 h-12 rounded-xl bg-primary-light flex items-center justify-center text-primary-dark shrink-0">
-          <Icon name={item.icon} className="w-7 h-7" />
+        <div className={`w-12 h-12 rounded-xl flex items-center justify-center shrink-0 ${item.id === "case" ? "w-16 h-16 bg-primary/30 case-icon" : "bg-primary-light text-primary-dark dark:text-primary"}`}>
+          <Icon name={item.icon} className={item.id === "case" ? "w-9 h-9" : "w-7 h-7"} />
         </div>
         <div className="min-w-0">
           <div className="flex flex-wrap items-center gap-2 mb-2">
@@ -37,7 +37,10 @@ export function ServiceCardPreview({
             </h3>
             {text.tag && (
               <span
-                className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold uppercase tracking-wide ${item.highlight ? "bg-primary/20 text-primary-dark" : "bg-primary/10 text-primary-dark"}`}
+                className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold uppercase tracking-wide service-badge-text"
+                style={{
+                  backgroundColor: 'color-mix(in oklab, var(--color-primary) 20%, transparent)'
+                }}
               >
                 {text.tag}
               </span>
@@ -47,9 +50,10 @@ export function ServiceCardPreview({
             {text.desc || "—"}
           </p>
           {item.id === "case" && (
-            <span className="inline-flex items-center gap-1.5 text-sm font-medium text-primary">
+            <span className="inline-flex items-center gap-2 text-base font-semibold text-primary">
+              {locale === "sv" ? "Se hur du skickar ditt fall" : "See how to submit your case"}
               <svg
-                className="w-4 h-4"
+                className="w-5 h-5"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -58,14 +62,18 @@ export function ServiceCardPreview({
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   strokeWidth={2}
-                  d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                  d="M13 7l5 5m0 0l-5 5m5-5H6"
                 />
               </svg>
-              Kontakta via e-post &rarr;
             </span>
           )}
           {text.price && (
-            <span className="inline-flex items-center px-3 py-1 rounded-full bg-primary/20 text-primary-dark text-sm font-bold">
+            <span
+              className="inline-flex items-center px-3 py-1 rounded-full text-sm font-bold service-badge-text"
+              style={{
+                backgroundColor: 'color-mix(in oklab, var(--color-primary) 20%, transparent)'
+              }}
+            >
               {text.price}
             </span>
           )}
@@ -86,7 +94,7 @@ export function AlignerCardPreview({
   return (
     <div className="bg-surface rounded-2xl p-8 shadow-sm border border-border/50">
       <div className="flex gap-5">
-        <div className="w-12 h-12 rounded-xl bg-primary-light flex items-center justify-center text-primary-dark shrink-0">
+        <div className="w-12 h-12 rounded-xl bg-primary-light flex items-center justify-center text-primary-dark dark:text-primary shrink-0">
           <Icon name={item.icon} className="w-6 h-6" />
         </div>
         <div className="min-w-0">
@@ -112,7 +120,7 @@ export function AdvantageCardPreview({
   const text = item[locale];
   return (
     <div className="flex gap-5 items-start py-3">
-      <div className="w-10 h-10 rounded-full bg-primary-light flex items-center justify-center text-primary-dark shrink-0">
+      <div className="w-10 h-10 rounded-full bg-primary-light flex items-center justify-center text-primary-dark dark:text-primary shrink-0">
         <Icon name="check" className="w-5 h-5" />
       </div>
       <div>
@@ -139,7 +147,10 @@ export function ProcessCardPreview({
   const text = item[locale];
   return (
     <div className="py-3">
-      <span className="text-5xl font-serif font-bold text-primary/40 leading-none">
+      <span
+        className="text-5xl font-serif font-bold leading-none"
+        style={{ color: 'var(--color-primary)', opacity: 0.8 }}
+      >
         {String(index + 1).padStart(2, "0")}
       </span>
       <h3 className="text-lg font-semibold text-foreground font-sans mt-2 mb-2">
@@ -162,7 +173,7 @@ export function DMCardPreview({
   const text = item[locale];
   return (
     <div className="flex gap-5 items-start py-3">
-      <div className="w-10 h-10 rounded-full bg-primary-light flex items-center justify-center text-primary-dark shrink-0">
+      <div className="w-10 h-10 rounded-full bg-primary-light flex items-center justify-center text-primary-dark dark:text-primary shrink-0">
         <Icon name={item.icon} className="w-6 h-6" />
       </div>
       <div>
@@ -205,7 +216,7 @@ export function FAQCardPreview({
           />
         </svg>
       </div>
-      <div className="px-5 pb-4 text-sm text-muted-dark leading-relaxed border-t border-border/50 pt-3">
+      <div className="px-5 pb-4 text-sm text-foreground/80 leading-relaxed border-t border-border/50 pt-3">
         <p className="line-clamp-2">{text.answer || "—"}</p>
       </div>
     </div>
@@ -220,12 +231,15 @@ export function MythCardPreview({
   locale: "sv" | "en";
 }) {
   const text = item[locale];
+  const mythLabel = locale === "sv" ? "MYT" : "MYTH";
+  const truthLabel = locale === "sv" ? "SANNING" : "TRUTH";
+
   return (
     <div className="bg-surface rounded-xl border border-border shadow-sm overflow-hidden">
       <div className="flex items-center justify-between p-5 gap-4">
         <div className="flex items-center gap-3 min-w-0">
           <span className="px-2.5 py-0.5 rounded-full text-xs font-bold uppercase tracking-wide bg-myth-bg text-myth-text shrink-0">
-            MYT
+            {mythLabel}
           </span>
           <span className="text-sm font-semibold text-foreground leading-snug">
             {text.myth || "—"}
@@ -247,9 +261,9 @@ export function MythCardPreview({
       </div>
       <div className="px-5 pb-5 flex gap-3 items-start border-t border-border pt-4">
         <span className="px-2.5 py-0.5 rounded-full text-xs font-bold uppercase tracking-wide bg-truth-bg text-truth-text shrink-0 mt-0.5">
-          SANNING
+          {truthLabel}
         </span>
-        <p className="text-sm text-muted-dark leading-relaxed line-clamp-2">
+        <p className="text-sm text-foreground/80 leading-relaxed line-clamp-2">
           {text.truth || "—"}
         </p>
       </div>
@@ -269,9 +283,9 @@ export function NewsCardPreview({
     <div className="rounded-2xl border border-border bg-surface shadow-md overflow-hidden">
       <div className="h-1.5 bg-primary" />
       <div className="p-6">
-        <div className="flex items-center gap-3 mb-4">
+        <div className="flex items-center flex-wrap gap-3 mb-4">
           <span
-            className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full ${item.color}`}
+            className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full whitespace-nowrap ${item.color}`}
           >
             {text.tag || "—"}
           </span>
@@ -283,7 +297,9 @@ export function NewsCardPreview({
         <p className="text-sm text-muted-dark leading-relaxed mb-4 line-clamp-3">
           {text.desc || "—"}
         </p>
-        <span className="text-sm font-medium text-primary">Läs mer →</span>
+        <span className="text-sm font-medium text-primary">
+          {locale === "sv" ? "Läs mer →" : "Read more →"}
+        </span>
       </div>
     </div>
   );
@@ -327,7 +343,7 @@ export function BeforeAfterCardPreview({ item }: { item: BeforeAfterItem }) {
               </div>
             )}
           </div>
-          <span className="absolute top-2 left-2 px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wide bg-primary text-background">
+          <span className="absolute top-2 left-2 px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wide bg-primary-dark text-white dark:bg-primary-dark">
             EFTER
           </span>
         </div>

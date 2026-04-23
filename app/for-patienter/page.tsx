@@ -21,6 +21,14 @@ export const metadata: Metadata = {
   openGraph: {
     title: pageMetadata.patients.openGraph.title,
     description: pageMetadata.patients.openGraph.description,
+    images: [
+      {
+        url: "/images/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Wikholm Ortodonti",
+      },
+    ],
   },
 };
 
@@ -30,7 +38,7 @@ export default async function PatientPage() {
   return (
     <>
       <Header variant="patient" />
-      <main className="flex-1">
+      <main id="main-content" className="flex-1">
         <Hero
           badgeKey="patientHeroBadge"
           title1Key="patientHeroTitle1"

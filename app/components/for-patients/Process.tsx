@@ -3,6 +3,7 @@
 import { useI18n } from "../I18nProvider";
 import { useSections } from "../SectionsProvider";
 import { useAnimateIn } from "../hooks/useAnimateIn";
+import { getDelayClass } from "../utils/animationHelpers";
 
 export default function Process() {
   const { t, locale } = useI18n();
@@ -33,10 +34,13 @@ export default function Process() {
             return (
               <div
                 key={step.id}
-                className={`relative animate-fade-up delay-${i + 1} ${visible ? "visible" : ""}`}
+                className={`relative animate-fade-up ${getDelayClass(i, 4)} ${visible ? "visible" : ""}`}
               >
                 <div className="relative z-10">
-                  <span className="text-5xl font-serif font-bold text-primary/40 leading-none">
+                  <span
+                    className="text-5xl font-serif font-bold leading-none"
+                    style={{ color: 'var(--color-primary)', opacity: 0.8 }}
+                  >
                     {num}
                   </span>
                   <h3 className="text-lg font-semibold text-foreground font-sans mt-2 mb-2">

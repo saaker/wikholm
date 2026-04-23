@@ -1,27 +1,68 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
+import Image from "next/image";
 import { useI18n } from "../I18nProvider";
 import { useSections } from "../SectionsProvider";
 import { useAnimateIn } from "../hooks/useAnimateIn";
 import type { NewsItem } from "@/lib/sectionsDefaults";
 import basePath from "@/lib/basePath";
+import { getDelayClass } from "../utils/animationHelpers";
 
 export default function News() {
   const { t, locale } = useI18n();
   const { sections } = useSections();
   const { ref, visible } = useAnimateIn();
   const [selected, setSelected] = useState<NewsItem | null>(null);
+  const triggerRef = useRef<HTMLElement | null>(null);
+  const modalRef = useRef<HTMLDivElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
 
-  const close = useCallback(() => setSelected(null), []);
+  const close = useCallback(() => {
+    setSelected(null);
+    // Return focus to the element that opened the modal
+    if (triggerRef.current) {
+      triggerRef.current.focus();
+    }
+  }, []);
 
+  // Focus management and keyboard handling
   useEffect(() => {
     if (!selected) return;
+
+    // Move focus to close button when modal opens
+    closeButtonRef.current?.focus();
+
+    // Handle Escape key
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") close();
     };
     document.addEventListener("keydown", onKey);
-    return () => document.removeEventListener("keydown", onKey);
+
+    // Focus trap
+    const handleTab = (e: KeyboardEvent) => {
+      if (e.key !== "Tab" || !modalRef.current) return;
+
+      const focusableElements = modalRef.current.querySelectorAll<HTMLElement>(
+        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+      );
+      const firstElement = focusableElements[0];
+      const lastElement = focusableElements[focusableElements.length - 1];
+
+      if (e.shiftKey && document.activeElement === firstElement) {
+        e.preventDefault();
+        lastElement?.focus();
+      } else if (!e.shiftKey && document.activeElement === lastElement) {
+        e.preventDefault();
+        firstElement?.focus();
+      }
+    };
+    document.addEventListener("keydown", handleTab);
+
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.removeEventListener("keydown", handleTab);
+    };
   }, [selected, close]);
 
   return (
@@ -51,15 +92,19 @@ export default function News() {
               return (
                 <article
                   key={article.id}
-                  className={`group bg-surface rounded-2xl border border-border shadow-md hover:shadow-lg transition-all overflow-hidden animate-fade-up delay-${i + 1} ${visible ? "visible" : ""} ${hasBody ? "cursor-pointer" : ""}`}
+                  className={`group bg-surface rounded-2xl border border-border shadow-md hover:shadow-lg transition-all overflow-hidden animate-fade-up ${getDelayClass(i, 3)} ${visible ? "visible" : ""} ${hasBody ? "cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2" : ""}`}
                   {...(hasBody
                     ? {
-                        onClick: () => setSelected(article),
+                        onClick: (e) => {
+                          triggerRef.current = e.currentTarget;
+                          setSelected(article);
+                        },
                         role: "button",
                         tabIndex: 0,
                         onKeyDown: (e) => {
                           if (e.key === "Enter" || e.key === " ") {
                             e.preventDefault();
+                            triggerRef.current = e.currentTarget;
                             setSelected(article);
                           }
                         },
@@ -69,9 +114,9 @@ export default function News() {
                   {/* Colored top bar */}
                   <div className="h-1.5 bg-primary" />
                   <div className="p-6">
-                    <div className="flex items-center gap-3 mb-4">
+                    <div className="flex items-center flex-wrap gap-3 mb-4">
                       <span
-                        className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full ${article.color}`}
+                        className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full whitespace-nowrap ${article.color}`}
                       >
                         {text.tag}
                       </span>
@@ -104,12 +149,19 @@ export default function News() {
           onClick={(e) => {
             if (e.target === e.currentTarget) close();
           }}
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="modal-title"
         >
-          <div className="bg-surface rounded-2xl shadow-2xl max-w-2xl w-full max-h-[85vh] overflow-y-auto relative">
+          <div
+            ref={modalRef}
+            className="bg-surface rounded-2xl shadow-2xl max-w-2xl w-full max-h-[85vh] overflow-y-auto relative"
+          >
             <div className="h-1.5 bg-primary rounded-t-2xl" />
             <button
+              ref={closeButtonRef}
               onClick={close}
-              className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full hover:bg-muted transition-colors text-muted-dark hover:text-foreground"
+              className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full hover:bg-muted transition-colors text-muted-dark hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
               aria-label="Stäng"
             >
               <svg
@@ -127,9 +179,9 @@ export default function News() {
               </svg>
             </button>
             <div className="p-8">
-              <div className="flex items-center gap-3 mb-4">
+              <div className="flex items-center flex-wrap gap-3 mb-4">
                 <span
-                  className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full ${selected.color}`}
+                  className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full whitespace-nowrap ${selected.color}`}
                 >
                   {selected[locale].tag}
                 </span>
@@ -137,18 +189,24 @@ export default function News() {
                   {selected[locale].date}
                 </span>
               </div>
-              <h3 className="text-2xl font-serif font-semibold text-foreground mb-3 leading-snug">
+              <h3
+                id="modal-title"
+                className="text-2xl font-serif font-semibold text-foreground mb-3 leading-snug"
+              >
                 {selected[locale].title}
               </h3>
               <p className="text-muted-dark leading-relaxed mb-6">
                 {selected[locale].desc}
               </p>
               {selected.image && (
-                <img
-                  src={`${basePath}${selected.image}`}
-                  alt={selected[locale].title}
-                  className="w-full rounded-xl mb-6 object-cover max-h-80"
-                />
+                <div className="relative w-full h-80 rounded-xl mb-6 overflow-hidden">
+                  <Image
+                    src={`${basePath}${selected.image}`}
+                    alt={selected[locale].title}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
               )}
               <div className="border-t border-border pt-6 space-y-4">
                 {selected[locale].body?.split("\n\n").map((paragraph, i) => (

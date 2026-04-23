@@ -1,12 +1,13 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import Image from "next/image";
 import basePath from "@/lib/basePath";
 import { useI18n } from "../I18nProvider";
 import { useSections } from "../SectionsProvider";
 import { useAnimateIn } from "../hooks/useAnimateIn";
 import type { BeforeAfterItem } from "@/lib/sectionsDefaults";
+import { getDelayClass } from "../utils/animationHelpers";
 
 const INITIAL_COUNT = 6;
 
@@ -22,27 +23,54 @@ function Lightbox({
 }) {
   const { t } = useI18n();
   const [index, setIndex] = useState(startIndex);
+  const lightboxRef = useRef<HTMLDivElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
 
   const prev = useCallback(
     () => setIndex((i) => (i === 0 ? cases.length - 1 : i - 1)),
-    [],
+    [cases.length],
   );
   const next = useCallback(
     () => setIndex((i) => (i === cases.length - 1 ? 0 : i + 1)),
-    [],
+    [cases.length],
   );
 
   useEffect(() => {
+    // Move focus to close button when lightbox opens
+    closeButtonRef.current?.focus();
+
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
       if (e.key === "ArrowLeft") prev();
       if (e.key === "ArrowRight") next();
     };
+
+    // Focus trap
+    const handleTab = (e: KeyboardEvent) => {
+      if (e.key !== "Tab" || !lightboxRef.current) return;
+
+      const focusableElements = lightboxRef.current.querySelectorAll<HTMLElement>(
+        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+      );
+      const firstElement = focusableElements[0];
+      const lastElement = focusableElements[focusableElements.length - 1];
+
+      if (e.shiftKey && document.activeElement === firstElement) {
+        e.preventDefault();
+        lastElement?.focus();
+      } else if (!e.shiftKey && document.activeElement === lastElement) {
+        e.preventDefault();
+        firstElement?.focus();
+      }
+    };
+
     document.body.style.overflow = "hidden";
     window.addEventListener("keydown", onKey);
+    document.addEventListener("keydown", handleTab);
     return () => {
       document.body.style.overflow = "";
       window.removeEventListener("keydown", onKey);
+      document.removeEventListener("keydown", handleTab);
     };
   }, [onClose, prev, next]);
 
@@ -50,13 +78,18 @@ function Lightbox({
 
   return (
     <div
+      ref={lightboxRef}
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/90"
       onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+      aria-label={`${t("beforeAfterBefore")} / ${t("beforeAfterAfter")} - ${index + 1} / ${cases.length}`}
     >
       {/* Close */}
       <button
+        ref={closeButtonRef}
         onClick={onClose}
-        className="absolute top-4 right-4 z-10 text-white/80 hover:text-white transition-colors"
+        className="absolute top-4 right-4 z-10 text-white/80 hover:text-white transition-colors rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
         aria-label="Close"
       >
         <svg
@@ -80,7 +113,7 @@ function Lightbox({
           e.stopPropagation();
           prev();
         }}
-        className="absolute left-2 sm:left-6 z-10 p-2 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors"
+        className="absolute left-2 sm:left-6 z-10 p-2 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
         aria-label="Previous"
       >
         <svg
@@ -103,7 +136,7 @@ function Lightbox({
           e.stopPropagation();
           next();
         }}
-        className="absolute right-2 sm:right-6 z-10 p-2 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors"
+        className="absolute right-2 sm:right-6 z-10 p-2 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
         aria-label="Next"
       >
         <svg
@@ -126,27 +159,27 @@ function Lightbox({
         onClick={(e) => e.stopPropagation()}
       >
         <div className="relative flex flex-col items-center md:w-1/2">
-          <div className="w-full aspect-[3/2] relative overflow-hidden rounded-lg">
+          <div className="w-full aspect-3/2 relative overflow-hidden rounded-lg">
             <Image
               src={`${basePath}${c.before}`}
               alt={`${t("beforeAfterBefore")} – Patient ${c.id}`}
               fill
               className="object-cover"
             />
-            <span className="absolute top-3 left-3 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide bg-white/20 text-white backdrop-blur-sm">
+            <span className="absolute top-3 left-3 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide bg-foreground text-background">
               {t("beforeAfterBefore")}
             </span>
           </div>
         </div>
         <div className="relative flex flex-col items-center md:w-1/2">
-          <div className="w-full aspect-[3/2] relative overflow-hidden rounded-lg">
+          <div className="w-full aspect-3/2 relative overflow-hidden rounded-lg">
             <Image
               src={`${basePath}${c.after}`}
               alt={`${t("beforeAfterAfter")} – Patient ${c.id}`}
               fill
               className="object-cover"
             />
-            <span className="absolute top-3 left-3 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide bg-primary/80 text-white backdrop-blur-sm">
+            <span className="absolute top-3 left-3 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide bg-primary-dark text-white">
               {t("beforeAfterAfter")}
             </span>
           </div>
@@ -168,9 +201,18 @@ export default function BeforeAfter() {
   const { ref, visible } = useAnimateIn();
   const [showAll, setShowAll] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+  const triggerRef = useRef<HTMLButtonElement | null>(null);
 
-  const cases = sections.beforeAfter;
+  const cases = sections.beforeAfter.filter((c) => !c.hidden);
   const visibleCases = showAll ? cases : cases.slice(0, INITIAL_COUNT);
+
+  const handleCloseLightbox = useCallback(() => {
+    setLightboxIndex(null);
+    // Return focus to the button that opened the lightbox
+    if (triggerRef.current) {
+      triggerRef.current.focus();
+    }
+  }, []);
 
   return (
     <>
@@ -200,8 +242,16 @@ export default function BeforeAfter() {
                 <button
                   key={c.id}
                   type="button"
-                  onClick={() => setLightboxIndex(globalIndex)}
-                  className={`bg-surface rounded-2xl border border-border/50 overflow-hidden shadow-sm animate-fade-up delay-${(i % 2) + 1} ${visible ? "visible" : ""} cursor-pointer hover:shadow-md hover:scale-[1.01] transition-all text-left`}
+                  ref={(el) => {
+                    if (globalIndex === lightboxIndex && el) {
+                      triggerRef.current = el;
+                    }
+                  }}
+                  onClick={(e) => {
+                    triggerRef.current = e.currentTarget;
+                    setLightboxIndex(globalIndex);
+                  }}
+                  className={`bg-surface rounded-2xl border border-border/50 overflow-hidden shadow-sm animate-fade-up ${getDelayClass(i)} ${visible ? "visible" : ""} cursor-pointer hover:shadow-md hover:scale-[1.01] transition-all text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2`}
                 >
                   <div className="grid grid-cols-2">
                     {/* Before */}
@@ -230,7 +280,7 @@ export default function BeforeAfter() {
                           className="w-full h-full object-cover"
                         />
                       </div>
-                      <span className="absolute top-2 left-2 px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wide bg-primary text-background">
+                      <span className="absolute top-2 left-2 px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wide bg-primary-dark text-white dark:bg-primary-dark">
                         {t("beforeAfterAfter")}
                       </span>
                     </div>
@@ -244,7 +294,7 @@ export default function BeforeAfter() {
             <div className="text-center mb-8">
               <button
                 onClick={() => setShowAll(!showAll)}
-                className="px-6 py-2.5 rounded-full text-sm font-medium border border-border hover:bg-muted transition-colors"
+                className="px-6 py-2.5 rounded-full text-sm font-medium border border-border hover:bg-muted transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
               >
                 {showAll ? t("beforeAfterShowLess") : t("beforeAfterShowMore")}
               </button>
@@ -261,7 +311,7 @@ export default function BeforeAfter() {
         <Lightbox
           cases={cases}
           startIndex={lightboxIndex}
-          onClose={() => setLightboxIndex(null)}
+          onClose={handleCloseLightbox}
         />
       )}
     </>

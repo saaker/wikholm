@@ -80,7 +80,7 @@ export function ImageManager({
                 <p className="text-xs text-muted-dark/70 mb-3">
                   JPG, PNG, WebP eller SVG — max 10 MB
                 </p>
-                <label className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-primary text-white dark:text-black text-sm font-medium cursor-pointer hover:bg-primary-dark transition-colors">
+                <label className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-primary text-white text-sm font-medium cursor-pointer hover:bg-primary-dark transition-colors">
                   Välj filer
                   <input
                     type="file"

@@ -6,7 +6,7 @@ import {
   dentistLinkOptions,
   patientLinkOptions,
 } from "./adminTypes";
-import { Field, ImagePickerField } from "./adminComponents";
+import { Field, ImagePickerField, CheckboxField } from "./adminComponents";
 import { SectionPreview } from "./SectionPreview";
 
 export function ContentEditor({
@@ -53,7 +53,14 @@ export function ContentEditor({
       <fieldset disabled={readOnly} className={readOnly ? "opacity-60" : ""}>
         <div className="space-y-4">
           {sec.fields.map((f) =>
-            f.link ? (
+            f.checkbox ? (
+              <CheckboxField
+                key={f.key}
+                label={f.label}
+                value={draft[f.key] ?? "false"}
+                onChange={(v) => onChange(f.key, v)}
+              />
+            ) : f.link ? (
               <LinkField
                 key={f.key}
                 label={f.label}
@@ -85,7 +92,7 @@ export function ContentEditor({
           <button
             onClick={onSave}
             disabled={saving}
-            className="px-6 py-2.5 rounded-xl bg-primary text-white dark:text-black font-medium hover:bg-primary-dark transition-colors text-sm disabled:opacity-50"
+            className="px-6 py-2.5 rounded-xl bg-primary text-white font-medium hover:bg-primary-dark transition-colors text-sm disabled:opacity-50"
           >
             {saving ? "Sparar..." : "Spara ändringar"}
           </button>
@@ -109,6 +116,7 @@ export function ContentEditor({
             sectionId={sectionId}
             draft={draft}
             fields={sec.fields}
+            locale={locale}
           />
         </div>
       </div>

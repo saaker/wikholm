@@ -38,6 +38,13 @@ export default function Header({
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-surface/90 backdrop-blur-md border-b border-border">
+      {/* Skip to main content link - for keyboard accessibility */}
+      <a
+        href="#main-content"
+        className="sr-only focus-visible:not-sr-only focus-visible:absolute focus-visible:top-4 focus-visible:left-4 focus-visible:z-50 focus-visible:px-4 focus-visible:py-2 focus-visible:bg-primary-dark focus-visible:text-white focus-visible:rounded-md focus-visible:font-medium focus-visible:shadow-lg"
+      >
+        {locale === "sv" ? "Hoppa till huvudinnehåll" : "Skip to main content"}
+      </a>
       <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between relative">
         {/* Logo + title (inline on desktop, logo-only on mobile) */}
         <a
@@ -54,7 +61,7 @@ export default function Header({
               window.scrollTo({ top: 0, behavior: "smooth" });
             }
           }}
-          className="flex items-center gap-2.5 z-10"
+          className="flex items-center gap-2.5 z-10 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
         >
           <Image
             src={logo}
@@ -83,7 +90,7 @@ export default function Header({
               window.scrollTo({ top: 0, behavior: "smooth" });
             }
           }}
-          className="lg:hidden absolute left-1/2 -translate-x-1/2 text-xl font-serif font-semibold text-foreground tracking-tight whitespace-nowrap z-10"
+          className="lg:hidden absolute left-1/2 -translate-x-1/2 text-xl font-serif font-semibold text-foreground tracking-tight whitespace-nowrap z-10 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
         >
           {t("brandName")}
         </a>
@@ -95,7 +102,7 @@ export default function Header({
               <a
                 key={item.href}
                 href={item.href}
-                className="text-sm font-medium text-muted-dark hover:text-primary transition-colors"
+                className="text-sm font-medium text-muted-dark hover:text-primary transition-colors rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
               >
                 {item.label}
               </a>
@@ -105,7 +112,7 @@ export default function Header({
           {/* Language switcher — desktop only */}
           <button
             onClick={() => setLocale(locale === "sv" ? "en" : "sv")}
-            className="hidden lg:flex items-center justify-center w-8 h-8 rounded-full text-xs font-semibold text-muted-dark hover:text-primary hover:bg-primary/10 transition-colors"
+            className="hidden lg:flex items-center justify-center w-8 h-8 rounded-full text-xs font-semibold text-muted-dark hover:text-primary hover:bg-primary/10 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
             aria-label={
               locale === "sv" ? "Switch to English" : "Byt till svenska"
             }
@@ -116,7 +123,7 @@ export default function Header({
           {/* Dark mode toggle — desktop only */}
           <button
             onClick={toggle}
-            className="hidden lg:flex items-center justify-center w-8 h-8 rounded-full text-muted-dark hover:text-primary hover:bg-primary/10 transition-colors"
+            className="hidden lg:flex items-center justify-center w-8 h-8 rounded-full text-muted-dark hover:text-primary hover:bg-primary/10 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
             aria-label={dark ? "Switch to light mode" : "Switch to dark mode"}
           >
             {dark ? (
@@ -153,7 +160,7 @@ export default function Header({
           {/* Hamburger menu button */}
           <button
             onClick={() => setMenuOpen(!menuOpen)}
-            className="lg:hidden p-2 text-muted-dark hover:text-foreground"
+            className="lg:hidden p-2 text-muted-dark hover:text-foreground rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
             aria-label={t("openMenu")}
           >
             <svg
@@ -190,7 +197,7 @@ export default function Header({
               key={item.href}
               href={item.href}
               onClick={() => setMenuOpen(false)}
-              className="text-base font-medium text-muted-dark hover:text-primary transition-colors"
+              className="text-base font-medium text-muted-dark hover:text-primary transition-colors rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
             >
               {item.label}
             </a>
@@ -201,7 +208,7 @@ export default function Header({
                 setLocale(locale === "sv" ? "en" : "sv");
                 setMenuOpen(false);
               }}
-              className="flex items-center gap-2 text-base font-medium text-muted-dark hover:text-primary transition-colors"
+              className="flex items-center gap-2 text-base font-medium text-muted-dark hover:text-primary transition-colors rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
             >
               <span className="text-lg leading-none">
                 {locale === "sv" ? "🇬🇧" : "🇸🇪"}
@@ -213,7 +220,7 @@ export default function Header({
                 toggle();
                 setMenuOpen(false);
               }}
-              className="flex items-center gap-2 text-base font-medium text-muted-dark hover:text-primary transition-colors"
+              className="flex items-center gap-2 text-base font-medium text-muted-dark hover:text-primary transition-colors rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
             >
               <span className="text-base leading-none">
                 {dark ? "☀️" : "🌙"}

@@ -4,6 +4,7 @@ import { useI18n } from "../I18nProvider";
 import { useSections } from "../SectionsProvider";
 import { useAnimateIn } from "../hooks/useAnimateIn";
 import { Icon } from "@/lib/icons";
+import { getDelayClass } from "../utils/animationHelpers";
 
 export default function Aligners() {
   const { t, locale } = useI18n();
@@ -48,10 +49,10 @@ export default function Aligners() {
             return (
               <div
                 key={benefit.id}
-                className={`bg-surface rounded-2xl p-8 shadow-sm hover:shadow-md transition-shadow border border-border/50 animate-fade-up delay-${Math.min(i + 1, 4)} ${visible ? "visible" : ""}`}
+                className={`bg-surface rounded-2xl p-8 shadow-sm hover:shadow-md transition-shadow border border-border/50 animate-fade-up ${getDelayClass(i)} ${visible ? "visible" : ""}`}
               >
                 <div className="flex gap-5">
-                  <div className="w-12 h-12 rounded-xl bg-primary-light flex items-center justify-center text-primary-dark shrink-0">
+                  <div className="w-12 h-12 rounded-xl bg-primary-light flex items-center justify-center text-primary-dark dark:text-primary shrink-0">
                     <Icon name={benefit.icon} className="w-6 h-6" />
                   </div>
                   <div className="min-w-0">
@@ -69,20 +70,22 @@ export default function Aligners() {
         </div>
 
         {/* CTA within section */}
-        <div className="text-center mt-16">
-          <div className="inline-flex flex-col sm:flex-row items-center gap-4 p-8 rounded-2xl bg-surface border border-border/50 shadow-sm">
-            <div className="text-left">
-              <p className="font-semibold text-foreground">{t("ctaReady")}</p>
-              <p className="text-sm text-muted-dark">{t("ctaBook")}</p>
+        {t("ctaHidden") !== "true" && (
+          <div className="text-center mt-16">
+            <div className="inline-flex flex-col sm:flex-row items-center gap-4 p-8 rounded-2xl bg-surface border border-border/50 shadow-sm">
+              <div className="text-left">
+                <p className="font-semibold text-foreground">{t("ctaReady")}</p>
+                <p className="text-sm text-muted-dark">{t("ctaBook")}</p>
+              </div>
+              <a
+                href="#locations"
+                className="px-6 py-3 rounded-full bg-primary-dark text-white text-sm font-medium hover:bg-primary-dark/90 transition-colors whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+              >
+                {t("ctaViewClinics")}
+              </a>
             </div>
-            <a
-              href="#locations"
-              className="px-6 py-3 rounded-full bg-[#96692A] text-[#FDFDF8] text-sm font-medium hover:bg-[#7d5623] transition-colors whitespace-nowrap"
-            >
-              {t("ctaViewClinics")}
-            </a>
           </div>
-        </div>
+        )}
       </div>
     </section>
   );

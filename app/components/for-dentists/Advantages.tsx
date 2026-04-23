@@ -4,6 +4,7 @@ import { useI18n } from "../I18nProvider";
 import { useSections } from "../SectionsProvider";
 import { useAnimateIn } from "../hooks/useAnimateIn";
 import { Icon } from "@/lib/icons";
+import { getDelayClass } from "../utils/animationHelpers";
 
 export default function Advantages() {
   const { t, locale } = useI18n();
@@ -37,9 +38,9 @@ export default function Advantages() {
               return (
                 <div
                   key={adv.id}
-                  className={`flex gap-5 items-start animate-fade-up delay-${i + 1} ${visible ? "visible" : ""}`}
+                  className={`flex gap-5 items-start animate-fade-up ${getDelayClass(i)} ${visible ? "visible" : ""}`}
                 >
-                  <div className="w-10 h-10 rounded-full bg-primary-light flex items-center justify-center text-primary-dark shrink-0">
+                  <div className="w-10 h-10 rounded-full bg-primary-light flex items-center justify-center text-primary-dark dark:text-primary shrink-0">
                     <Icon name="check" className="w-5 h-5" />
                   </div>
                   <div>

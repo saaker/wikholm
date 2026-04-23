@@ -1,7 +1,7 @@
 "use client";
 
 import { useI18n } from "./I18nProvider";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 interface CaseAssessmentModalProps {
   isOpen: boolean;
@@ -13,19 +13,56 @@ export default function CaseAssessmentModal({
   onClose,
 }: CaseAssessmentModalProps) {
   const { locale } = useI18n();
+  const modalRef = useRef<HTMLDivElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const previousFocusRef = useRef<HTMLElement | null>(null);
 
-  // Close on escape key
+  // Focus management and keyboard handling
   useEffect(() => {
+    if (!isOpen) return;
+
+    // Store the element that had focus before modal opened
+    previousFocusRef.current = document.activeElement as HTMLElement;
+
+    // Move focus to close button when modal opens
+    closeButtonRef.current?.focus();
+
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
     };
-    if (isOpen) {
-      document.addEventListener("keydown", handleEscape);
-      document.body.style.overflow = "hidden";
-    }
+
+    // Focus trap
+    const handleTab = (e: KeyboardEvent) => {
+      if (e.key !== "Tab" || !modalRef.current) return;
+
+      const focusableElements = modalRef.current.querySelectorAll<HTMLElement>(
+        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+      );
+      const firstElement = focusableElements[0];
+      const lastElement = focusableElements[focusableElements.length - 1];
+
+      if (e.shiftKey && document.activeElement === firstElement) {
+        e.preventDefault();
+        lastElement?.focus();
+      } else if (!e.shiftKey && document.activeElement === lastElement) {
+        e.preventDefault();
+        firstElement?.focus();
+      }
+    };
+
+    document.addEventListener("keydown", handleEscape);
+    document.addEventListener("keydown", handleTab);
+    document.body.style.overflow = "hidden";
+
     return () => {
       document.removeEventListener("keydown", handleEscape);
+      document.removeEventListener("keydown", handleTab);
       document.body.style.overflow = "unset";
+
+      // Return focus to the element that opened the modal
+      if (previousFocusRef.current) {
+        previousFocusRef.current.focus();
+      }
     };
   }, [isOpen, onClose]);
 
@@ -142,17 +179,22 @@ Best regards,
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm"
+      className="fixed inset-0 z-50 flex items-center justify-center md:p-4 md:bg-black/50 md:backdrop-blur-sm"
       onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modal-title"
     >
       <div
-        className="relative w-full max-w-3xl max-h-[90vh] overflow-y-auto bg-surface rounded-2xl shadow-2xl"
+        ref={modalRef}
+        className="relative w-full h-full md:h-auto md:max-w-3xl md:max-h-[90vh] overflow-y-auto bg-surface md:rounded-2xl shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Close button */}
         <button
+          ref={closeButtonRef}
           onClick={onClose}
-          className="absolute top-4 right-4 p-2 rounded-full hover:bg-muted transition-colors"
+          className="absolute top-4 right-4 p-2 rounded-full hover:bg-muted transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 cursor-pointer z-10"
           aria-label={t.close}
         >
           <svg
@@ -170,7 +212,7 @@ Best regards,
           </svg>
         </button>
 
-        <div className="p-8">
+        <div className="p-6 md:p-8 pb-safe">
           {/* Header */}
           <div className="text-center mb-8">
             <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 mb-4">
@@ -188,7 +230,10 @@ Best regards,
                 />
               </svg>
             </div>
-            <h2 className="text-3xl font-serif font-semibold text-foreground mb-2">
+            <h2
+              id="modal-title"
+              className="text-3xl font-serif font-semibold text-foreground mb-2"
+            >
               {t.title}
             </h2>
             <p className="text-muted-dark">{t.subtitle}</p>
@@ -254,7 +299,7 @@ Best regards,
           <div className="flex flex-col sm:flex-row gap-3">
             <button
               onClick={handleSendEmail}
-              className="flex-1 inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-primary text-primary-contrast font-semibold hover:bg-primary-dark transition-colors"
+              className="flex-1 inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-primary-dark text-white font-semibold hover:bg-primary-dark/90 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 cursor-pointer"
             >
               <svg
                 className="w-5 h-5"
@@ -273,7 +318,7 @@ Best regards,
             </button>
             <button
               onClick={onClose}
-              className="px-6 py-3 rounded-full border border-border bg-muted text-foreground font-medium hover:bg-muted/80 transition-colors"
+              className="px-6 py-3 rounded-full border border-border bg-muted text-foreground font-medium hover:bg-muted/80 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 cursor-pointer"
             >
               {t.close}
             </button>

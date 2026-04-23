@@ -6,6 +6,7 @@ import { useAnimateIn } from "../hooks/useAnimateIn";
 import { Icon } from "@/lib/icons";
 import { useState } from "react";
 import CaseAssessmentModal from "../CaseAssessmentModal";
+import { getDelayClass } from "../utils/animationHelpers";
 
 export default function Services() {
   const { t, locale } = useI18n();
@@ -34,29 +35,33 @@ export default function Services() {
 
         {/* Services grid */}
         <div className="space-y-6">
-          {sections.services.map((service, i) => {
+          {sections.services
+            .filter((s) => !s.hidden)
+            .map((service) => {
             const text = service[locale];
+            const isHighlightCard = service.highlight;
             const isCaseAssessment = service.id === "case";
 
-            // Case Assessment gets full width and special styling
-            if (isCaseAssessment) {
+            // Highlight card gets full width and special styling
+            if (isHighlightCard) {
+              // If it's also the case assessment, make it clickable to open modal
+              const Component = isCaseAssessment ? "button" : "div";
+              const clickProps = isCaseAssessment
+                ? {
+                    type: "button" as const,
+                    onClick: () => setIsModalOpen(true),
+                  }
+                : {};
+
               return (
-                <div
+                <Component
                   key={service.id}
-                  role="button"
-                  tabIndex={0}
-                  onClick={() => setIsModalOpen(true)}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter" || e.key === " ") {
-                      e.preventDefault();
-                      setIsModalOpen(true);
-                    }
-                  }}
-                  className={`relative bg-gradient-to-br from-primary/5 via-surface to-primary/5 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all border-2 border-primary/40 ring-2 ring-primary/20 cursor-pointer group animate-fade-up ${visible ? "visible" : ""}`}
+                  {...clickProps}
+                  className={`relative w-full text-left bg-linear-to-br from-primary/5 via-surface to-primary/5 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all border-2 border-primary/40 ring-2 ring-primary/20 ${isCaseAssessment ? "cursor-pointer" : ""} group animate-fade-up ${isCaseAssessment ? "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2" : ""} ${visible ? "visible" : ""}`}
                 >
                   <div className="flex flex-col md:flex-row gap-6 items-start md:items-center">
                     {/* Icon */}
-                    <div className="w-16 h-16 rounded-xl bg-primary flex items-center justify-center text-primary-contrast shrink-0 group-hover:scale-110 transition-transform">
+                    <div className="w-16 h-16 rounded-xl bg-primary/30 flex items-center justify-center case-icon shrink-0 group-hover:scale-110 transition-transform">
                       <Icon name={service.icon} className="w-9 h-9" />
                     </div>
 
@@ -67,7 +72,12 @@ export default function Services() {
                           {text.title}
                         </h3>
                         {text.tag && (
-                          <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide bg-primary text-primary-contrast">
+                          <span
+                            className="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide service-badge-text"
+                            style={{
+                              backgroundColor: 'color-mix(in oklab, var(--color-primary) 20%, transparent)'
+                            }}
+                          >
                             {text.tag}
                           </span>
                         )}
@@ -75,27 +85,39 @@ export default function Services() {
                       <p className="text-base text-muted-dark leading-relaxed mb-4">
                         {text.desc}
                       </p>
-                      <span className="inline-flex items-center gap-2 text-base font-semibold text-primary group-hover:gap-3 transition-all">
-                        {locale === "sv"
-                          ? "Se hur du skickar ditt fall"
-                          : "See how to submit your case"}
-                        <svg
-                          className="w-5 h-5"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
+                      {isCaseAssessment && (
+                        <span className="inline-flex items-center gap-2 text-base font-semibold text-primary group-hover:gap-3 transition-all">
+                          {locale === "sv"
+                            ? "Se hur du skickar ditt fall"
+                            : "See how to submit your case"}
+                          <svg
+                            className="w-5 h-5"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M13 7l5 5m0 0l-5 5m5-5H6"
+                            />
+                          </svg>
+                        </span>
+                      )}
+                      {text.price && (
+                        <span
+                          className="inline-flex items-center px-3 py-1 rounded-full text-sm font-bold service-badge-text"
+                          style={{
+                            backgroundColor: 'color-mix(in oklab, var(--color-primary) 20%, transparent)'
+                          }}
                         >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M13 7l5 5m0 0l-5 5m5-5H6"
-                          />
-                        </svg>
-                      </span>
+                          {text.price}
+                        </span>
+                      )}
                     </div>
                   </div>
-                </div>
+                </Component>
               );
             }
 
@@ -105,16 +127,16 @@ export default function Services() {
 
           {/* Other services grid */}
           <div className="grid md:grid-cols-2 gap-6">
-            {sections.services.map((service, i) => {
-              if (service.id === "case") return null;
+            {sections.services
+              .filter((s) => !s.highlight && !s.hidden)
+              .map((service, gridIndex) => {
+                const text = service[locale];
+                const cardCls = `relative bg-surface rounded-2xl p-8 shadow-sm hover:shadow-md transition-all border ${service.highlight ? "border-primary/30 ring-1 ring-primary/10" : "border-border/50"} animate-fade-up ${getDelayClass(gridIndex)} ${visible ? "visible" : ""}`;
 
-              const text = service[locale];
-              const cardCls = `relative bg-surface rounded-2xl p-8 shadow-sm hover:shadow-md transition-all border ${service.highlight ? "border-primary/30 ring-1 ring-primary/10" : "border-border/50"} animate-fade-up delay-${Math.min(i + 1, 4)} ${visible ? "visible" : ""}`;
-
-              return (
-                <div key={service.id} className={cardCls}>
+                return (
+                  <div key={service.id} className={cardCls}>
                   <div className="flex gap-5">
-                    <div className="w-12 h-12 rounded-xl bg-primary-light flex items-center justify-center text-primary-dark shrink-0">
+                    <div className="w-12 h-12 rounded-xl bg-primary-light flex items-center justify-center text-primary-dark dark:text-primary shrink-0">
                       <Icon name={service.icon} className="w-7 h-7" />
                     </div>
                     <div className="min-w-0">
@@ -124,11 +146,10 @@ export default function Services() {
                         </h3>
                         {text.tag && (
                           <span
-                            className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold uppercase tracking-wide ${
-                              service.highlight
-                                ? "bg-primary/20 text-primary-dark font-bold"
-                                : "bg-primary/10 text-primary-dark"
-                            }`}
+                            className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold uppercase tracking-wide service-badge-text"
+                            style={{
+                              backgroundColor: 'color-mix(in oklab, var(--color-primary) 20%, transparent)'
+                            }}
                           >
                             {text.tag}
                           </span>
@@ -138,7 +159,12 @@ export default function Services() {
                         {text.desc}
                       </p>
                       {text.price && (
-                        <span className="inline-flex items-center px-3 py-1 rounded-full bg-primary/20 text-primary-dark text-sm font-bold">
+                        <span
+                          className="inline-flex items-center px-3 py-1 rounded-full text-sm font-bold service-badge-text"
+                          style={{
+                            backgroundColor: 'color-mix(in oklab, var(--color-primary) 20%, transparent)'
+                          }}
+                        >
                           {text.price}
                         </span>
                       )}

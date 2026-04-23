@@ -30,19 +30,23 @@ export default function FAQ() {
 
         {/* Accordion */}
         <div
-          className={`space-y-3 animate-fade-up delay-1 ${visible ? "visible" : ""}`}
+          className={`space-y-4 animate-fade-up delay-1 ${visible ? "visible" : ""}`}
         >
-          {sections.faq.map((item, i) => {
+          {sections.faq
+            .filter((item) => !item.hidden)
+            .map((item, i) => {
             const isOpen = openIndex === i;
             const text = item[locale];
             return (
               <div
                 key={item.id}
-                className="bg-surface rounded-xl border border-border/50 shadow-sm overflow-hidden"
+                className="bg-surface rounded-xl border border-border/50 shadow-sm overflow-hidden has-focus-visible:ring-2 has-focus-visible:ring-primary has-focus-visible:ring-offset-2 transition-shadow"
               >
                 <button
                   onClick={() => setOpenIndex(isOpen ? null : i)}
-                  className="w-full flex items-center justify-between p-5 text-left gap-4"
+                  className="w-full flex items-center justify-between p-5 text-left gap-4 hover:bg-muted/30 focus-visible:outline-none focus-visible:bg-muted/30 rounded-t-xl transition-colors"
+                  aria-expanded={isOpen}
+                  aria-controls={`faq-answer-${item.id}`}
                 >
                   <span className="text-sm font-semibold text-foreground leading-snug">
                     {text.question}
@@ -52,6 +56,7 @@ export default function FAQ() {
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
+                    aria-hidden="true"
                   >
                     <path
                       strokeLinecap="round"
@@ -62,10 +67,13 @@ export default function FAQ() {
                   </svg>
                 </button>
                 <div
+                  id={`faq-answer-${item.id}`}
                   className={`grid transition-all duration-300 ease-in-out ${isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}`}
+                  role="region"
+                  aria-labelledby={`faq-question-${item.id}`}
                 >
                   <div className="overflow-hidden">
-                    <div className="px-5 pb-5 text-sm text-muted-dark leading-relaxed border-t border-border/50 pt-4">
+                    <div className="px-5 pb-5 text-sm text-foreground/80 leading-relaxed border-t border-border/50 pt-4">
                       {text.answer}
                     </div>
                   </div>
@@ -81,7 +89,8 @@ export default function FAQ() {
         >
           <a
             href="#locations"
-            className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:text-primary-dark transition-colors"
+            className="inline-flex items-center gap-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+            style={{ color: 'var(--badge-text-color, #694A1D)' }}
           >
             {t("ctaViewClinics")}
           </a>

@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
 import { translations } from "@/lib/i18n";
 import type { SectionsData } from "@/lib/sectionsDefaults";
 import { DEFAULT_SECTIONS, mergeSections } from "@/lib/sectionsDefaults";
@@ -22,6 +22,7 @@ export function useContentEditor(
   const [contentLocale, setContentLocale] = useState<"sv" | "en">("sv");
   const [draft, setDraft] = useState<Record<string, string>>({});
   const [saving, setSaving] = useState(false);
+  const justSaved = useRef(false);
 
   /* ── Sections state ── */
   const [sectionsData, setSectionsData] = useState<SectionsData | null>(null);
@@ -49,18 +50,27 @@ export function useContentEditor(
     }
   }
 
-  // Rebuild content draft when section/locale changes
+  // Rebuild content draft when section/locale/overrides change
   useEffect(() => {
     if (activeItem?.type !== "content") return;
+
+    // Skip rebuild if we just saved (prevents visual jump)
+    if (justSaved.current) {
+      justSaved.current = false;
+      return;
+    }
+
     const allSections = [...dentistContentSections, ...patientContentSections];
     const sec = allSections.find((s) => s.id === activeItem.sectionId);
     if (!sec) return;
+
     const next: Record<string, string> = {};
     for (const f of sec.fields) {
       next[f.key] =
         contentOverrides[contentLocale]?.[f.key] ||
         translations[contentLocale][f.key];
     }
+
     setDraft(next);
   }, [activeItem, contentLocale, contentOverrides]);
 
@@ -83,7 +93,11 @@ export function useContentEditor(
       en: { ...contentOverrides.en },
     };
     for (const f of sec.fields) {
-      let val = draft[f.key]?.trim() ?? "";
+      let val = draft[f.key] ?? "";
+      // Don't trim checkbox values
+      if (!f.checkbox) {
+        val = val.trim();
+      }
       if (f.multiline) {
         val = val
           .replace(/\r\n/g, "\n")
@@ -92,10 +106,20 @@ export function useContentEditor(
           .trim();
       }
       const base = translations[contentLocale][f.key];
-      if (val !== "" && val !== base) {
-        payload[contentLocale][f.key] = val;
+
+      // Checkbox fields are global settings, not translations - save to both languages
+      if (f.checkbox) {
+        // Always save explicit true/false (never undefined)
+        const checkboxValue = val === "true" ? "true" : "false";
+        payload.sv[f.key] = checkboxValue;
+        payload.en[f.key] = checkboxValue;
       } else {
-        delete payload[contentLocale][f.key];
+        // Regular translation fields - language-specific
+        if (val !== "" && val !== base) {
+          payload[contentLocale][f.key] = val;
+        } else {
+          delete payload[contentLocale][f.key];
+        }
       }
     }
 
@@ -106,6 +130,8 @@ export function useContentEditor(
         body: JSON.stringify(payload),
       });
       if (res.ok) {
+        // Set flag to skip next draft rebuild (prevents visual jump)
+        justSaved.current = true;
         setContentOverrides(await res.json());
         showMessage("success", "Innehåll sparat!");
       } else showMessage("error", "Kunde inte spara innehåll");
@@ -136,6 +162,25 @@ export function useContentEditor(
     }
   }
 
+  async function handleQuickSave() {
+    if (!sectionsData) return;
+    try {
+      const res = await fetch(`${basePath}/api/sections`, {
+        method: "PUT",
+        headers: authHeaders,
+        body: JSON.stringify(sectionsData),
+      });
+      if (res.ok) {
+        setSectionsData(await res.json());
+        // Silent save - no success message to avoid spam
+      } else {
+        throw new Error("Failed to save");
+      }
+    } catch {
+      showMessage("error", "Kunde inte spara");
+    }
+  }
+
   function resetDraft() {
     if (activeItem?.type !== "content") return;
     const allSections = [...dentistContentSections, ...patientContentSections];
@@ -162,6 +207,7 @@ export function useContentEditor(
     handleFieldChange,
     handleContentSave,
     handleSectionsSave,
+    handleQuickSave,
     resetDraft,
   };
 }

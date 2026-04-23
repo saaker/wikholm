@@ -45,6 +45,7 @@ export interface SectionField {
   image?: boolean;
   defaultFolder?: string;
   link?: "dentist" | "patient";
+  checkbox?: boolean;
 }
 
 export interface LinkOption {
@@ -213,6 +214,16 @@ export const patientContentSections: ContentSection[] = [
     ],
   },
   {
+    id: "aligners-cta",
+    title: "Aligners CTA (call-to-action)",
+    fields: [
+      { key: "ctaReady", label: "Rubrik" },
+      { key: "ctaBook", label: "Beskrivning" },
+      { key: "ctaViewClinics", label: "Knapptext" },
+      { key: "ctaHidden", label: "Dölj sektion", checkbox: true },
+    ],
+  },
+  {
     id: "myths-header",
     title: "Myter & Sanningar (rubrik)",
     fields: [
@@ -220,6 +231,16 @@ export const patientContentSections: ContentSection[] = [
       { key: "mythsTitle1", label: "Titel rad 1" },
       { key: "mythsTitle2", label: "Titel rad 2" },
       { key: "mythsIntro", label: "Intro", multiline: true },
+    ],
+  },
+  {
+    id: "locations-header",
+    title: "Kliniker (rubrik)",
+    fields: [
+      { key: "locationsLabel", label: "Etikett" },
+      { key: "locationsTitle1", label: "Titel rad 1" },
+      { key: "locationsTitle2", label: "Titel rad 2" },
+      { key: "locationsIntro", label: "Intro", multiline: true },
     ],
   },
   {
@@ -300,6 +321,7 @@ export const patientSidebar: SidebarItem[] = [
     title: "Aligners (rubrik)",
   },
   { type: "cards", sectionKey: "aligners", title: "Aligners (kort)" },
+  { type: "content", sectionId: "aligners-cta", title: "Aligners CTA" },
   { type: "content", sectionId: "myths-header", title: "Myter (rubrik)" },
   { type: "cards", sectionKey: "myths", title: "Myter (kort)" },
   { type: "content", sectionId: "process-header", title: "Process (rubrik)" },
@@ -312,6 +334,7 @@ export const patientSidebar: SidebarItem[] = [
   { type: "cards", sectionKey: "dm", title: "Dental Monitoring (kort)" },
   { type: "content", sectionId: "beforeAfter", title: "Före & Efter (rubrik)" },
   { type: "cards", sectionKey: "beforeAfter", title: "Före & Efter (kort)" },
+  { type: "content", sectionId: "locations-header", title: "Kliniker (rubrik)" },
   { type: "locations", title: "Kliniker" },
   { type: "content", sectionId: "faq-header", title: "FAQ (rubrik)" },
   { type: "cards", sectionKey: "faq", title: "FAQ (kort)" },

@@ -24,6 +24,7 @@ app/
     for-dentists/       # Dentist page components
     for-patients/       # Patient page components
     hooks/              # Custom hooks (useAnimateIn, useTheme)
+    utils/              # Utility functions (animationHelpers)
 lib/
   store.ts              # Vercel Blob / local JSON storage abstraction
   sections.ts           # Sections CRUD (services, FAQ, news, etc.)
@@ -53,12 +54,18 @@ Local admin login at `/admin` uses the `ADMIN_SECRET` from `.env.local` (default
 
 Features:
 
-- Edit sections (services, FAQ, news, before/after, etc.)
-- Manage i18n content overrides (Swedish & English)
-- CRUD for clinic locations
-- Image upload, browse, and delete
-- Live section previews
-- Dark mode support
+- **Edit sections** (services, FAQ, news, before/after, etc.)
+  - Hide individual cards without deleting them
+  - Drag-and-drop reordering with move tracking
+  - Two-step delete confirmation for safety
+  - Highlight feature for featured services
+- **Manage i18n content** overrides (Swedish & English)
+  - Checkbox fields for global settings (e.g., hide CTA sections)
+  - Content overrides saved separately from base translations
+- **CRUD for clinic locations** with map integration
+- **Image upload**, browse, and delete
+- **Live section previews** with automatic updates
+- **Dark mode** support throughout admin panel
 
 ### Storage
 

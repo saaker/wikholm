@@ -25,7 +25,7 @@ export default function About() {
                 src={`${t("aboutImage").startsWith("http") ? "" : basePath}${t("aboutImage")}`}
                 alt={t("aboutLabel")}
                 fill
-                className="object-cover"
+                className="object-cover rounded-2xl"
                 sizes="(max-width: 1024px) 100vw, 50vw"
                 priority
               />

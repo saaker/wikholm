@@ -7,6 +7,7 @@ export interface ServiceItem {
   id: string;
   icon: string;
   highlight: boolean;
+  hidden?: boolean;
   sv: { title: string; desc: string; tag?: string; price?: string };
   en: { title: string; desc: string; tag?: string; price?: string };
 }
@@ -39,12 +40,14 @@ export interface DMItem {
 
 export interface FAQItem {
   id: string;
+  hidden?: boolean;
   sv: { question: string; answer: string };
   en: { question: string; answer: string };
 }
 
 export interface MythItem {
   id: string;
+  hidden?: boolean;
   sv: { myth: string; truth: string };
   en: { myth: string; truth: string };
 }
@@ -60,6 +63,7 @@ export interface NewsItem {
 
 export interface BeforeAfterItem {
   id: string;
+  hidden?: boolean;
   before: string;
   after: string;
 }
@@ -120,9 +124,9 @@ export function mergeSections(saved: Partial<SectionsData>): SectionsData {
 }
 
 export const NEWS_COLORS = [
-  { value: "bg-primary/10 text-primary", label: "Guld" },
-  { value: "bg-accent/20 text-accent", label: "Accent" },
-  { value: "bg-primary-light text-primary-dark", label: "Ljus guld" },
+  { value: "bg-teal-800 text-white", label: "Teal" },
+  { value: "bg-amber-800 text-white", label: "Guld" },
+  { value: "bg-indigo-900 text-white", label: "Djupblå" },
 ];
 
 export const DEFAULT_SECTIONS: SectionsData = {
@@ -653,7 +657,7 @@ export const DEFAULT_SECTIONS: SectionsData = {
   news: [
     {
       id: "guide",
-      color: "bg-primary/10 text-primary",
+      color: "bg-orange-700 text-[#fff]",
       image: "/images/news/clear-aligners-benfits.jpg",
       sv: {
         tag: "GUIDE",
@@ -673,7 +677,7 @@ export const DEFAULT_SECTIONS: SectionsData = {
     },
     {
       id: "tips",
-      color: "bg-accent/20 text-accent",
+      color: "bg-teal-900 text-[#fff]",
       sv: {
         tag: "TIPS",
         date: "1 mars 2026",
@@ -691,7 +695,7 @@ export const DEFAULT_SECTIONS: SectionsData = {
     },
     {
       id: "health",
-      color: "bg-primary-light text-primary-dark",
+      color: "bg-green-700 text-[#fff]",
       sv: {
         tag: "MUNHÄLSA",
         date: "14 februari 2026",

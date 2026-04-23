@@ -14,6 +14,14 @@ export const metadata: Metadata = {
   openGraph: {
     title: pageMetadata.home.openGraph.title,
     description: pageMetadata.home.openGraph.description,
+    images: [
+      {
+        url: "/images/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Wikholm Ortodonti",
+      },
+    ],
   },
 };
 
@@ -27,7 +35,7 @@ export default async function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
       />
       <Header />
-      <main className="flex-1">
+      <main id="main-content" className="flex-1">
         <Hero />
         <About />
         <Services />

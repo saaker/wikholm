@@ -85,6 +85,7 @@ export const translations = {
     ctaReady: "Redo att ta nästa steg?",
     ctaBook: "Boka en kostnadsfri konsultation på din närmaste klinik.",
     ctaViewClinics: "Se kliniker",
+    ctaHidden: "false",
 
     // Locations
     locationsLabel: "Kliniker",
@@ -399,6 +400,7 @@ export const translations = {
     ctaReady: "Ready to take the next step?",
     ctaBook: "Book a free consultation at your nearest clinic.",
     ctaViewClinics: "View clinics",
+    ctaHidden: "false",
 
     // Locations
     locationsLabel: "Clinics",

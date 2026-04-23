@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect, useRef } from "react";
 import { NEWS_COLORS } from "@/lib/sectionsDefaults";
 import type {
   SectionsData,
@@ -8,6 +9,8 @@ import type {
   BeforeAfterItem,
   DMItem,
   NewsItem,
+  FAQItem,
+  MythItem,
 } from "@/lib/sectionsDefaults";
 
 import { inputCls } from "./adminTypes";
@@ -29,9 +32,8 @@ interface CardsEditorProps {
   editingCard: number | null;
   setEditingCard: (i: number | null) => void;
   contentLocale: "sv" | "en";
-  saving: boolean;
   readOnly: boolean;
-  onSave: () => void;
+  onQuickSave: () => Promise<void>;
 }
 
 /* ═══════════════════════════════════════════════════
@@ -46,6 +48,50 @@ function moveItem<T>(arr: T[], from: number, to: number): T[] {
 
 function deleteItem<T>(arr: T[], index: number): T[] {
   return arr.filter((_, i) => i !== index);
+}
+
+/* ═══════════════════════════════════════════════════
+   Type guards and helpers
+   ═══════════════════════════════════════════════════ */
+function isCardHidden(item: Record<string, unknown>): boolean {
+  return Boolean((item as { hidden?: boolean }).hidden);
+}
+
+// Type assertion helpers - encapsulate type casting for clarity
+function asServiceItem(item: Record<string, unknown>): ServiceItem {
+  return item as unknown as ServiceItem;
+}
+
+function asAlignerItem(item: Record<string, unknown>): AlignerItem {
+  return item as unknown as AlignerItem;
+}
+
+function asNewsItem(item: Record<string, unknown>): NewsItem {
+  return item as unknown as NewsItem;
+}
+
+function asDMItem(item: Record<string, unknown>): DMItem {
+  return item as unknown as DMItem;
+}
+
+function asBeforeAfterItem(item: Record<string, unknown>): BeforeAfterItem {
+  return item as unknown as BeforeAfterItem;
+}
+
+function asFAQItem(item: Record<string, unknown>): FAQItem {
+  return item as unknown as FAQItem;
+}
+
+function asMythItem(item: Record<string, unknown>): MythItem {
+  return item as unknown as MythItem;
+}
+
+function asCardArray(arr: unknown): Array<Record<string, unknown>> {
+  return arr as Array<Record<string, unknown>>;
+}
+
+function asUnknownArray(arr: unknown): unknown[] {
+  return arr as unknown[];
 }
 
 /* ═══════════════════════════════════════════════════
@@ -103,7 +149,7 @@ function makeCard(sectionKey: keyof SectionsData): Record<string, unknown> {
     case "news":
       return {
         id: `news-${ts}`,
-        color: "bg-primary/10 text-primary",
+        color: "bg-amber-900 text-white",
         image: "",
         hidden: false,
         sv: { tag: "", date: "", title: "", desc: "", body: "" },
@@ -127,12 +173,14 @@ function CardEditForm({
   index,
   locale,
   onUpdate,
+  allItems,
 }: {
   sectionKey: string;
   item: Record<string, unknown>;
   index: number;
   locale: "sv" | "en";
   onUpdate: (index: number, path: string, value: string | boolean) => void;
+  allItems: Array<Record<string, unknown>>;
 }) {
   const update = (path: string, value: string | boolean) =>
     onUpdate(index, path, value);
@@ -140,7 +188,14 @@ function CardEditForm({
 
   switch (sectionKey) {
     case "services": {
-      const svc = item as unknown as ServiceItem;
+      const svc = asServiceItem(item);
+      // Check if another card (not this one) has highlight checked
+      const hasOtherHighlight = Boolean(
+        allItems?.some(
+          (otherItem, idx) => idx !== index && asServiceItem(otherItem).highlight
+        )
+      );
+
       return (
         <>
           <IconPicker value={svc.icon} onChange={(v) => update("icon", v)} />
@@ -171,14 +226,33 @@ function CardEditForm({
               checked={svc.highlight}
               onChange={(e) => update("highlight", e.target.checked)}
               className="rounded"
+              disabled={hasOtherHighlight && !svc.highlight}
             />
-            Markera som highlight
+            <span className={hasOtherHighlight && !svc.highlight ? "line-through" : ""}>
+              Markera som highlight
+            </span>
+            {hasOtherHighlight && !svc.highlight && (
+              <span className="text-xs text-muted-dark">
+                (En annan tjänst är redan markerad som highlight)
+              </span>
+            )}
+          </label>
+          <label className="flex items-center gap-2 text-sm">
+            <input
+              type="checkbox"
+              checked={!!svc.hidden}
+              onChange={(e) => update("hidden", e.target.checked)}
+              className="rounded border-border text-primary focus:ring-primary"
+            />
+            <span className="font-medium text-foreground">
+              Dold (visas inte på sidan)
+            </span>
           </label>
         </>
       );
     }
     case "aligners": {
-      const al = item as unknown as AlignerItem;
+      const al = asAlignerItem(item);
       return (
         <>
           <IconPicker value={al.icon} onChange={(v) => update("icon", v)} />
@@ -229,7 +303,7 @@ function CardEditForm({
         </>
       );
     case "dm": {
-      const dm = item as unknown as DMItem;
+      const dm = asDMItem(item);
       return (
         <>
           <IconPicker value={dm.icon} onChange={(v) => update("icon", v)} />
@@ -247,7 +321,8 @@ function CardEditForm({
         </>
       );
     }
-    case "faq":
+    case "faq": {
+      const faq = asFAQItem(item);
       return (
         <>
           <Field
@@ -261,9 +336,22 @@ function CardEditForm({
             onChange={(v) => update(`${locale}.answer`, v)}
             multiline
           />
+          <label className="flex items-center gap-2 text-sm">
+            <input
+              type="checkbox"
+              checked={!!faq.hidden}
+              onChange={(e) => update("hidden", e.target.checked)}
+              className="rounded border-border text-primary focus:ring-primary"
+            />
+            <span className="font-medium text-foreground">
+              Dold (visas inte på sidan)
+            </span>
+          </label>
         </>
       );
-    case "myths":
+    }
+    case "myths": {
+      const myth = asMythItem(item);
       return (
         <>
           <Field
@@ -277,10 +365,22 @@ function CardEditForm({
             onChange={(v) => update(`${locale}.truth`, v)}
             multiline
           />
+          <label className="flex items-center gap-2 text-sm">
+            <input
+              type="checkbox"
+              checked={!!myth.hidden}
+              onChange={(e) => update("hidden", e.target.checked)}
+              className="rounded border-border text-primary focus:ring-primary"
+            />
+            <span className="font-medium text-foreground">
+              Dold (visas inte på sidan)
+            </span>
+          </label>
         </>
       );
+    }
     case "news": {
-      const ns = item as unknown as NewsItem;
+      const ns = asNewsItem(item);
       return (
         <>
           <label className="flex items-center gap-2 text-sm">
@@ -348,7 +448,7 @@ function CardEditForm({
       );
     }
     case "beforeAfter": {
-      const ba = item as unknown as BeforeAfterItem;
+      const ba = asBeforeAfterItem(item);
       return (
         <>
           <ImagePickerField
@@ -363,6 +463,17 @@ function CardEditForm({
             onChange={(v) => update("after", v)}
             defaultFolder="before-after"
           />
+          <label className="flex items-center gap-2 text-sm">
+            <input
+              type="checkbox"
+              checked={!!ba.hidden}
+              onChange={(e) => update("hidden", e.target.checked)}
+              className="rounded border-border text-primary focus:ring-primary"
+            />
+            <span className="font-medium text-foreground">
+              Dold (visas inte på sidan)
+            </span>
+          </label>
         </>
       );
     }
@@ -381,24 +492,97 @@ export function CardsEditor({
   editingCard,
   setEditingCard,
   contentLocale,
-  saving,
   readOnly,
-  onSave,
+  onQuickSave,
 }: CardsEditorProps) {
+  // Track original data to detect moves and field changes
+  const [originalData, setOriginalData] = useState<Array<Record<string, unknown>>>([]);
+  const [deleteConfirming, setDeleteConfirming] = useState<number | null>(null);
+  const [movedCardIds, setMovedCardIds] = useState<Set<string>>(new Set());
+  const [pendingDeleteSave, setPendingDeleteSave] = useState(false);
+  const previousSectionKeyRef = useRef<string | null>(null);
+
+  // Initialize original data only when section changes, not when data changes
+  useEffect(() => {
+    if (!sectionsData) return;
+    // Only initialize when switching to a different section
+    if (previousSectionKeyRef.current !== sectionKey) {
+      const items = asCardArray(sectionsData[sectionKey]);
+      // This setState is intentional - we're syncing with prop changes
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setOriginalData(JSON.parse(JSON.stringify(items)));
+      previousSectionKeyRef.current = sectionKey;
+    }
+  }, [sectionsData, sectionKey]);
+
+  // Reset delete confirmation on click outside or after timeout
+  useEffect(() => {
+    if (deleteConfirming === null) return;
+
+    const handleClickOutside = () => setDeleteConfirming(null);
+    const timer = setTimeout(() => setDeleteConfirming(null), 5000); // Auto-reset after 5s
+
+    document.addEventListener('click', handleClickOutside);
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+      clearTimeout(timer);
+    };
+  }, [deleteConfirming]);
+
+  // Save after delete completes
+  useEffect(() => {
+    if (!pendingDeleteSave || !sectionsData) return;
+
+    const performSave = async () => {
+      await onQuickSave();
+      // Update original data and clear moved cards after delete
+      const items = asCardArray(sectionsData[sectionKey]);
+      setOriginalData(JSON.parse(JSON.stringify(items)));
+      setMovedCardIds(new Set());
+      setPendingDeleteSave(false);
+    };
+
+    performSave();
+  }, [pendingDeleteSave, sectionsData, sectionKey, onQuickSave]);
+
+  // Early return after all hooks
   if (!sectionsData)
     return <p className="text-sm text-muted-dark">Laddar...</p>;
 
-  const items = sectionsData[sectionKey] as unknown as Array<
-    Record<string, unknown>
-  >;
+  const items = asCardArray(sectionsData[sectionKey]);
   const locale = contentLocale;
+
+  // Helper function to check if a card has been explicitly moved AND is in different position
+  function hasBeenMoved(currentIndex: number): boolean {
+    if (!sectionsData) return false;
+    const items = asCardArray(sectionsData[sectionKey]);
+    const currentId = items[currentIndex].id as string;
+
+    // Must be in the moved set AND actually in a different position
+    if (!movedCardIds.has(currentId)) return false;
+
+    const originalIndex = originalData.findIndex(item => item.id === currentId);
+    return originalIndex !== -1 && originalIndex !== currentIndex;
+  }
+
+  // Helper function to check if card fields have changed
+  function hasFieldChanges(currentIndex: number): boolean {
+    if (!sectionsData) return false;
+    const items = asCardArray(sectionsData[sectionKey]);
+    const currentCard = items[currentIndex];
+    const originalCard = originalData.find(item => item.id === currentCard.id);
+    if (!originalCard) return false;
+
+    // Deep comparison (excluding position)
+    return JSON.stringify(currentCard) !== JSON.stringify(originalCard);
+  }
 
   function updateSectionArray(updater: (arr: unknown[]) => unknown[]) {
     setSectionsData((prev) => {
       if (!prev) return prev;
       return {
         ...prev,
-        [sectionKey]: updater(prev[sectionKey] as unknown as unknown[]),
+        [sectionKey]: updater(asUnknownArray(prev[sectionKey])),
       } as SectionsData;
     });
   }
@@ -408,9 +592,50 @@ export function CardsEditor({
     path: string,
     value: string | boolean,
   ) {
+    // Special handling for highlight checkbox on services
+    if (sectionKey === "services" && path === "highlight" && value === true) {
+      const wasMovedToTop = index !== 0;
+      let movedItemId: string | undefined;
+
+      setSectionsData((prev) => {
+        if (!prev) return prev;
+        let arr = [...asUnknownArray(prev[sectionKey])];
+
+        // Unset highlight on all other cards
+        arr = arr.map((item) => ({
+          ...item as Record<string, unknown>,
+          highlight: false,
+        }));
+
+        // Set highlight on this card
+        const copy = { ...(arr[index] as Record<string, unknown>) };
+        copy[path] = value;
+        arr[index] = copy;
+
+        // Move to top if not already there
+        if (index !== 0) {
+          const [item] = arr.splice(index, 1);
+          movedItemId = (item as Record<string, unknown>).id as string;
+          arr.unshift(item);
+        }
+
+        return { ...prev, [sectionKey]: arr } as SectionsData;
+      });
+
+      // Update state outside of setSectionsData
+      if (wasMovedToTop) {
+        setEditingCard(0);
+        if (movedItemId) {
+          setMovedCardIds(new Set([movedItemId]));
+        }
+      }
+      return;
+    }
+
+    // Normal update for all other fields
     setSectionsData((prev) => {
       if (!prev) return prev;
-      const arr = [...(prev[sectionKey] as unknown as unknown[])];
+      const arr = [...asUnknownArray(prev[sectionKey])];
       const copy = { ...(arr[index] as Record<string, unknown>) };
       if (path.includes(".")) {
         const [a, b] = path.split(".");
@@ -430,17 +655,6 @@ export function CardsEditor({
 
   return (
     <div className="space-y-4">
-      {/* Save button */}
-      <div className="flex justify-start">
-        <button
-          onClick={onSave}
-          disabled={saving || readOnly}
-          className="px-5 py-2 rounded-xl bg-primary text-white dark:text-black text-sm font-medium hover:bg-primary-dark transition-colors disabled:opacity-50"
-        >
-          {saving ? "Sparar..." : "Spara kort"}
-        </button>
-      </div>
-
       {/* Card list */}
       {items.map((item, i) => {
         const isEditing = editingCard === i;
@@ -450,64 +664,125 @@ export function CardsEditor({
             className={`rounded-2xl border ${isEditing ? "border-primary shadow-md" : "border-border"} overflow-hidden`}
           >
             {/* Preview + controls */}
-            <div
-              className={`flex items-start gap-3 p-4 bg-muted/30 ${sectionKey === "news" && (item as unknown as NewsItem).hidden ? "opacity-50" : ""}`}
-            >
-              <div className="flex-1 min-w-0">
-                {sectionKey === "news" &&
-                  (item as unknown as NewsItem).hidden && (
-                    <span className="inline-block mb-1 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider rounded bg-muted text-muted-dark">
-                      Dold
-                    </span>
-                  )}
+            <div className="flex items-start gap-3 p-4 bg-muted/30">
+              <div className={`flex-1 min-w-0 ${isCardHidden(item) ? "opacity-50" : ""}`}>
+                {isCardHidden(item) && (
+                  <span className="inline-block mb-1 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider rounded bg-muted text-muted-dark">
+                    Dold
+                  </span>
+                )}
                 {renderPreview(sectionKey, item, i, locale)}
               </div>
               <div className="flex items-start gap-1 shrink-0">
-                <MoveButtons
-                  index={i}
-                  total={items.length}
-                  onMove={(from, to) => {
-                    updateSectionArray((arr) => moveItem(arr, from, to));
-                    if (editingCard === from) setEditingCard(to);
-                    else if (editingCard !== null) {
-                      if (from < editingCard && to >= editingCard)
-                        setEditingCard(editingCard - 1);
-                      else if (from > editingCard && to <= editingCard)
-                        setEditingCard(editingCard + 1);
-                    }
-                  }}
-                />
+                {/* Hide move buttons for highlight service cards */}
+                {!(sectionKey === "services" && asServiceItem(item).highlight) && (
+                  <MoveButtons
+                    index={i}
+                    total={items.length}
+                    onMove={(from, to) => {
+                      // Track which card was explicitly moved
+                      const movedCardId = items[from].id as string;
+                      setMovedCardIds(prev => new Set(prev).add(movedCardId));
+
+                      updateSectionArray((arr) => moveItem(arr, from, to));
+                      if (editingCard === from) setEditingCard(to);
+                      else if (editingCard !== null) {
+                        if (from < editingCard && to >= editingCard)
+                          setEditingCard(editingCard - 1);
+                        else if (from > editingCard && to <= editingCard)
+                          setEditingCard(editingCard + 1);
+                      }
+                    }}
+                  />
+                )}
                 <div className="flex flex-col gap-1">
                   <button
-                    onClick={() => setEditingCard(isEditing ? null : i)}
-                    className={`w-[40px] h-[40px] flex items-center justify-center rounded-lg text-lg font-medium transition-colors ${isEditing ? "bg-emerald-600 text-white hover:bg-emerald-700" : "bg-slate-700 text-white hover:bg-slate-800 dark:bg-slate-600 dark:hover:bg-slate-500"}`}
-                    title={isEditing ? "Spara & stäng" : "Redigera"}
+                    onClick={async () => {
+                      const cardHasMoved = hasBeenMoved(i);
+                      const cardHasChanges = hasFieldChanges(i);
+                      const hasUnsavedChanges = cardHasMoved || cardHasChanges;
+
+                      if (isEditing || hasUnsavedChanges) {
+                        // Card is open OR has unsaved changes - save and close
+                        if (hasUnsavedChanges) {
+                          await onQuickSave();
+                          // Update original data and clear moved cards after save
+                          const items = asCardArray(sectionsData[sectionKey]);
+                          setOriginalData(JSON.parse(JSON.stringify(items)));
+                          setMovedCardIds(new Set());
+                        }
+                        if (isEditing) {
+                          setEditingCard(null);
+                        }
+                      } else {
+                        // Card is closed with no changes - check if another card has unsaved changes
+                        if (editingCard !== null && editingCard !== i) {
+                          // Another card is open - check if it has unsaved changes
+                          const otherHasMoved = hasBeenMoved(editingCard);
+                          const otherHasChanges = hasFieldChanges(editingCard);
+                          if (otherHasMoved || otherHasChanges) {
+                            // Don't switch cards - keep the unsaved card open
+                            return;
+                          }
+                        }
+                        // Open this card
+                        setEditingCard(i);
+                      }
+                    }}
+                    className={`w-10 h-10 flex items-center justify-center rounded-lg text-lg font-medium transition-colors ${
+                      isEditing || hasBeenMoved(i) || hasFieldChanges(i)
+                        ? "bg-emerald-600 text-white hover:bg-emerald-700"
+                        : "bg-slate-700 text-white hover:bg-slate-800 dark:bg-slate-600 dark:hover:bg-slate-500"
+                    }`}
+                    title={isEditing || hasBeenMoved(i) || hasFieldChanges(i) ? "Spara & stäng" : "Redigera"}
                   >
-                    {isEditing ? "✓" : "✎"}
+                    {isEditing || hasBeenMoved(i) || hasFieldChanges(i) ? "✓" : "✎"}
                   </button>
                   <button
-                    onClick={() => {
-                      if (!confirm("Ta bort detta kort?")) return;
-                      updateSectionArray((arr) => deleteItem(arr, i));
-                      if (editingCard === i) setEditingCard(null);
-                      else if (editingCard !== null && editingCard > i)
-                        setEditingCard(editingCard - 1);
+                    onClick={async (e) => {
+                      e.stopPropagation();
+                      const isConfirmingDelete = deleteConfirming === i;
+
+                      if (isConfirmingDelete) {
+                        // Second click - actually delete
+                        updateSectionArray((arr) => deleteItem(arr, i));
+                        if (editingCard === i) setEditingCard(null);
+                        else if (editingCard !== null && editingCard > i)
+                          setEditingCard(editingCard - 1);
+
+                        // Trigger save via useEffect after state updates
+                        setPendingDeleteSave(true);
+                        setDeleteConfirming(null);
+                      } else {
+                        // First click - enter confirm mode
+                        setDeleteConfirming(i);
+                      }
                     }}
-                    className="w-[40px] h-[40px] flex items-center justify-center rounded-lg bg-red-800 text-white hover:bg-red-900 transition-colors"
-                    title="Ta bort"
+                    className={`w-10 h-10 flex items-center justify-center rounded-lg transition-colors ${
+                      deleteConfirming === i
+                        ? "bg-red-600 text-white hover:bg-red-700 animate-pulse"
+                        : "bg-red-800 text-white hover:bg-red-900"
+                    }`}
+                    title={deleteConfirming === i ? "Bekräfta radering" : "Ta bort"}
                   >
-                    <svg
-                      className="w-4 h-4"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      strokeWidth={2}
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <polyline points="3 6 5 6 21 6" />
-                      <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
-                    </svg>
+                    {deleteConfirming === i ? (
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                      </svg>
+                    ) : (
+                      <svg
+                        className="w-4 h-4"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        strokeWidth={2}
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <polyline points="3 6 5 6 21 6" />
+                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+                      </svg>
+                    )}
                   </button>
                 </div>
               </div>
@@ -522,6 +797,7 @@ export function CardsEditor({
                   index={i}
                   locale={locale}
                   onUpdate={handleItemUpdate}
+                  allItems={items}
                 />
               </div>
             )}

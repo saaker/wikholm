@@ -1,5 +1,6 @@
 @import "tailwindcss";
 
+/* stylelint-disable-next-line at-rule-no-unknown */
 @theme {
   --color-background: #fdfdf8;
   --color-foreground: #2c1e10;
@@ -14,9 +15,12 @@
   --color-border: #e8ddd0;
   --color-footer-bg: #1a1008;
   --color-myth-bg: #991b1b;
-  --color-myth-text: #ffffff;
-  --color-truth-bg: #2d6a4f;
-  --color-truth-text: #ffffff;
+  --color-myth-text: #fef2f2;
+  --color-truth-bg: #166534;
+  --color-truth-text: #f0fdf4;
+  --color-badge-gold: #92400e;
+  --color-badge-teal: #115e59;
+  --color-badge-brown: #78350f;
   --font-sans: var(--font-geist-sans);
   --font-serif: var(--font-playfair);
 }
@@ -43,17 +47,22 @@ h1, h2, h3 {
   --color-surface: #222222;
   --color-primary: #d4a55a;
   --color-primary-light: #3d3022;
-  --color-primary-dark: #e8bf7e;
-  --color-accent: #5bbfa3;
+  --color-primary-dark: #a67c3a;
+  --color-accent: #2d8a6e;
   --color-accent-light: #1a2622;
   --color-muted: #171717;
   --color-muted-dark: #d5cfc7;
   --color-border: #444444;
   --color-footer-bg: #0a0a0a;
-  --color-myth-bg: rgba(153, 27, 27, 0.3);
-  --color-myth-text: #f87171;
-  --color-truth-bg: rgba(45, 106, 79, 0.3);
-  --color-truth-text: #52b788;
+  --color-myth-bg: #7f1d1d;
+  --color-myth-text: #fef2f2;
+  --color-truth-bg: #14532d;
+  --color-truth-text: #f0fdf4;
+  --color-badge-gold: #92400e;
+  --color-badge-teal: #115e59;
+  --color-badge-brown: #78350f;
+  --badge-text-color: #eee9e2;
+  --service-badge-text-color: #f0dbb5;
 }
 
 .dark input,
@@ -62,10 +71,6 @@ h1, h2, h3 {
   background-color: var(--color-muted);
   color: var(--color-foreground);
   border-color: var(--color-border);
-}
-
-.dark .leaflet-tile-pane {
-  /* Keep map in normal light mode style in dark mode */
 }
 
 .leaflet-container {
@@ -87,3 +92,41 @@ h1, h2, h3 {
 .animate-fade-up.delay-3 { transition-delay: 0.3s; }
 .animate-fade-up.delay-4 { transition-delay: 0.4s; }
 .animate-fade-up.delay-5 { transition-delay: 0.5s; }
+
+/* Badge text color - light mode uses dark text, dark mode uses light text */
+.badge-text {
+  color: #694A1D;
+}
+
+.dark .badge-text {
+  color: #eee9e2;
+}
+
+/* Service badge text color - warmer gold in dark mode */
+.service-badge-text {
+  color: #694A1D !important;
+}
+
+.dark .service-badge-text {
+  color: #f0dbb5 !important;
+}
+
+/* Case assessment icon color */
+.case-icon {
+  color: #694a1d !important;
+}
+
+.dark .case-icon {
+  color: #d4a55a !important;
+}
+
+/* Process step numbers */
+.process-number {
+  color: var(--color-primary);
+  opacity: 0.8;
+}
+
+.dark .process-number {
+  color: #d4a55a;
+  opacity: 0.8;
+}

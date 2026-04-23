@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 import { type Location, dentistSidebar, patientSidebar } from "./adminTypes";
 import { useAdminAuth } from "./hooks/useAdminAuth";
@@ -26,12 +26,44 @@ export default function AdminPanel({ initialLocations = [] }: AdminPanelProps) {
   const auth = useAdminAuth();
 
   /* ── Navigation ── */
-  const [tab, setTab] = useState<"dentist" | "patient" | "images">("dentist");
-  const [activeIdx, setActiveIdx] = useState(0);
+  const [tab, setTab] = useState<"dentist" | "patient" | "images">(() => {
+    // Restore last active tab from localStorage
+    if (typeof window !== "undefined") {
+      const saved = localStorage.getItem("admin-active-tab");
+      if (saved === "dentist" || saved === "patient" || saved === "images") {
+        return saved;
+      }
+    }
+    return "dentist";
+  });
+
+  const [activeIdx, setActiveIdx] = useState(() => {
+    // Restore last active index from localStorage
+    if (typeof window !== "undefined") {
+      const saved = localStorage.getItem("admin-active-idx");
+      if (saved) {
+        const idx = parseInt(saved, 10);
+        if (!isNaN(idx)) return idx;
+      }
+    }
+    return 0;
+  });
 
   const sidebar =
     tab === "images" ? [] : tab === "dentist" ? dentistSidebar : patientSidebar;
   const activeItem = tab !== "images" ? sidebar[activeIdx] : undefined;
+
+  // Save tab and activeIdx to localStorage when they change
+  useEffect(() => {
+    localStorage.setItem("admin-active-tab", tab);
+  }, [tab]);
+
+  useEffect(() => {
+    localStorage.setItem("admin-active-idx", String(activeIdx));
+  }, [activeIdx]);
+
+  // Track if this is the initial mount
+  const isInitialMount = useRef(true);
 
   /* ── Hooks ── */
   const content = useContentEditor(
@@ -64,8 +96,12 @@ export default function AdminPanel({ initialLocations = [] }: AdminPanelProps) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [auth.authenticated]);
 
-  // Reset active idx when switching tab
+  // Reset active idx when switching tab (but not on initial mount)
   useEffect(() => {
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+      return;
+    }
     setActiveIdx(0);
     content.setEditingCard(null);
   }, [tab]); // eslint-disable-line react-hooks/exhaustive-deps
@@ -219,6 +255,8 @@ export default function AdminPanel({ initialLocations = [] }: AdminPanelProps) {
                   loading={loc.loading}
                   geocoding={loc.geocoding}
                   readOnly={auth.readOnly}
+                  locale={content.contentLocale}
+                  setLocale={content.setContentLocale}
                 />
               ) : activeItem?.type === "cards" ? (
                 <div className="bg-surface rounded-2xl shadow-sm border border-border p-6">
@@ -249,9 +287,8 @@ export default function AdminPanel({ initialLocations = [] }: AdminPanelProps) {
                       editingCard={content.editingCard}
                       setEditingCard={content.setEditingCard}
                       contentLocale={content.contentLocale}
-                      saving={content.saving}
                       readOnly={auth.readOnly}
-                      onSave={content.handleSectionsSave}
+                      onQuickSave={content.handleQuickSave}
                     />
                   </fieldset>
                 </div>

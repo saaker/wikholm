@@ -55,7 +55,10 @@ export default function Hero({
       >
         {/* Badge */}
         <span
-          className={`inline-block px-4 py-1.5 mb-6 text-sm font-medium tracking-wide text-primary-dark bg-surface border border-primary/30 rounded-full shadow-sm animate-fade-up ${visible ? "visible" : ""}`}
+          className={`inline-block px-4 py-1.5 mb-6 text-sm font-medium tracking-wide rounded-full shadow-sm animate-fade-up badge-text ${visible ? "visible" : ""}`}
+          style={{
+            backgroundColor: 'color-mix(in oklab, var(--color-primary) 20%, transparent)'
+          }}
         >
           {t(badgeKey)}
         </span>
@@ -79,7 +82,7 @@ export default function Hero({
         >
           <a
             href={ctaHref}
-            className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-[#96692A] text-[#FDFDF8] font-semibold hover:bg-primary-dark transition-colors shadow-sm"
+            className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-primary-dark text-white font-semibold hover:bg-primary-dark transition-colors shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
           >
             {t(ctaKey)}
             <svg
@@ -98,7 +101,7 @@ export default function Hero({
           </a>
           <a
             href={secondaryHref}
-            className="inline-flex items-center gap-2 px-8 py-4 rounded-full border border-primary/30 bg-primary/10 text-foreground font-medium hover:bg-primary/15 transition-colors"
+            className="inline-flex items-center gap-2 px-8 py-4 rounded-full border border-primary/30 bg-primary/10 text-foreground font-medium hover:bg-primary/15 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
           >
             {t(secondaryKey)}
           </a>
