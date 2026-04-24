@@ -48,6 +48,26 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000).
 
+### Testing
+
+This project uses **Vitest** + **React Testing Library**.
+
+```bash
+# Run tests once
+npm test
+
+# Run tests in watch mode
+npm test -- --watch
+
+# Run tests with UI
+npm run test:ui
+
+# Run tests with coverage
+npm run test:coverage
+```
+
+**93 tests** covering pure functions, components, and business logic. See [TESTING.md](TESTING.md) for details.
+
 ### Admin Panel
 
 Local admin login at `/admin` uses the `ADMIN_SECRET` from `.env.local` (default: `admin`).

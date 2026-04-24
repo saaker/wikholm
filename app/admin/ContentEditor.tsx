@@ -23,8 +23,8 @@ export function ContentEditor({
   sectionId: string;
   locale: "sv" | "en";
   setLocale: (l: "sv" | "en") => void;
-  draft: Record<string, string>;
-  onChange: (key: string, value: string) => void;
+  draft: Record<string, string | boolean>;
+  onChange: (key: string, value: string | boolean) => void;
   onSave: () => void;
   onReset: () => void;
   saving: boolean;
@@ -57,14 +57,14 @@ export function ContentEditor({
               <CheckboxField
                 key={f.key}
                 label={f.label}
-                value={draft[f.key] ?? "false"}
+                value={(draft[f.key] as boolean) ?? false}
                 onChange={(v) => onChange(f.key, v)}
               />
             ) : f.link ? (
               <LinkField
                 key={f.key}
                 label={f.label}
-                value={draft[f.key] ?? ""}
+                value={(draft[f.key] as string) ?? ""}
                 onChange={(v) => onChange(f.key, v)}
                 variant={f.link}
               />
@@ -72,7 +72,7 @@ export function ContentEditor({
               <ImagePickerField
                 key={f.key}
                 label={f.label}
-                value={draft[f.key] ?? ""}
+                value={(draft[f.key] as string) ?? ""}
                 onChange={(v) => onChange(f.key, v)}
                 defaultFolder={f.defaultFolder}
               />
@@ -80,7 +80,7 @@ export function ContentEditor({
               <Field
                 key={f.key}
                 label={f.label}
-                value={draft[f.key] ?? ""}
+                value={(draft[f.key] as string) ?? ""}
                 onChange={(v) => onChange(f.key, v)}
                 multiline={f.multiline}
                 large={f.large}

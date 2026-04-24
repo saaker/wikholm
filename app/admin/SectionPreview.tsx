@@ -2,6 +2,7 @@
 
 import type { SectionField } from "./adminTypes";
 import basePath from "@/lib/basePath";
+import { SectionHeaderPreview } from "./SectionHeaderPreview";
 
 export function SectionPreview({
   sectionId,
@@ -10,16 +11,21 @@ export function SectionPreview({
   locale = "sv",
 }: {
   sectionId: string;
-  draft: Record<string, string>;
+  draft: Record<string, string | boolean>;
   fields: SectionField[];
   locale?: "sv" | "en";
 }) {
-  const v = (key: string) => draft[key] ?? "";
+  const v = (key: string) => {
+    const value = draft[key];
+    return typeof value === 'string' ? value : "";
+  };
   const byLabel = (pattern: string) => {
     const f = fields.find((fl) =>
       fl.label.toLowerCase().includes(pattern.toLowerCase()),
     );
-    return f ? (draft[f.key] ?? "") : "";
+    if (!f) return "";
+    const value = draft[f.key];
+    return typeof value === 'string' ? value : "";
   };
 
   /* Hero */
@@ -340,22 +346,15 @@ export function SectionPreview({
     };
     const bgClass = bgColors[sectionId] || "bg-background";
 
+    // Use actual component styling for preview
     return (
-      <div className={`${bgClass} rounded-xl text-center py-6 px-4`}>
-        {label && (
-          <span className="text-primary text-xs font-medium uppercase tracking-wider">
-            {label}
-          </span>
-        )}
-        <h3 className="text-2xl font-serif font-semibold mt-2">
-          {title1} <span className="text-primary">{title2}</span>
-        </h3>
-        {intro && (
-          <p className="text-muted-dark text-sm mt-2 max-w-md mx-auto">
-            {intro}
-          </p>
-        )}
-      </div>
+      <SectionHeaderPreview
+        label={label}
+        title1={title1}
+        title2={title2}
+        intro={intro}
+        bgClass={bgClass}
+      />
     );
   }
 

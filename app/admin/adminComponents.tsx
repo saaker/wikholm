@@ -288,22 +288,21 @@ export function CheckboxField({
   onChange,
 }: {
   label: string;
-  value: string;
-  onChange: (v: string) => void;
+  value: boolean;
+  onChange: (v: boolean) => void;
 }) {
-  const checked = value === "true";
   return (
     <div>
       <label className="flex items-center gap-3 cursor-pointer group">
         <div className="relative">
           <input
             type="checkbox"
-            checked={checked}
-            onChange={(e) => onChange(e.target.checked ? "true" : "false")}
+            checked={value}
+            onChange={(e) => onChange(e.target.checked)}
             className="peer sr-only"
           />
           <div className="w-5 h-5 rounded border-2 border-border bg-surface peer-checked:bg-primary peer-checked:border-primary transition-colors flex items-center justify-center">
-            {checked && (
+            {value && (
               <svg
                 className="w-3.5 h-3.5 text-white"
                 fill="none"
