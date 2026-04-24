@@ -3,6 +3,7 @@
 import { Icon } from "@/lib/icons";
 import basePath from "@/lib/basePath";
 import { NewsCard } from "../components/for-dentists/NewsCard";
+import { FAQCard } from "../components/for-patients/FAQCard";
 import type {
   ServiceItem,
   AlignerItem,
@@ -196,32 +197,9 @@ export function FAQCardPreview({
   item: FAQItem;
   locale: "sv" | "en";
 }) {
-  const text = item[locale];
-  return (
-    <div className="bg-surface rounded-xl border border-border/50 shadow-sm overflow-hidden">
-      <div className="flex items-center justify-between p-5 gap-4">
-        <span className="text-sm font-semibold text-foreground leading-snug">
-          {text.question || "—"}
-        </span>
-        <svg
-          className="w-5 h-5 shrink-0 text-primary"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M19 9l-7 7-7-7"
-          />
-        </svg>
-      </div>
-      <div className="px-5 pb-4 text-sm text-foreground/80 leading-relaxed border-t border-border/50 pt-3">
-        <p className="line-clamp-2">{text.answer || "—"}</p>
-      </div>
-    </div>
-  );
+  // Use the actual FAQCard component - single source of truth!
+  // Show it in open state for preview
+  return <FAQCard item={item} locale={locale} isOpen={true} />;
 }
 
 export function MythCardPreview({

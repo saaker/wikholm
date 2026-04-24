@@ -88,7 +88,18 @@ export function ContentEditor({
             ),
           )}
         </div>
-        <div className="flex gap-3 pt-6">
+
+        {/* Language reminder */}
+        <div className="pt-6">
+          <div className="flex items-center gap-2 px-3 py-2 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-lg text-sm">
+            <span className="text-amber-600 dark:text-amber-400">💡</span>
+            <p className="text-amber-800 dark:text-amber-200 leading-none">
+              Don't forget to add the <strong>{locale === "sv" ? "English" : "Swedish"}</strong> version of this section
+            </p>
+          </div>
+        </div>
+
+        <div className="flex gap-3 pt-4">
           <button
             onClick={onSave}
             disabled={saving}
