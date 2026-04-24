@@ -2,6 +2,7 @@
 
 import { Icon } from "@/lib/icons";
 import basePath from "@/lib/basePath";
+import { NewsCard } from "../components/for-dentists/NewsCard";
 import type {
   ServiceItem,
   AlignerItem,
@@ -278,31 +279,8 @@ export function NewsCardPreview({
   item: NewsItem;
   locale: "sv" | "en";
 }) {
-  const text = item[locale];
-  return (
-    <div className="rounded-2xl border border-border bg-surface shadow-md overflow-hidden">
-      <div className="h-1.5 bg-primary" />
-      <div className="p-6">
-        <div className="flex items-center flex-wrap gap-3 mb-4">
-          <span
-            className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full whitespace-nowrap ${item.color}`}
-          >
-            {text.tag || "—"}
-          </span>
-          <span className="text-xs text-muted-dark">{text.date}</span>
-        </div>
-        <h3 className="text-base font-semibold text-foreground font-sans mb-2 leading-snug">
-          {text.title || "—"}
-        </h3>
-        <p className="text-sm text-muted-dark leading-relaxed mb-4 line-clamp-3">
-          {text.desc || "—"}
-        </p>
-        <span className="text-sm font-medium text-primary">
-          {locale === "sv" ? "Läs mer →" : "Read more →"}
-        </span>
-      </div>
-    </div>
-  );
+  // Use the actual NewsCard component - single source of truth!
+  return <NewsCard article={item} locale={locale} />;
 }
 
 export function BeforeAfterCardPreview({ item }: { item: BeforeAfterItem }) {

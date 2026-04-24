@@ -8,6 +8,7 @@ import { useAnimateIn } from "../hooks/useAnimateIn";
 import type { NewsItem } from "@/lib/sectionsDefaults";
 import basePath from "@/lib/basePath";
 import { getDelayClass } from "../utils/animationHelpers";
+import { NewsCard } from "./NewsCard";
 
 export default function News() {
   const { t, locale } = useI18n();
@@ -86,59 +87,18 @@ export default function News() {
         <div className="grid md:grid-cols-3 gap-6">
           {sections.news
             .filter((a) => !a.hidden)
-            .map((article, i) => {
-              const text = article[locale];
-              const hasBody = !!text.body?.trim();
-              return (
-                <article
-                  key={article.id}
-                  className={`group bg-surface rounded-2xl border border-border shadow-md hover:shadow-lg transition-all overflow-hidden animate-fade-up ${getDelayClass(i, 3)} ${visible ? "visible" : ""} ${hasBody ? "cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2" : ""}`}
-                  {...(hasBody
-                    ? {
-                        onClick: (e) => {
-                          triggerRef.current = e.currentTarget;
-                          setSelected(article);
-                        },
-                        role: "button",
-                        tabIndex: 0,
-                        onKeyDown: (e) => {
-                          if (e.key === "Enter" || e.key === " ") {
-                            e.preventDefault();
-                            triggerRef.current = e.currentTarget;
-                            setSelected(article);
-                          }
-                        },
-                      }
-                    : {})}
-                >
-                  {/* Colored top bar */}
-                  <div className="h-1.5 bg-primary" />
-                  <div className="p-6">
-                    <div className="flex items-center flex-wrap gap-3 mb-4">
-                      <span
-                        className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full whitespace-nowrap ${article.color}`}
-                      >
-                        {text.tag}
-                      </span>
-                      <span className="text-xs text-muted-dark">
-                        {text.date}
-                      </span>
-                    </div>
-                    <h3 className="text-base font-semibold text-foreground font-sans mb-2 leading-snug group-hover:text-primary transition-colors">
-                      {text.title}
-                    </h3>
-                    <p className="text-sm text-muted-dark leading-relaxed mb-4">
-                      {text.desc}
-                    </p>
-                    {hasBody && (
-                      <span className="text-sm font-medium text-primary inline-flex items-center gap-1 group-hover:gap-2 transition-all">
-                        {t("newsReadMore")}
-                      </span>
-                    )}
-                  </div>
-                </article>
-              );
-            })}
+            .map((article, i) => (
+              <NewsCard
+                key={article.id}
+                article={article}
+                locale={locale}
+                onClick={() => {
+                  triggerRef.current = document.activeElement as HTMLElement;
+                  setSelected(article);
+                }}
+                className={`animate-fade-up ${getDelayClass(i, 3)} ${visible ? "visible" : ""}`}
+              />
+            ))}
         </div>
       </div>
 

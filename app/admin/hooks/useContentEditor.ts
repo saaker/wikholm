@@ -20,7 +20,7 @@ export function useContentEditor(
     en: {},
   });
   const [contentLocale, setContentLocale] = useState<"sv" | "en">("sv");
-  const [draft, setDraft] = useState<Record<string, string>>({});
+  const [draft, setDraft] = useState<Record<string, string | boolean>>({});
   const [saving, setSaving] = useState(false);
   const justSaved = useRef(false);
 
@@ -64,17 +64,24 @@ export function useContentEditor(
     const sec = allSections.find((s) => s.id === activeItem.sectionId);
     if (!sec) return;
 
-    const next: Record<string, string> = {};
+    const next: Record<string, string | boolean> = {};
     for (const f of sec.fields) {
-      next[f.key] =
+      const value =
         contentOverrides[contentLocale]?.[f.key] ||
         translations[contentLocale][f.key];
+
+      // Convert string "true"/"false" to boolean for checkbox fields
+      if (f.checkbox) {
+        next[f.key] = value === "true";
+      } else {
+        next[f.key] = value;
+      }
     }
 
     setDraft(next);
   }, [activeItem, contentLocale, contentOverrides]);
 
-  const handleFieldChange = useCallback((key: string, value: string) => {
+  const handleFieldChange = useCallback((key: string, value: string | boolean) => {
     setDraft((prev) => ({ ...prev, [key]: value }));
   }, []);
 
@@ -93,28 +100,28 @@ export function useContentEditor(
       en: { ...contentOverrides.en },
     };
     for (const f of sec.fields) {
-      let val = draft[f.key] ?? "";
-      // Don't trim checkbox values
-      if (!f.checkbox) {
-        val = val.trim();
-      }
-      if (f.multiline) {
-        val = val
-          .replace(/\r\n/g, "\n")
-          .replace(/[^\S\n]+/g, " ")
-          .replace(/ *\n */g, "\n")
-          .trim();
-      }
-      const base = translations[contentLocale][f.key];
+      const rawValue = draft[f.key];
 
       // Checkbox fields are global settings, not translations - save to both languages
       if (f.checkbox) {
-        // Always save explicit true/false (never undefined)
-        const checkboxValue = val === "true" ? "true" : "false";
+        // Convert boolean to string "true"/"false" for storage
+        const checkboxValue = rawValue === true ? "true" : "false";
         payload.sv[f.key] = checkboxValue;
         payload.en[f.key] = checkboxValue;
       } else {
         // Regular translation fields - language-specific
+        let val = (rawValue as string) ?? "";
+        val = val.trim();
+
+        if (f.multiline) {
+          val = val
+            .replace(/\r\n/g, "\n")
+            .replace(/[^\S\n]+/g, " ")
+            .replace(/ *\n */g, "\n")
+            .trim();
+        }
+
+        const base = translations[contentLocale][f.key];
         if (val !== "" && val !== base) {
           payload[contentLocale][f.key] = val;
         } else {
@@ -186,9 +193,16 @@ export function useContentEditor(
     const allSections = [...dentistContentSections, ...patientContentSections];
     const sec = allSections.find((s) => s.id === activeItem.sectionId);
     if (!sec) return;
-    const next: Record<string, string> = {};
-    for (const f of sec.fields)
-      next[f.key] = translations[contentLocale][f.key];
+    const next: Record<string, string | boolean> = {};
+    for (const f of sec.fields) {
+      if (f.checkbox) {
+        // Checkbox fields: default to false (no translation fallback)
+        next[f.key] = false;
+      } else {
+        // Regular fields: use translation
+        next[f.key] = translations[contentLocale][f.key];
+      }
+    }
     setDraft(next);
   }
 
