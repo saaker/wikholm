@@ -11,16 +11,21 @@ export function SectionPreview({
   locale = "sv",
 }: {
   sectionId: string;
-  draft: Record<string, string>;
+  draft: Record<string, string | boolean>;
   fields: SectionField[];
   locale?: "sv" | "en";
 }) {
-  const v = (key: string) => draft[key] ?? "";
+  const v = (key: string) => {
+    const value = draft[key];
+    return typeof value === 'string' ? value : "";
+  };
   const byLabel = (pattern: string) => {
     const f = fields.find((fl) =>
       fl.label.toLowerCase().includes(pattern.toLowerCase()),
     );
-    return f ? (draft[f.key] ?? "") : "";
+    if (!f) return "";
+    const value = draft[f.key];
+    return typeof value === 'string' ? value : "";
   };
 
   /* Hero */
