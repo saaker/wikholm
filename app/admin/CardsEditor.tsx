@@ -12,6 +12,7 @@ import type {
   FAQItem,
   MythItem,
 } from "@/lib/sectionsDefaults";
+import { hasLanguageContent, isCardHidden } from "@/lib/cardHelpers";
 
 import { inputCls } from "./adminTypes";
 import {
@@ -32,6 +33,7 @@ interface CardsEditorProps {
   editingCard: number | null;
   setEditingCard: (i: number | null) => void;
   contentLocale: "sv" | "en";
+  setContentLocale: (locale: "sv" | "en") => void;
   readOnly: boolean;
   onQuickSave: () => Promise<void>;
 }
@@ -53,10 +55,6 @@ function deleteItem<T>(arr: T[], index: number): T[] {
 /* ═══════════════════════════════════════════════════
    Type guards and helpers
    ═══════════════════════════════════════════════════ */
-function isCardHidden(item: Record<string, unknown>): boolean {
-  return Boolean((item as { hidden?: boolean }).hidden);
-}
-
 // Type assertion helpers - encapsulate type casting for clarity
 function asServiceItem(item: Record<string, unknown>): ServiceItem {
   return item as unknown as ServiceItem;
@@ -492,6 +490,7 @@ export function CardsEditor({
   editingCard,
   setEditingCard,
   contentLocale,
+  setContentLocale,
   readOnly,
   onQuickSave,
 }: CardsEditorProps) {
@@ -571,7 +570,7 @@ export function CardsEditor({
     const items = asCardArray(sectionsData[sectionKey]);
     const currentCard = items[currentIndex];
     const originalCard = originalData.find(item => item.id === currentCard.id);
-    if (!originalCard) return false;
+    if (!originalCard) return true; // New card - needs to be saved
 
     // Deep comparison (excluding position)
     return JSON.stringify(currentCard) !== JSON.stringify(originalCard);
@@ -673,29 +672,30 @@ export function CardsEditor({
                 )}
                 {renderPreview(sectionKey, item, i, locale)}
               </div>
-              <div className="flex items-start gap-1 shrink-0">
-                {/* Hide move buttons for highlight service cards */}
-                {!(sectionKey === "services" && asServiceItem(item).highlight) && (
-                  <MoveButtons
-                    index={i}
-                    total={items.length}
-                    onMove={(from, to) => {
-                      // Track which card was explicitly moved
-                      const movedCardId = items[from].id as string;
-                      setMovedCardIds(prev => new Set(prev).add(movedCardId));
+              <div className="flex flex-col items-end gap-1 shrink-0">
+                <div className="flex items-start gap-1">
+                  {/* Hide move buttons for highlight service cards */}
+                  {!(sectionKey === "services" && asServiceItem(item).highlight) && (
+                    <MoveButtons
+                      index={i}
+                      total={items.length}
+                      onMove={(from, to) => {
+                        // Track which card was explicitly moved
+                        const movedCardId = items[from].id as string;
+                        setMovedCardIds(prev => new Set(prev).add(movedCardId));
 
-                      updateSectionArray((arr) => moveItem(arr, from, to));
-                      if (editingCard === from) setEditingCard(to);
-                      else if (editingCard !== null) {
-                        if (from < editingCard && to >= editingCard)
-                          setEditingCard(editingCard - 1);
-                        else if (from > editingCard && to <= editingCard)
-                          setEditingCard(editingCard + 1);
-                      }
-                    }}
-                  />
-                )}
-                <div className="flex flex-col gap-1">
+                        updateSectionArray((arr) => moveItem(arr, from, to));
+                        if (editingCard === from) setEditingCard(to);
+                        else if (editingCard !== null) {
+                          if (from < editingCard && to >= editingCard)
+                            setEditingCard(editingCard - 1);
+                          else if (from > editingCard && to <= editingCard)
+                            setEditingCard(editingCard + 1);
+                        }
+                      }}
+                    />
+                  )}
+                  <div className="flex flex-col gap-1">
                   <button
                     onClick={async () => {
                       const cardHasMoved = hasBeenMoved(i);
@@ -784,6 +784,25 @@ export function CardsEditor({
                       </svg>
                     )}
                   </button>
+                  </div>
+                </div>
+                {/* Language toggle */}
+                <div className="flex items-center justify-between gap-1 bg-muted rounded-lg p-0.5 mt-2 w-full">
+                  {(["sv", "en"] as const).map((l) => {
+                    const isMissing = !hasLanguageContent(sectionKey, item, l);
+                    return (
+                      <button
+                        key={l}
+                        onClick={() => setContentLocale(l)}
+                        className={`w-1/2 py-1 rounded-md text-xs font-medium transition-colors relative ${contentLocale === l ? "bg-surface text-foreground shadow-sm" : "text-muted-dark"}`}
+                      >
+                        {l.toUpperCase()}
+                        {isMissing && (
+                          <span className="absolute -top-0.5 -right-0.5 w-2 h-2 bg-amber-500 rounded-full" title={`${l.toUpperCase()} version is missing`} />
+                        )}
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
             </div>
@@ -791,6 +810,18 @@ export function CardsEditor({
             {/* Edit form */}
             {isEditing && (
               <div className="p-4 border-t border-border space-y-3">
+                {/* Language reminder */}
+                {(() => {
+                  const otherLang = locale === "sv" ? "en" : "sv";
+                  return (
+                    <div className="flex items-center gap-2 px-3 py-2 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-lg text-sm">
+                      <span className="text-amber-600 dark:text-amber-400">💡</span>
+                      <p className="text-amber-800 dark:text-amber-200 leading-none">
+                        Don't forget to add the <strong>{otherLang === "sv" ? "Swedish" : "English"}</strong> version of this card
+                      </p>
+                    </div>
+                  );
+                })()}
                 <CardEditForm
                   sectionKey={sectionKey}
                   item={item}

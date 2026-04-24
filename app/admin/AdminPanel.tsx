@@ -287,6 +287,7 @@ export default function AdminPanel({ initialLocations = [] }: AdminPanelProps) {
                       editingCard={content.editingCard}
                       setEditingCard={content.setEditingCard}
                       contentLocale={content.contentLocale}
+                      setContentLocale={content.setContentLocale}
                       readOnly={auth.readOnly}
                       onQuickSave={content.handleQuickSave}
                     />
