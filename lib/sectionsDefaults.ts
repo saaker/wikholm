@@ -15,18 +15,21 @@ export interface ServiceItem {
 export interface AlignerItem {
   id: string;
   icon: string;
+  hidden?: boolean;
   sv: { title: string; desc: string };
   en: { title: string; desc: string };
 }
 
 export interface AdvantageItem {
   id: string;
+  hidden?: boolean;
   sv: { title: string; desc: string };
   en: { title: string; desc: string };
 }
 
 export interface ProcessItem {
   id: string;
+  hidden?: boolean;
   sv: { title: string; desc: string };
   en: { title: string; desc: string };
 }
@@ -34,6 +37,7 @@ export interface ProcessItem {
 export interface DMItem {
   id: string;
   icon: string;
+  hidden?: boolean;
   sv: { title: string; desc: string };
   en: { title: string; desc: string };
 }

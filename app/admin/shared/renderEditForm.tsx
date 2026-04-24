@@ -1,7 +1,7 @@
 import { ServiceCardEditForm } from "../ServiceCard/ServiceCardEditForm";
 import { AlignerCardEditForm } from "../AlignerCard/AlignerCardEditForm";
 import { AdvantageCardEditForm } from "../AdvantageCard/AdvantageCardEditForm";
-import { ProcessCardEditForm } from "../ProcessCard/ProcessCardEditForm";
+import { ProcessCardEditForm } from "../ProcessCardEditForm";
 import { DMCardEditForm } from "../DMCard/DMCardEditForm";
 import { FAQCardEditForm } from "../FAQCardEditForm";
 import { MythCardEditForm } from "../MythCardEditForm";

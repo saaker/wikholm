@@ -1,7 +1,7 @@
 import { ServiceCardPreview } from "../ServiceCard/ServiceCardPreview";
 import { AlignerCardPreview } from "../AlignerCard/AlignerCardPreview";
 import { AdvantageCardPreview } from "../AdvantageCard/AdvantageCardPreview";
-import { ProcessCardPreview } from "../ProcessCard/ProcessCardPreview";
+import { ProcessCard } from "../../components/for-patients/ProcessCard";
 import { DMCardPreview } from "../DMCard/DMCardPreview";
 import { BeforeAfterCardPreview } from "../BeforeAfterCard/BeforeAfterCardPreview";
 import { FAQCard } from "../../components/for-patients/FAQ/FAQCard";
@@ -47,14 +47,18 @@ export function renderPreview(
           locale={locale}
         />
       );
-    case "process":
+    case "process": {
+      const number = String(i + 1).padStart(2, "0");
       return (
-        <ProcessCardPreview
-          item={item as unknown as ProcessItem}
-          index={i}
-          locale={locale}
-        />
+        <div className="py-3">
+          <ProcessCard
+            step={item as unknown as ProcessItem}
+            locale={locale}
+            number={number}
+          />
+        </div>
       );
+    }
     case "dm":
       return <DMCardPreview item={item as unknown as DMItem} locale={locale} />;
     case "faq":
