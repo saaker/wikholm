@@ -1,4 +1,4 @@
-import type { SectionsData } from "./sectionsDefaults";
+import type { SectionsData } from "../sectionsDefaults";
 
 /**
  * Check if a card has content in a specific language

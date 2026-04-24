@@ -8,11 +8,12 @@ vi.mock('@/lib/basePath', () => ({
 }))
 
 // Mock the section definitions
-vi.mock('../adminTypes', () => ({
+vi.mock('../../shared/adminTypes', () => ({
   dentistContentSections: [
     {
       id: 'test-section',
       label: 'Test Section',
+      title: 'Test Section',
       fields: [
         { key: 'testText', label: 'Test Text' },
         { key: 'testCheckbox', label: 'Test Checkbox', checkbox: true },

@@ -8,7 +8,7 @@ import {
   type SidebarItem,
   dentistContentSections,
   patientContentSections,
-} from "../adminTypes";
+} from "../../shared/adminTypes";
 
 export function useContentEditor(
   activeItem: SidebarItem | undefined,

@@ -1,6 +1,6 @@
 "use client";
 
-import type { SectionField } from "./adminTypes";
+import type { SectionField } from "../shared/adminTypes";
 import basePath from "@/lib/basePath";
 import { SectionHeaderPreview } from "./SectionHeaderPreview";
 

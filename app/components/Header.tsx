@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import { useI18n } from "./I18nProvider";
+import { useI18n } from "./providers/I18nProvider";
 import { useTheme } from "./hooks/useTheme";
 import basePath from "@/lib/basePath";
 

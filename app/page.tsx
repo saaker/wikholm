@@ -4,7 +4,7 @@ import Hero from "./components/Hero";
 import About from "./components/for-dentists/About";
 import Services from "./components/for-dentists/Services";
 import Advantages from "./components/for-dentists/Advantages";
-import News from "./components/for-dentists/News";
+import News from "./components/for-dentists/News/News";
 import Footer from "./components/Footer";
 import { pageMetadata, getServiceSchema } from "@/lib/seo";
 

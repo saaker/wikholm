@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Geist } from "next/font/google";
 import { Playfair_Display } from "next/font/google";
-import { I18nProvider } from "./components/I18nProvider";
-import { SectionsProvider } from "./components/SectionsProvider";
+import { I18nProvider } from "./components/providers/I18nProvider";
+import { SectionsProvider } from "./components/providers/SectionsProvider";
 import { defaultMetadata, getOrganizationSchema } from "@/lib/seo";
 import "./globals.css";
 

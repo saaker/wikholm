@@ -3,8 +3,8 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import Image from "next/image";
 import basePath from "@/lib/basePath";
-import { useI18n } from "../I18nProvider";
-import { useSections } from "../SectionsProvider";
+import { useI18n } from "../providers/I18nProvider";
+import { useSections } from "../providers/SectionsProvider";
 import { useAnimateIn } from "../hooks/useAnimateIn";
 import type { BeforeAfterItem } from "@/lib/sectionsDefaults";
 import { getDelayClass } from "../utils/animationHelpers";
