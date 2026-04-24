@@ -6,7 +6,9 @@ import {
   dentistLinkOptions,
   patientLinkOptions,
 } from "../shared/adminTypes";
-import { Field, ImagePickerField, CheckboxField } from "../shared/adminComponents";
+import { Field } from "../fields/Field/Field";
+import { ImagePickerField } from "../fields/ImagePickerField/ImagePickerField";
+import { CheckboxField } from "../fields/CheckboxField/CheckboxField";
 import { SectionPreview } from "../SectionPreview/SectionPreview";
 
 export function ContentEditor({

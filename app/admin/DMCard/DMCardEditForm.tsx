@@ -1,4 +1,5 @@
-import { Field, IconPicker } from "../shared/adminComponents";
+import { Field } from "../fields/Field/Field";
+import { IconPicker } from "../fields/IconPicker/IconPicker";
 import { asDMItem } from "../shared/cardHelpers";
 
 type DMCardEditFormProps = {

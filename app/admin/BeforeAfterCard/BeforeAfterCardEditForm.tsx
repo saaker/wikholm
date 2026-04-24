@@ -1,4 +1,4 @@
-import { ImagePickerField } from "../shared/adminComponents";
+import { ImagePickerField } from "../fields/ImagePickerField/ImagePickerField";
 import { asBeforeAfterItem } from "../shared/cardHelpers";
 
 type BeforeAfterCardEditFormProps = {

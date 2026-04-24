@@ -1,4 +1,4 @@
-import { Field } from "../shared/adminComponents";
+import { Field } from "../fields/Field/Field";
 
 type AdvantageCardEditFormProps = {
   item: Record<string, unknown>;
