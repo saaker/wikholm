@@ -1,7 +1,7 @@
 "use client";
 
-import { useI18n } from "../I18nProvider";
-import { useSections } from "../SectionsProvider";
+import { useI18n } from "../providers/I18nProvider";
+import { useSections } from "../providers/SectionsProvider";
 import { useAnimateIn } from "../hooks/useAnimateIn";
 import { Icon } from "@/lib/icons";
 import { useState } from "react";

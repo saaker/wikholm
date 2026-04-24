@@ -31,7 +31,8 @@ describe('ContentEditor', () => {
       render(<ContentEditor {...defaultProps} locale="sv" />)
 
       expect(screen.getByText(/Don't forget to add the/)).toBeInTheDocument()
-      expect(screen.getByText('English')).toBeInTheDocument()
+      const strongElement = screen.getByText('English', { selector: 'strong' })
+      expect(strongElement).toBeInTheDocument()
     })
 
     it('should show "Swedish" reminder when locale is English', () => {
@@ -52,8 +53,8 @@ describe('ContentEditor', () => {
     it('should render language toggle buttons', () => {
       render(<ContentEditor {...defaultProps} />)
 
-      expect(screen.getByText('Svenska')).toBeInTheDocument()
-      expect(screen.getByText('English')).toBeInTheDocument()
+      expect(screen.getByRole('button', { name: 'Svenska' })).toBeInTheDocument()
+      expect(screen.getByRole('button', { name: 'English' })).toBeInTheDocument()
     })
 
     it('should call setLocale when switching language', async () => {
@@ -62,7 +63,7 @@ describe('ContentEditor', () => {
 
       render(<ContentEditor {...defaultProps} setLocale={setLocale} locale="sv" />)
 
-      const englishButton = screen.getByText('English')
+      const englishButton = screen.getByRole('button', { name: 'English' })
       await user.click(englishButton)
 
       expect(setLocale).toHaveBeenCalledWith('en')

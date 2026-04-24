@@ -1,22 +1,20 @@
 import type { FAQItem } from "@/lib/sectionsDefaults";
 
-/**
- * Reusable FAQ Card component (accordion item)
- * Used in the FAQ section and admin preview
- */
+type FAQCardProps = {
+  item: FAQItem;
+  locale?: "sv" | "en";
+  isOpen?: boolean;
+  onToggle?: () => void;
+  className?: string;
+};
+
 export function FAQCard({
   item,
   locale = "sv",
   isOpen = false,
   onToggle,
   className = "",
-}: {
-  item: FAQItem;
-  locale?: "sv" | "en";
-  isOpen?: boolean;
-  onToggle?: () => void;
-  className?: string;
-}) {
+}: FAQCardProps) {
   const text = item[locale] || { question: "", answer: "" };
 
   return (

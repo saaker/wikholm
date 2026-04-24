@@ -2,15 +2,15 @@
 
 import { useEffect, useState, useRef } from "react";
 
-import { type Location, dentistSidebar, patientSidebar } from "./adminTypes";
+import { type Location, dentistSidebar, patientSidebar } from "./shared/adminTypes";
 import { useAdminAuth } from "./hooks/useAdminAuth";
-import { useContentEditor } from "./hooks/useContentEditor";
+import { useContentEditor } from "./hooks/ContentEditor/useContentEditor";
 import { useImageManager } from "./hooks/useImageManager";
 import { useLocationEditor } from "./hooks/useLocationEditor";
 import { AdminHeader } from "./AdminHeader";
 import { LoginScreen } from "./LoginScreen";
-import { CardsEditor } from "./CardsEditor";
-import { ContentEditor } from "./ContentEditor";
+import { CardsEditor } from "./CardsEditor/CardsEditor";
+import { ContentEditor } from "./ContentEditor/ContentEditor";
 import { LocationsEditor } from "./LocationsEditor";
 import { ImageManager } from "./ImageManager";
 

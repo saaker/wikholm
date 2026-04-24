@@ -1,6 +1,6 @@
 "use client";
 
-import { useI18n } from "./I18nProvider";
+import { useI18n } from "./providers/I18nProvider";
 import basePath from "@/lib/basePath";
 
 export default function Footer({

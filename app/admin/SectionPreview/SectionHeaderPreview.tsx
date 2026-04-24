@@ -1,6 +1,6 @@
 "use client";
 
-import { SectionHeader } from "../components/SectionHeader";
+import { SectionHeader } from "../../components/SectionHeader";
 
 /**
  * Renders a section header preview using the actual SectionHeader component

@@ -2,7 +2,7 @@
 
 import { useState, useCallback } from "react";
 import dynamic from "next/dynamic";
-import { useI18n } from "../I18nProvider";
+import { useI18n } from "../../providers/I18nProvider";
 import { ICON_REGISTRY } from "@/lib/icons";
 
 interface LocationData {

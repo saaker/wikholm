@@ -1,7 +1,7 @@
 "use client";
 
-import type { Location } from "./adminTypes";
-import { inputCls } from "./adminTypes";
+import type { Location } from "./shared/adminTypes";
+import { inputCls } from "./shared/adminTypes";
 import { ICON_REGISTRY } from "@/lib/icons";
 
 export function LocationsEditor({

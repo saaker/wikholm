@@ -1,20 +1,18 @@
-/**
- * Reusable Section Header component
- * Used across all sections (for-dentists and for-patients)
- */
+type SectionHeaderProps = {
+  label?: string;
+  title1?: string;
+  title2?: string;
+  intro?: string;
+  className?: string;
+};
+
 export function SectionHeader({
   label,
   title1,
   title2,
   intro,
   className = "",
-}: {
-  label?: string;
-  title1?: string;
-  title2?: string;
-  intro?: string;
-  className?: string;
-}) {
+}: SectionHeaderProps) {
   return (
     <div className={`text-center ${className}`}>
       {label && (
