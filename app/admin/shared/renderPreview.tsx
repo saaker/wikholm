@@ -1,7 +1,7 @@
 import { ServiceCardPreview } from "../ServiceCard/ServiceCardPreview";
-import { AlignerCardPreview } from "../AlignerCard/AlignerCardPreview";
+import { AlignerCard } from "../../components/for-patients/AlignerCard/AlignerCard";
 import { AdvantageCardPreview } from "../AdvantageCard/AdvantageCardPreview";
-import { ProcessCard } from "../../components/for-patients/ProcessCard";
+import { ProcessCard } from "../../components/for-patients/ProcessCard/ProcessCard";
 import { DMCardPreview } from "../DMCard/DMCardPreview";
 import { BeforeAfterCardPreview } from "../BeforeAfterCard/BeforeAfterCardPreview";
 import { FAQCard } from "../../components/for-patients/FAQ/FAQCard";
@@ -35,10 +35,7 @@ export function renderPreview(
       );
     case "aligners":
       return (
-        <AlignerCardPreview
-          item={item as unknown as AlignerItem}
-          locale={locale}
-        />
+        <AlignerCard item={item as unknown as AlignerItem} locale={locale} />
       );
     case "advantages":
       return (

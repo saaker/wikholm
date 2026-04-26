@@ -1,5 +1,6 @@
 import { Field } from "../fields/Field/Field";
 import { IconPicker } from "../fields/IconPicker/IconPicker";
+import { CheckboxField } from "../fields/CheckboxField/CheckboxField";
 import { asAlignerItem } from "../shared/cardHelpers";
 
 type AlignerCardEditFormProps = {
@@ -22,6 +23,11 @@ export function AlignerCardEditForm({
   return (
     <>
       <IconPicker value={al.icon} onChange={(v) => update("icon", v)} />
+      <CheckboxField
+        label="Dölj kort"
+        value={al.hidden ?? false}
+        onChange={(v) => update("hidden", v)}
+      />
       <Field
         label="Titel"
         value={localData.title || ""}

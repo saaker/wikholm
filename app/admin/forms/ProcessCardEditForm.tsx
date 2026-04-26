@@ -1,4 +1,4 @@
-import { Field } from "./fields/Field/Field";
+import { Field } from "../fields/Field/Field";
 
 type ProcessCardEditFormProps = {
   item: Record<string, unknown>;

@@ -67,7 +67,7 @@ export function useContentEditor(
     const next: Record<string, string | boolean> = {};
     for (const f of sec.fields) {
       const value =
-        contentOverrides[contentLocale]?.[f.key] ||
+        contentOverrides[contentLocale]?.[f.key] ??
         translations[contentLocale][f.key];
 
       // Convert string "true"/"false" to boolean for checkbox fields
@@ -122,7 +122,7 @@ export function useContentEditor(
         }
 
         const base = translations[contentLocale][f.key];
-        if (val !== "" && val !== base) {
+        if (val !== base) {
           payload[contentLocale][f.key] = val;
         } else {
           delete payload[contentLocale][f.key];

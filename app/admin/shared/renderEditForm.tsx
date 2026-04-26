@@ -1,11 +1,11 @@
 import { ServiceCardEditForm } from "../ServiceCard/ServiceCardEditForm";
-import { AlignerCardEditForm } from "../AlignerCard/AlignerCardEditForm";
+import { AlignerCardEditForm } from "../forms/AlignerCardEditForm";
 import { AdvantageCardEditForm } from "../AdvantageCard/AdvantageCardEditForm";
-import { ProcessCardEditForm } from "../ProcessCardEditForm";
+import { ProcessCardEditForm } from "../forms/ProcessCardEditForm";
 import { DMCardEditForm } from "../DMCard/DMCardEditForm";
-import { FAQCardEditForm } from "../FAQCardEditForm";
-import { MythCardEditForm } from "../MythCardEditForm";
-import { NewsCardEditForm } from "../NewsCardEditForm";
+import { FAQCardEditForm } from "../forms/FAQCardEditForm";
+import { MythCardEditForm } from "../forms/MythCardEditForm";
+import { NewsCardEditForm } from "../forms/NewsCardEditForm";
 import { BeforeAfterCardEditForm } from "../BeforeAfterCard/BeforeAfterCardEditForm";
 
 type RenderEditFormProps = {

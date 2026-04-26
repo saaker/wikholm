@@ -1,11 +1,11 @@
 "use client";
 
-import { useI18n } from "../providers/I18nProvider";
-import { useSections } from "../providers/SectionsProvider";
-import { useAnimateIn } from "../hooks/useAnimateIn";
-import { getDelayClass } from "../utils/animationHelpers";
-import { ProcessCard } from "./ProcessCard";
-import { SectionHeader } from "../SectionHeader";
+import { useI18n } from "../../providers/I18nProvider";
+import { useSections } from "../../providers/SectionsProvider";
+import { useAnimateIn } from "../../hooks/useAnimateIn";
+import { getDelayClass } from "../../utils/animationHelpers";
+import { ProcessCard } from "../ProcessCard/ProcessCard";
+import { SectionHeader } from "../../SectionHeader";
 
 export default function Process() {
   const { t, locale } = useI18n();

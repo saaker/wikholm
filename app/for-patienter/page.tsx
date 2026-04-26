@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import Header from "../components/Header";
 import Hero from "../components/Hero";
-import Aligners from "../components/for-patients/Aligners";
+import Aligners from "../components/for-patients/Aligners/Aligners";
 import MythsTruths from "../components/for-patients/MythsTruths/MythsTruths";
-import Process from "../components/for-patients/Process";
+import Process from "../components/for-patients/Process/Process";
 import DentalMonitoring from "../components/for-patients/DentalMonitoring";
 import BeforeAfter from "../components/for-patients/BeforeAfter";
 import Locations from "../components/for-patients/Locations/Locations";
