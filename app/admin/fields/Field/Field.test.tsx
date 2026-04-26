@@ -1,137 +1,7 @@
 import { describe, it, expect, vi } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { CheckboxField, Field } from './shared/adminComponents'
-
-describe('CheckboxField', () => {
-  describe('rendering', () => {
-    it('should render with label', () => {
-      render(<CheckboxField label="Test Checkbox" value={false} onChange={() => {}} />)
-
-      expect(screen.getByText('Test Checkbox')).toBeInTheDocument()
-    })
-
-    it('should render unchecked state', () => {
-      render(<CheckboxField label="Test" value={false} onChange={() => {}} />)
-
-      const checkbox = screen.getByRole('checkbox')
-      expect(checkbox).not.toBeChecked()
-    })
-
-    it('should render checked state', () => {
-      render(<CheckboxField label="Test" value={true} onChange={() => {}} />)
-
-      const checkbox = screen.getByRole('checkbox')
-      expect(checkbox).toBeChecked()
-    })
-
-    it('should show checkmark icon when checked', () => {
-      const { container } = render(<CheckboxField label="Test" value={true} onChange={() => {}} />)
-
-      const svg = container.querySelector('svg')
-      expect(svg).toBeInTheDocument()
-    })
-
-    it('should not show checkmark icon when unchecked', () => {
-      const { container } = render(<CheckboxField label="Test" value={false} onChange={() => {}} />)
-
-      const svg = container.querySelector('svg')
-      expect(svg).not.toBeInTheDocument()
-    })
-  })
-
-  describe('interactivity', () => {
-    it('should call onChange with true when checking', async () => {
-      const handleChange = vi.fn()
-      const user = userEvent.setup()
-
-      render(<CheckboxField label="Test" value={false} onChange={handleChange} />)
-
-      const checkbox = screen.getByRole('checkbox')
-      await user.click(checkbox)
-
-      expect(handleChange).toHaveBeenCalledTimes(1)
-      expect(handleChange).toHaveBeenCalledWith(true)
-    })
-
-    it('should call onChange with false when unchecking', async () => {
-      const handleChange = vi.fn()
-      const user = userEvent.setup()
-
-      render(<CheckboxField label="Test" value={true} onChange={handleChange} />)
-
-      const checkbox = screen.getByRole('checkbox')
-      await user.click(checkbox)
-
-      expect(handleChange).toHaveBeenCalledTimes(1)
-      expect(handleChange).toHaveBeenCalledWith(false)
-    })
-
-    it('should be clickable via label', async () => {
-      const handleChange = vi.fn()
-      const user = userEvent.setup()
-
-      render(<CheckboxField label="Click Me" value={false} onChange={handleChange} />)
-
-      const label = screen.getByText('Click Me')
-      await user.click(label)
-
-      expect(handleChange).toHaveBeenCalledWith(true)
-    })
-  })
-
-  describe('accessibility', () => {
-    it('should have checkbox role', () => {
-      render(<CheckboxField label="Test" value={false} onChange={() => {}} />)
-
-      const checkbox = screen.getByRole('checkbox')
-      expect(checkbox).toBeInTheDocument()
-    })
-
-    it('should associate label with checkbox', () => {
-      render(<CheckboxField label="Associated Label" value={false} onChange={() => {}} />)
-
-      const checkbox = screen.getByRole('checkbox')
-      const label = screen.getByText('Associated Label')
-
-      // Label should contain the checkbox
-      expect(label.closest('label')).toContainElement(checkbox)
-    })
-
-    it('should have cursor-pointer class on label', () => {
-      const { container } = render(<CheckboxField label="Test" value={false} onChange={() => {}} />)
-
-      const label = container.querySelector('label')
-      expect(label).toHaveClass('cursor-pointer')
-    })
-  })
-
-  describe('type safety', () => {
-    it('should accept boolean true value', () => {
-      // TypeScript should enforce this at compile time
-      // This test documents the expected behavior
-      render(<CheckboxField label="Test" value={true} onChange={() => {}} />)
-      expect(screen.getByRole('checkbox')).toBeChecked()
-    })
-
-    it('should accept boolean false value', () => {
-      render(<CheckboxField label="Test" value={false} onChange={() => {}} />)
-      expect(screen.getByRole('checkbox')).not.toBeChecked()
-    })
-
-    it('should call onChange with boolean (not string)', async () => {
-      const handleChange = vi.fn()
-      const user = userEvent.setup()
-
-      render(<CheckboxField label="Test" value={false} onChange={handleChange} />)
-
-      await user.click(screen.getByRole('checkbox'))
-
-      expect(typeof handleChange.mock.calls[0][0]).toBe('boolean')
-      expect(handleChange.mock.calls[0][0]).toBe(true)
-    })
-  })
-})
+import { Field } from './Field'
 
 describe('Field', () => {
   describe('rendering - single line', () => {
@@ -218,9 +88,7 @@ describe('Field', () => {
       const input = screen.getByRole('textbox')
       await user.type(input, 'Hi')
 
-      // Called once per character typed
       expect(handleChange).toHaveBeenCalledTimes(2)
-      // Each call receives a string argument
       expect(typeof handleChange.mock.calls[0][0]).toBe('string')
       expect(typeof handleChange.mock.calls[1][0]).toBe('string')
     })
@@ -233,7 +101,6 @@ describe('Field', () => {
       let input = screen.getByRole('textbox')
       expect(input).toHaveValue('Initial')
 
-      // Update the value prop
       rerender(<Field label="Name" value="Updated" onChange={handleChange} />)
 
       input = screen.getByRole('textbox')
@@ -249,7 +116,6 @@ describe('Field', () => {
       const textarea = screen.getByRole('textbox')
       await user.type(textarea, 'Test')
 
-      // Verify onChange was called
       expect(handleChange).toHaveBeenCalled()
       expect(typeof handleChange.mock.calls[0][0]).toBe('string')
     })

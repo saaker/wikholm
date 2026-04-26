@@ -1,4 +1,4 @@
-import { Field } from "./shared/adminComponents";
+import { Field } from "./fields/Field/Field";
 import { asFAQItem } from "./shared/cardHelpers";
 
 type FAQCardEditFormProps = {

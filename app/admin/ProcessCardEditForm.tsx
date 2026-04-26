@@ -1,4 +1,4 @@
-import { Field } from "./shared/adminComponents";
+import { Field } from "./fields/Field/Field";
 
 type ProcessCardEditFormProps = {
   item: Record<string, unknown>;

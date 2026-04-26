@@ -1,4 +1,5 @@
-import { Field, IconPicker } from "../shared/adminComponents";
+import { Field } from "../fields/Field/Field";
+import { IconPicker } from "../fields/IconPicker/IconPicker";
 import { asAlignerItem } from "../shared/cardHelpers";
 
 type AlignerCardEditFormProps = {

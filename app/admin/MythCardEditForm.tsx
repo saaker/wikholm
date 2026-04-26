@@ -1,4 +1,4 @@
-import { Field } from "./shared/adminComponents";
+import { Field } from "./fields/Field/Field";
 import { asMythItem } from "./shared/cardHelpers";
 
 type MythCardEditFormProps = {

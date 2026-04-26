@@ -2,7 +2,7 @@
 
 import type { SectionsData } from "@/lib/sectionsDefaults";
 import { hasLanguageContent, isCardHidden } from "@/lib/cardHelpers/cardHelpers";
-import { MoveButtons } from "../shared/adminComponents";
+import { MoveButtons } from "../MoveButtons/MoveButtons";
 import { renderPreview } from "../shared/renderPreview";
 import { renderEditForm } from "../shared/renderEditForm";
 import { moveItem, deleteItem, asServiceItem, asCardArray } from "../shared/cardHelpers";
