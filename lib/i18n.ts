@@ -198,6 +198,7 @@ export const translations = {
     beforeAfterComingSoon: "Bilder kommer snart",
     beforeAfterShowMore: "Visa fler resultat",
     beforeAfterShowLess: "Visa färre",
+    beforeAfterNoImage: "Ingen bild",
 
     // Dental Monitoring
     dmLabel: "DENTAL MONITORING",
@@ -513,6 +514,7 @@ export const translations = {
     beforeAfterComingSoon: "Photos coming soon",
     beforeAfterShowMore: "Show more results",
     beforeAfterShowLess: "Show less",
+    beforeAfterNoImage: "No image",
 
     // Dental Monitoring
     dmLabel: "DENTAL MONITORING",

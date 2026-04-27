@@ -3,7 +3,7 @@ import { AlignerCard } from "../../../components/for-patients/AlignerCard/Aligne
 import { AdvantageCardPreview } from "../../AdvantageCard/AdvantageCardPreview";
 import { ProcessCard } from "../../../components/for-patients/ProcessCard/ProcessCard";
 import { DMCard } from "../../../components/for-patients/DMCard/DMCard";
-import { BeforeAfterCardPreview } from "../../BeforeAfterCard/BeforeAfterCardPreview";
+import { BeforeAfterCard } from "../../../components/for-patients/BeforeAfterCard/BeforeAfterCard";
 import { FAQCard } from "../../../components/for-patients/FAQ/FAQCard";
 import { MythCard } from "../../../components/for-patients/MythsTruths/MythCard";
 import { NewsCard } from "../../../components/for-dentists/News/NewsCard";
@@ -87,7 +87,13 @@ export function renderPreview(
       );
     case "beforeAfter":
       return (
-        <BeforeAfterCardPreview item={item as unknown as BeforeAfterItem} />
+        <BeforeAfterCard
+          item={item as unknown as BeforeAfterItem}
+          beforeLabel={locale === "sv" ? "FÖRE" : "BEFORE"}
+          afterLabel={locale === "sv" ? "EFTER" : "AFTER"}
+          noImageText={locale === "sv" ? "Ingen bild" : "No image"}
+          preview
+        />
       );
     default:
       return null;
