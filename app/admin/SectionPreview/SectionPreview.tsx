@@ -5,6 +5,7 @@ import basePath from "@/lib/basePath";
 import { SectionHeaderPreview } from "./SectionHeaderPreview";
 import { AlignersIntro } from "../../components/for-patients/AlignersIntro/AlignersIntro";
 import { AlignersCTA } from "../../components/for-patients/AlignersCTA/AlignersCTA";
+import { DMSectionHeader } from "../../components/for-patients/DentalMonitoring/DMSectionHeader";
 
 export function SectionPreview({
   sectionId,
@@ -329,6 +330,20 @@ export function SectionPreview({
     );
   }
 
+  /* DM Header (special sticky layout) */
+  if (sectionId === "dm-header") {
+    return (
+      <div className="bg-muted rounded-xl py-6 px-4">
+        <DMSectionHeader
+          label={v("dmLabel")}
+          title1={v("dmTitle1")}
+          title2={v("dmTitle2")}
+          intro={v("dmIntro")}
+        />
+      </div>
+    );
+  }
+
   /* Generic section header (*-header) */
   if (sectionId.endsWith("-header")) {
     const label = byLabel("etikett") || byLabel("badge");
@@ -343,7 +358,6 @@ export function SectionPreview({
       "news-header": "bg-muted",
       "myths-header": "bg-surface",
       "process-header": "bg-surface",
-      "dm-header": "bg-muted",
       "locations-header": "bg-surface",
       "faq-header": "bg-muted",
     };
