@@ -13,6 +13,7 @@ import { CardsEditor } from "./CardsEditor/CardsEditor";
 import { ContentEditor } from "./ContentEditor/ContentEditor";
 import { LocationsEditor } from "./LocationsEditor";
 import { ImageManager } from "./ImageManager";
+import { MenuToggle } from "./MenuToggle";
 
 /* ═══════════════════════════════════════════════════
    Main Admin Panel
@@ -49,11 +50,22 @@ export default function AdminPanel({ initialLocations = [] }: AdminPanelProps) {
     return 0;
   });
 
+  const [menuOpen, setMenuOpen] = useState(() => {
+    // Restore menu state from localStorage (default to closed on mobile)
+    if (typeof window !== "undefined") {
+      const saved = localStorage.getItem("admin-menu-open");
+      if (saved) {
+        return saved === "true";
+      }
+    }
+    return false;
+  });
+
   const sidebar =
     tab === "images" ? [] : tab === "dentist" ? dentistSidebar : patientSidebar;
   const activeItem = tab !== "images" ? sidebar[activeIdx] : undefined;
 
-  // Save tab and activeIdx to localStorage when they change
+  // Save tab, activeIdx, and menuOpen to localStorage when they change
   useEffect(() => {
     localStorage.setItem("admin-active-tab", tab);
   }, [tab]);
@@ -61,6 +73,10 @@ export default function AdminPanel({ initialLocations = [] }: AdminPanelProps) {
   useEffect(() => {
     localStorage.setItem("admin-active-idx", String(activeIdx));
   }, [activeIdx]);
+
+  useEffect(() => {
+    localStorage.setItem("admin-menu-open", String(menuOpen));
+  }, [menuOpen]);
 
   // Track if this is the initial mount
   const isInitialMount = useRef(true);
@@ -154,18 +170,25 @@ export default function AdminPanel({ initialLocations = [] }: AdminPanelProps) {
             readOnly={auth.readOnly}
           />
         ) : (
-          <div className="grid lg:grid-cols-[220px_1fr] gap-8">
-            {/* ── Sidebar ── */}
-            <div className="space-y-1">
-              {sidebar.map((item, i) => (
-                <button
-                  key={i}
-                  onClick={() => {
-                    setActiveIdx(i);
-                    content.setEditingCard(null);
-                  }}
-                  className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-colors ${activeIdx === i ? "bg-primary/10 text-primary font-medium" : "text-muted-dark hover:bg-muted hover:text-foreground"}`}
-                >
+          <>
+            <MenuToggle isOpen={menuOpen} onToggle={() => setMenuOpen(!menuOpen)} />
+
+            <div className="grid lg:grid-cols-[220px_1fr] gap-8">
+              {/* ── Sidebar ── */}
+              <div className={`space-y-1 ${menuOpen ? "block" : "hidden lg:block"}`}>
+                {sidebar.map((item, i) => (
+                  <button
+                    key={i}
+                    onClick={() => {
+                      setActiveIdx(i);
+                      content.setEditingCard(null);
+                      // Close menu on mobile when item is selected
+                      if (window.innerWidth < 1024) {
+                        setMenuOpen(false);
+                      }
+                    }}
+                    className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-colors ${activeIdx === i ? "bg-primary/10 text-primary font-medium" : "text-muted-dark hover:bg-muted hover:text-foreground"}`}
+                  >
                   {item.type === "cards" ? (
                     <>
                       {item.title}{" "}
@@ -308,6 +331,7 @@ export default function AdminPanel({ initialLocations = [] }: AdminPanelProps) {
               ) : null}
             </div>
           </div>
+          </>
         )}
       </div>
     </div>
