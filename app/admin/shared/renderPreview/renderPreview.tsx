@@ -1,6 +1,6 @@
 import { ServiceCardPreview } from "../../ServiceCard/ServiceCardPreview";
 import { AlignerCard } from "../../../components/for-patients/AlignerCard/AlignerCard";
-import { AdvantageCardPreview } from "../../AdvantageCard/AdvantageCardPreview";
+import { AdvantageCard } from "../../../components/for-dentists/AdvantageCard/AdvantageCard";
 import { ProcessCard } from "../../../components/for-patients/ProcessCard/ProcessCard";
 import { DMCard } from "../../../components/for-patients/DMCard/DMCard";
 import { BeforeAfterCardPreview } from "../../BeforeAfterCard/BeforeAfterCardPreview";
@@ -39,10 +39,13 @@ export function renderPreview(
       );
     case "advantages":
       return (
-        <AdvantageCardPreview
-          item={item as unknown as AdvantageItem}
-          locale={locale}
-        />
+        <div className="py-3">
+          <AdvantageCard
+            item={item as unknown as AdvantageItem}
+            locale={locale}
+            preview
+          />
+        </div>
       );
     case "process": {
       const number = String(i + 1).padStart(2, "0");

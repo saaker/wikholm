@@ -1,4 +1,5 @@
 import { ImagePickerField } from "../fields/ImagePickerField/ImagePickerField";
+import { HideCheckbox } from "../fields/HideCheckbox/HideCheckbox";
 import { asBeforeAfterItem } from "../shared/cardHelpers";
 
 type BeforeAfterCardEditFormProps = {
@@ -30,17 +31,10 @@ export function BeforeAfterCardEditForm({
         onChange={(v) => update("after", v)}
         defaultFolder="before-after"
       />
-      <label className="flex items-center gap-2 text-sm">
-        <input
-          type="checkbox"
-          checked={!!ba.hidden}
-          onChange={(e) => update("hidden", e.target.checked)}
-          className="rounded border-border text-primary focus:ring-primary"
-        />
-        <span className="font-medium text-foreground">
-          Dold (visas inte på sidan)
-        </span>
-      </label>
+      <HideCheckbox
+        checked={!!ba.hidden}
+        onChange={(checked) => update("hidden", checked)}
+      />
     </>
   );
 }

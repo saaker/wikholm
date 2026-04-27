@@ -1,5 +1,6 @@
 import { Field } from "../fields/Field/Field";
 import { IconPicker } from "../fields/IconPicker/IconPicker";
+import { HideCheckbox } from "../fields/HideCheckbox/HideCheckbox";
 import { asServiceItem } from "../shared/cardHelpers";
 
 type ServiceCardEditFormProps = {
@@ -68,17 +69,10 @@ export function ServiceCardEditForm({
           </span>
         )}
       </label>
-      <label className="flex items-center gap-2 text-sm">
-        <input
-          type="checkbox"
-          checked={!!svc.hidden}
-          onChange={(e) => update("hidden", e.target.checked)}
-          className="rounded border-border text-primary focus:ring-primary"
-        />
-        <span className="font-medium text-foreground">
-          Dold (visas inte på sidan)
-        </span>
-      </label>
+      <HideCheckbox
+        checked={!!svc.hidden}
+        onChange={(checked) => update("hidden", checked)}
+      />
     </>
   );
 }

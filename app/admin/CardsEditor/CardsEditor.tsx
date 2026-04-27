@@ -45,7 +45,6 @@ export function CardsEditor({
   const items = sectionsData ? asCardArray(sectionsData[sectionKey]) : [];
 
   const mutations = useCardMutations({
-    sectionsData,
     setSectionsData,
     sectionKey,
     setEditingCard,

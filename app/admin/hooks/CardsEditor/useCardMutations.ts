@@ -2,7 +2,6 @@ import type { SectionsData } from "@/lib/sectionsDefaults";
 import { asUnknownArray, makeCard } from "../../shared/cardHelpers";
 
 type UseCardMutationsProps = {
-  sectionsData: SectionsData | null;
   setSectionsData: React.Dispatch<React.SetStateAction<SectionsData | null>>;
   sectionKey: keyof SectionsData;
   setEditingCard: (i: number | null) => void;
@@ -11,7 +10,6 @@ type UseCardMutationsProps = {
 };
 
 export function useCardMutations({
-  sectionsData,
   setSectionsData,
   sectionKey,
   setEditingCard,

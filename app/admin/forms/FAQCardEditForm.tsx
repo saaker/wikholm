@@ -1,4 +1,5 @@
 import { Field } from "../fields/Field/Field";
+import { HideCheckbox } from "../fields/HideCheckbox/HideCheckbox";
 import { asFAQItem } from "../shared/cardHelpers";
 
 type FAQCardEditFormProps = {
@@ -31,17 +32,10 @@ export function FAQCardEditForm({
         onChange={(v) => update(`${locale}.answer`, v)}
         multiline
       />
-      <label className="flex items-center gap-2 text-sm">
-        <input
-          type="checkbox"
-          checked={!!faq.hidden}
-          onChange={(e) => update("hidden", e.target.checked)}
-          className="rounded border-border text-primary focus:ring-primary"
-        />
-        <span className="font-medium text-foreground">
-          Dold (visas inte på sidan)
-        </span>
-      </label>
+      <HideCheckbox
+        checked={!!faq.hidden}
+        onChange={(checked) => update("hidden", checked)}
+      />
     </>
   );
 }

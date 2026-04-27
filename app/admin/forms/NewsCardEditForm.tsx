@@ -1,5 +1,6 @@
 import { Field } from "../fields/Field/Field";
 import { ImagePickerField } from "../fields/ImagePickerField/ImagePickerField";
+import { HideCheckbox } from "../fields/HideCheckbox/HideCheckbox";
 import { inputCls } from "../shared/adminTypes";
 import { NEWS_COLORS } from "@/lib/sectionsDefaults";
 import { asNewsItem } from "../shared/cardHelpers";
@@ -23,17 +24,10 @@ export function NewsCardEditForm({
 
   return (
     <>
-      <label className="flex items-center gap-2 text-sm">
-        <input
-          type="checkbox"
-          checked={!!ns.hidden}
-          onChange={(e) => update("hidden", e.target.checked)}
-          className="rounded border-border text-primary focus:ring-primary"
-        />
-        <span className="font-medium text-foreground">
-          Dold (visas inte på sidan)
-        </span>
-      </label>
+      <HideCheckbox
+        checked={!!ns.hidden}
+        onChange={(checked) => update("hidden", checked)}
+      />
       <Field
         label="Tagg"
         value={localData.tag || ""}

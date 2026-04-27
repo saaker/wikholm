@@ -2,57 +2,71 @@ import { describe, it, expect, vi } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import { renderEditForm } from './renderEditForm'
 
+type Locale = 'sv' | 'en'
+type OnUpdateFn = (index: number, path: string, value: string | boolean) => void
+
+type FormProps = {
+  item: unknown
+  index: number
+  locale: Locale
+  onUpdate: OnUpdateFn
+}
+
+type ServiceFormProps = FormProps & {
+  allItems: Array<Record<string, unknown>>
+}
+
 // Mock all the form components
 vi.mock('../../ServiceCard/ServiceCardEditForm', () => ({
-  ServiceCardEditForm: ({ item, index, locale }: any) => (
+  ServiceCardEditForm: ({ index, locale }: ServiceFormProps) => (
     <div data-testid="service-form">Service-{index}-{locale}</div>
   ),
 }))
 
 vi.mock('../../forms/AlignerCardEditForm', () => ({
-  AlignerCardEditForm: ({ item, index, locale }: any) => (
+  AlignerCardEditForm: ({ index, locale }: FormProps) => (
     <div data-testid="aligner-form">Aligner-{index}-{locale}</div>
   ),
 }))
 
-vi.mock('../../AdvantageCard/AdvantageCardEditForm', () => ({
-  AdvantageCardEditForm: ({ item, index, locale }: any) => (
+vi.mock('../../forms/AdvantageCardEditForm', () => ({
+  AdvantageCardEditForm: ({ index, locale }: FormProps) => (
     <div data-testid="advantage-form">Advantage-{index}-{locale}</div>
   ),
 }))
 
 vi.mock('../../forms/ProcessCardEditForm', () => ({
-  ProcessCardEditForm: ({ item, index, locale }: any) => (
+  ProcessCardEditForm: ({ index, locale }: FormProps) => (
     <div data-testid="process-form">Process-{index}-{locale}</div>
   ),
 }))
 
 vi.mock('../../forms/DMCardEditForm', () => ({
-  DMCardEditForm: ({ item, index, locale }: any) => (
+  DMCardEditForm: ({ index, locale }: FormProps) => (
     <div data-testid="dm-form">DM-{index}-{locale}</div>
   ),
 }))
 
 vi.mock('../../forms/FAQCardEditForm', () => ({
-  FAQCardEditForm: ({ item, index, locale }: any) => (
+  FAQCardEditForm: ({ index, locale }: FormProps) => (
     <div data-testid="faq-form">FAQ-{index}-{locale}</div>
   ),
 }))
 
 vi.mock('../../forms/MythCardEditForm', () => ({
-  MythCardEditForm: ({ item, index, locale }: any) => (
+  MythCardEditForm: ({ index, locale }: FormProps) => (
     <div data-testid="myth-form">Myth-{index}-{locale}</div>
   ),
 }))
 
 vi.mock('../../forms/NewsCardEditForm', () => ({
-  NewsCardEditForm: ({ item, index, locale }: any) => (
+  NewsCardEditForm: ({ index, locale }: FormProps) => (
     <div data-testid="news-form">News-{index}-{locale}</div>
   ),
 }))
 
 vi.mock('../../BeforeAfterCard/BeforeAfterCardEditForm', () => ({
-  BeforeAfterCardEditForm: ({ item, index, locale }: any) => (
+  BeforeAfterCardEditForm: ({ index, locale }: FormProps) => (
     <div data-testid="before-after-form">BeforeAfter-{index}-{locale}</div>
   ),
 }))

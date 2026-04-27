@@ -17,8 +17,8 @@ vi.mock('../../../components/for-patients/AlignerCard/AlignerCard', () => ({
   ),
 }))
 
-vi.mock('../../AdvantageCard/AdvantageCardPreview', () => ({
-  AdvantageCardPreview: ({ locale }: { item: unknown; locale: Locale }) => (
+vi.mock('../../../components/for-dentists/AdvantageCard/AdvantageCard', () => ({
+  AdvantageCard: ({ locale }: { item: unknown; locale: Locale; preview?: boolean }) => (
     <div data-testid="advantage-preview">Advantage-{locale}</div>
   ),
 }))
