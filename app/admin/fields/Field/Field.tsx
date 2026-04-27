@@ -6,6 +6,7 @@ type FieldProps = {
   onChange: (v: string) => void;
   multiline?: boolean;
   large?: boolean;
+  placeholder?: string;
 };
 
 export function Field({
@@ -14,6 +15,7 @@ export function Field({
   onChange,
   multiline,
   large,
+  placeholder,
 }: FieldProps) {
   return (
     <div>
@@ -26,6 +28,7 @@ export function Field({
           onChange={(e) => onChange(e.target.value)}
           rows={large ? 8 : 3}
           className={`${inputCls} resize-none ${large ? "min-h-50" : ""}`}
+          placeholder={placeholder}
         />
       ) : (
         <input
@@ -33,6 +36,7 @@ export function Field({
           value={value}
           onChange={(e) => onChange(e.target.value)}
           className={inputCls}
+          placeholder={placeholder}
         />
       )}
     </div>

@@ -5,9 +5,9 @@ import { renderPreview } from './renderPreview'
 type Locale = 'sv' | 'en'
 
 // Mock all the preview components
-vi.mock('../../ServiceCard/ServiceCardPreview', () => ({
-  ServiceCardPreview: ({ locale }: { item: unknown; locale: Locale }) => (
-    <div data-testid="service-preview">Service-{locale}</div>
+vi.mock('../../../components/for-dentists/ServiceCard/ServiceCard', () => ({
+  ServiceCard: ({ locale, preview, showClickPrompt }: { item: unknown; locale: Locale; preview?: boolean; showClickPrompt?: boolean }) => (
+    <div data-testid="service-preview">Service-{locale}-{preview ? 'preview' : 'live'}-{showClickPrompt ? 'prompt' : 'noprompt'}</div>
   ),
 }))
 
@@ -65,10 +65,24 @@ describe('renderPreview', () => {
   const mockItem = { id: 'test-1', sv: { title: 'Test' } }
 
   describe('routing to correct preview component', () => {
-    it('should render ServiceCardPreview for services key', () => {
+    it('should render ServiceCard for services key with preview mode', () => {
       const result = renderPreview('services', mockItem, 0, 'sv')
       render(<>{result}</>)
-      expect(screen.getByTestId('service-preview')).toHaveTextContent('Service-sv')
+      expect(screen.getByTestId('service-preview')).toHaveTextContent('Service-sv-preview')
+    })
+
+    it('should show click prompt for case assessment service', () => {
+      const caseItem = { id: 'case', sv: { title: 'Case' } }
+      const result = renderPreview('services', caseItem, 0, 'sv')
+      render(<>{result}</>)
+      expect(screen.getByTestId('service-preview')).toHaveTextContent('prompt')
+    })
+
+    it('should not show click prompt for non-case services', () => {
+      const regularItem = { id: 'other', sv: { title: 'Other' } }
+      const result = renderPreview('services', regularItem, 0, 'sv')
+      render(<>{result}</>)
+      expect(screen.getByTestId('service-preview')).toHaveTextContent('noprompt')
     })
 
     it('should render AlignerCard for aligners key', () => {

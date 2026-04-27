@@ -1,4 +1,4 @@
-import { ServiceCardPreview } from "../../ServiceCard/ServiceCardPreview";
+import { ServiceCard } from "../../../components/for-dentists/ServiceCard/ServiceCard";
 import { AlignerCard } from "../../../components/for-patients/AlignerCard/AlignerCard";
 import { AdvantageCard } from "../../../components/for-dentists/AdvantageCard/AdvantageCard";
 import { ProcessCard } from "../../../components/for-patients/ProcessCard/ProcessCard";
@@ -24,15 +24,21 @@ export function renderPreview(
   item: Record<string, unknown>,
   i: number,
   locale: "sv" | "en",
+  onCaseAssessmentClick?: () => void,
 ) {
   switch (key) {
-    case "services":
+    case "services": {
+      const isCaseAssessment = (item as unknown as ServiceItem).id === "case";
       return (
-        <ServiceCardPreview
+        <ServiceCard
           item={item as unknown as ServiceItem}
           locale={locale}
+          preview
+          onClick={isCaseAssessment ? onCaseAssessmentClick : undefined}
+          showClickPrompt={isCaseAssessment}
         />
       );
+    }
     case "aligners":
       return (
         <AlignerCard item={item as unknown as AlignerItem} locale={locale} />

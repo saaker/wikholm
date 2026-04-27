@@ -8,8 +8,8 @@ export interface ServiceItem {
   icon: string;
   highlight: boolean;
   hidden?: boolean;
-  sv: { title: string; desc: string; tag?: string; price?: string };
-  en: { title: string; desc: string; tag?: string; price?: string };
+  sv: { title: string; desc: string; tag?: string; price?: string; clickPrompt?: string };
+  en: { title: string; desc: string; tag?: string; price?: string; clickPrompt?: string };
 }
 
 export interface AlignerItem {
@@ -143,11 +143,13 @@ export const DEFAULT_SECTIONS: SectionsData = {
         title: "Kostnadsfri Case Assessment",
         desc: "Skicka in bilder och få en kostnadsfri bedömning med rekommendation om hur fallet bäst hanteras: Clinical Advisor via ClearCorrect, förslag om TPS eller remiss till klinik.",
         tag: "KOSTNADSFRITT",
+        clickPrompt: "Se hur du skickar ditt fall",
       },
       en: {
         title: "Free Case Assessment",
         desc: "Submit photos and receive a free assessment with a recommendation on how to best manage the case: Clinical Advisor via ClearCorrect, TPS proposal, or referral to a clinic.",
         tag: "FREE",
+        clickPrompt: "See how to submit your case",
       },
     },
     {
@@ -241,7 +243,7 @@ export const DEFAULT_SECTIONS: SectionsData = {
     {
       id: "growth",
       icon: "trending-up",
-      highlight: true,
+      highlight: false,
       sv: {
         title: "Aligner Growth Program",
         desc: "För tandläkare som vill växa sin verksamhet inom aligners. Innehåller flödesoptimering och handfasta förslag för att förbättra processen från konsultation till leverans av skenor. Kan kombineras med TPS-abonnemang till ett kraftigt rabatterat pris.",
