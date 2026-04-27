@@ -1,4 +1,5 @@
 import { Field } from "../fields/Field/Field";
+import { HideCheckbox } from "../fields/HideCheckbox/HideCheckbox";
 import { asMythItem } from "../shared/cardHelpers";
 
 type MythCardEditFormProps = {
@@ -31,17 +32,10 @@ export function MythCardEditForm({
         onChange={(v) => update(`${locale}.truth`, v)}
         multiline
       />
-      <label className="flex items-center gap-2 text-sm">
-        <input
-          type="checkbox"
-          checked={!!myth.hidden}
-          onChange={(e) => update("hidden", e.target.checked)}
-          className="rounded border-border text-primary focus:ring-primary"
-        />
-        <span className="font-medium text-foreground">
-          Dold (visas inte på sidan)
-        </span>
-      </label>
+      <HideCheckbox
+        checked={!!myth.hidden}
+        onChange={(checked) => update("hidden", checked)}
+      />
     </>
   );
 }

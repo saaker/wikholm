@@ -29,7 +29,7 @@ vi.mock('../../forms/AlignerCardEditForm', () => ({
   ),
 }))
 
-vi.mock('../../AdvantageCard/AdvantageCardEditForm', () => ({
+vi.mock('../../forms/AdvantageCardEditForm', () => ({
   AdvantageCardEditForm: ({ index, locale }: FormProps) => (
     <div data-testid="advantage-form">Advantage-{index}-{locale}</div>
   ),

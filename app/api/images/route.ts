@@ -6,7 +6,6 @@ const IMAGES_DIR = path.join(process.cwd(), "public", "images");
 const ALLOWED_EXTENSIONS = new Set([".jpg", ".jpeg", ".png", ".webp", ".svg"]);
 const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10 MB
 
-const isVercel = !!process.env.VERCEL;
 const hasBlob = () => !!process.env.BLOB_READ_WRITE_TOKEN;
 
 function isAuth(req: NextRequest): boolean {
