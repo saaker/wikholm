@@ -32,31 +32,33 @@ export function useCardMutations({
     path: string,
     value: string | boolean,
   ) {
-    // Special handling for highlight checkbox on services
-    if (sectionKey === "services" && path === "highlight" && value === true) {
-      const wasMovedToTop = index !== 0;
+    // Special handling for highlight checkbox on services (checking or unchecking)
+    if (sectionKey === "services" && path === "highlight") {
+      const wasMovedToTop = value === true && index !== 0;
       let movedItemId: string | undefined;
 
       setSectionsData((prev) => {
         if (!prev) return prev;
         let arr = [...asUnknownArray(prev[sectionKey])];
 
-        // Unset highlight on all other cards
+        // Always unset highlight on all cards first
         arr = arr.map((item) => ({
           ...item as Record<string, unknown>,
           highlight: false,
         }));
 
-        // Set highlight on this card
-        const copy = { ...(arr[index] as Record<string, unknown>) };
-        copy[path] = value;
-        arr[index] = copy;
+        // If checking (not unchecking), set highlight on this card
+        if (value === true) {
+          const copy = { ...(arr[index] as Record<string, unknown>) };
+          copy.highlight = true;
+          arr[index] = copy;
 
-        // Move to top if not already there
-        if (index !== 0) {
-          const [item] = arr.splice(index, 1);
-          movedItemId = (item as Record<string, unknown>).id as string;
-          arr.unshift(item);
+          // Move to top if not already there
+          if (index !== 0) {
+            const [item] = arr.splice(index, 1);
+            movedItemId = (item as Record<string, unknown>).id as string;
+            arr.unshift(item);
+          }
         }
 
         return { ...prev, [sectionKey]: arr } as SectionsData;

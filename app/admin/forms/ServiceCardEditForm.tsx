@@ -52,6 +52,12 @@ export function ServiceCardEditForm({
         value={localData.price || ""}
         onChange={(v) => update(`${locale}.price`, v)}
       />
+      <Field
+        label="Klick-text (för case assessment)"
+        value={localData.clickPrompt || ""}
+        onChange={(v) => update(`${locale}.clickPrompt`, v)}
+        placeholder={locale === "sv" ? "Se hur du skickar ditt fall" : "See how to submit your case"}
+      />
       <label className="flex items-center gap-2 text-sm">
         <input
           type="checkbox"

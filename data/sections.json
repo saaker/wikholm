@@ -106,7 +106,7 @@
     {
       "id": "growth",
       "icon": "trending-up",
-      "highlight": true,
+      "highlight": false,
       "sv": {
         "title": "Aligner Growth Program",
         "desc": "För tandläkare som vill växa sin verksamhet inom aligners. Innehåller flödesoptimering och handfasta förslag för att förbättra processen från konsultation till leverans av skenor. Kan kombineras med TPS-abonnemang till ett kraftigt rabatterat pris.",

@@ -17,7 +17,7 @@ type ServiceFormProps = FormProps & {
 }
 
 // Mock all the form components
-vi.mock('../../ServiceCard/ServiceCardEditForm', () => ({
+vi.mock('../../forms/ServiceCardEditForm', () => ({
   ServiceCardEditForm: ({ index, locale }: ServiceFormProps) => (
     <div data-testid="service-form">Service-{index}-{locale}</div>
   ),
