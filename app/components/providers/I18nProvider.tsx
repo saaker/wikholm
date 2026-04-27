@@ -59,7 +59,7 @@ export function I18nProvider({
   const t = useCallback(
     (key: TranslationKey) => {
       const override = overrides[locale]?.[key];
-      if (override !== undefined && override !== "") return override;
+      if (override !== undefined) return override;
       return translations[locale][key];
     },
     [locale, overrides],

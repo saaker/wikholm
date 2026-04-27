@@ -1,8 +1,8 @@
-import { Field } from "./fields/Field/Field";
-import { ImagePickerField } from "./fields/ImagePickerField/ImagePickerField";
-import { inputCls } from "./shared/adminTypes";
+import { Field } from "../fields/Field/Field";
+import { ImagePickerField } from "../fields/ImagePickerField/ImagePickerField";
+import { inputCls } from "../shared/adminTypes";
 import { NEWS_COLORS } from "@/lib/sectionsDefaults";
-import { asNewsItem } from "./shared/cardHelpers";
+import { asNewsItem } from "../shared/cardHelpers";
 
 type NewsCardEditFormProps = {
   item: Record<string, unknown>;

@@ -3,6 +3,8 @@
 import type { SectionField } from "../shared/adminTypes";
 import basePath from "@/lib/basePath";
 import { SectionHeaderPreview } from "./SectionHeaderPreview";
+import { AlignersIntro } from "../../components/for-patients/AlignersIntro/AlignersIntro";
+import { AlignersCTA } from "../../components/for-patients/AlignersCTA/AlignersCTA";
 
 export function SectionPreview({
   sectionId,
@@ -278,48 +280,49 @@ export function SectionPreview({
   /* Aligners CTA */
   if (sectionId === "aligners-cta") {
     return (
-      <div className="bg-muted rounded-xl p-6 text-center">
-        <div className="inline-flex flex-col sm:flex-row items-center gap-4 p-8 rounded-2xl bg-surface border border-border/50 shadow-sm">
-          <div className="text-left">
-            <p className="font-semibold text-foreground">Redo att ta nästa steg?</p>
-            <p className="text-sm text-muted-dark">Boka en kostnadsfri konsultation på din närmaste klinik.</p>
-          </div>
-          <span className="px-6 py-3 rounded-full bg-primary-dark text-white text-sm font-medium whitespace-nowrap">
-            Se kliniker
-          </span>
-        </div>
+      <div className="bg-muted rounded-xl py-6 px-4">
+        <AlignersCTA
+          ctaReady={v("ctaReady")}
+          ctaBook={v("ctaBook")}
+          ctaViewClinics={v("ctaViewClinics")}
+          ctaViewClinicsLink={v("ctaViewClinicsLink")}
+          className=""
+        />
       </div>
     );
   }
 
   /* Aligners Header with Educational Card */
   if (sectionId === "aligners-header") {
+    const hasHeader =
+      v("alignersLabel")?.trim() ||
+      v("alignersTitle1")?.trim() ||
+      v("alignersTitle2")?.trim() ||
+      v("alignersIntro")?.trim();
+    const hasIntro = v("alignersWhat")?.trim() || v("alignersWhatDesc")?.trim();
+    const hasContent = hasHeader || hasIntro;
+
+    if (!hasContent) return null;
+
     return (
       <div className="bg-muted rounded-xl space-y-4 py-6 px-4">
-        <div className="text-center">
-          <span className="text-primary text-xs font-medium uppercase tracking-wider">
-            {v("alignersLabel")}
-          </span>
-          <h3 className="text-2xl font-serif font-semibold mt-2">
-            {v("alignersTitle1")}{" "}
-            <span className="text-primary">{v("alignersTitle2")}</span>
-          </h3>
-          {v("alignersIntro") && (
-            <p className="text-muted-dark text-sm mt-2 max-w-md mx-auto">
-              {v("alignersIntro")}
-            </p>
-          )}
-        </div>
+        {hasHeader && (
+          <SectionHeaderPreview
+            label={v("alignersLabel")}
+            title1={v("alignersTitle1")}
+            title2={v("alignersTitle2")}
+            intro={v("alignersIntro")}
+            bgClass="bg-muted"
+          />
+        )}
 
-        {/* Educational intro card - "How aligners work" */}
-        {v("alignersWhat") && (
-          <div className="bg-surface rounded-2xl p-8 border border-border/50 shadow-sm mt-4">
-            <h3 className="text-lg font-semibold text-foreground font-sans mb-3">
-              {v("alignersWhat")}
-            </h3>
-            <p className="text-muted-dark leading-relaxed">
-              {v("alignersWhatDesc") || "—"}
-            </p>
+        {/* Educational intro card */}
+        {hasIntro && (
+          <div className="mt-4">
+            <AlignersIntro
+              what={v("alignersWhat")}
+              whatDesc={v("alignersWhatDesc")}
+            />
           </div>
         )}
       </div>

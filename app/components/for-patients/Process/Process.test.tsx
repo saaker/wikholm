@@ -41,20 +41,20 @@ const mockSections = {
 }
 
 // Mock providers
-vi.mock('../providers/I18nProvider', () => ({
+vi.mock('../../providers/I18nProvider', () => ({
   useI18n: () => ({
     t: mockT,
     locale: 'sv',
   }),
 }))
 
-vi.mock('../providers/SectionsProvider', () => ({
+vi.mock('../../providers/SectionsProvider', () => ({
   useSections: () => ({
     sections: mockSections,
   }),
 }))
 
-vi.mock('../hooks/useAnimateIn', () => ({
+vi.mock('../../hooks/useAnimateIn', () => ({
   useAnimateIn: () => ({
     ref: { current: null },
     visible: true,

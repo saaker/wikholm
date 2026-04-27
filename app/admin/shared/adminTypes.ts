@@ -220,6 +220,7 @@ export const patientContentSections: ContentSection[] = [
       { key: "ctaReady", label: "Rubrik" },
       { key: "ctaBook", label: "Beskrivning" },
       { key: "ctaViewClinics", label: "Knapptext" },
+      { key: "ctaViewClinicsLink", label: "Knapp — länk", link: "patient" },
       { key: "ctaHidden", label: "Dölj sektion", checkbox: true },
     ],
   },
