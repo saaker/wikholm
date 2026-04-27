@@ -6,7 +6,7 @@ import { DMCardEditForm } from "../../forms/DMCardEditForm";
 import { FAQCardEditForm } from "../../forms/FAQCardEditForm";
 import { MythCardEditForm } from "../../forms/MythCardEditForm";
 import { NewsCardEditForm } from "../../forms/NewsCardEditForm";
-import { BeforeAfterCardEditForm } from "../../BeforeAfterCard/BeforeAfterCardEditForm";
+import { BeforeAfterCardEditForm } from "../../forms/BeforeAfterCardEditForm";
 
 type RenderEditFormProps = {
   sectionKey: string;

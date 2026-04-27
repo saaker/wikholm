@@ -55,9 +55,9 @@ vi.mock('../../../components/for-dentists/News/NewsCard', () => ({
   ),
 }))
 
-vi.mock('../../BeforeAfterCard/BeforeAfterCardPreview', () => ({
-  BeforeAfterCardPreview: () => (
-    <div data-testid="before-after-preview">BeforeAfter</div>
+vi.mock('../../../components/for-patients/BeforeAfterCard/BeforeAfterCard', () => ({
+  BeforeAfterCard: ({ beforeLabel, afterLabel }: { item: unknown; beforeLabel: string; afterLabel: string; preview?: boolean }) => (
+    <div data-testid="before-after-preview">BeforeAfter-{beforeLabel}-{afterLabel}</div>
   ),
 }))
 

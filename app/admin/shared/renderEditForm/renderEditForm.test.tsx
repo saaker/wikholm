@@ -65,7 +65,7 @@ vi.mock('../../forms/NewsCardEditForm', () => ({
   ),
 }))
 
-vi.mock('../../BeforeAfterCard/BeforeAfterCardEditForm', () => ({
+vi.mock('../../forms/BeforeAfterCardEditForm', () => ({
   BeforeAfterCardEditForm: ({ index, locale }: FormProps) => (
     <div data-testid="before-after-form">BeforeAfter-{index}-{locale}</div>
   ),
