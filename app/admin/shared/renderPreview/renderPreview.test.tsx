@@ -2,59 +2,61 @@ import { describe, it, expect, vi } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import { renderPreview } from './renderPreview'
 
+type Locale = 'sv' | 'en'
+
 // Mock all the preview components
-vi.mock('../ServiceCard/ServiceCardPreview', () => ({
-  ServiceCardPreview: ({ item, locale }: any) => (
+vi.mock('../../ServiceCard/ServiceCardPreview', () => ({
+  ServiceCardPreview: ({ locale }: { item: unknown; locale: Locale }) => (
     <div data-testid="service-preview">Service-{locale}</div>
   ),
 }))
 
-vi.mock('../../components/for-patients/AlignerCard/AlignerCard', () => ({
-  AlignerCard: ({ item, locale }: any) => (
+vi.mock('../../../components/for-patients/AlignerCard/AlignerCard', () => ({
+  AlignerCard: ({ locale }: { item: unknown; locale: Locale }) => (
     <div data-testid="aligner-preview">Aligner-{locale}</div>
   ),
 }))
 
-vi.mock('../AdvantageCard/AdvantageCardPreview', () => ({
-  AdvantageCardPreview: ({ item, locale }: any) => (
+vi.mock('../../AdvantageCard/AdvantageCardPreview', () => ({
+  AdvantageCardPreview: ({ locale }: { item: unknown; locale: Locale }) => (
     <div data-testid="advantage-preview">Advantage-{locale}</div>
   ),
 }))
 
-vi.mock('../../components/for-patients/ProcessCard/ProcessCard', () => ({
-  ProcessCard: ({ step, locale, number }: any) => (
+vi.mock('../../../components/for-patients/ProcessCard/ProcessCard', () => ({
+  ProcessCard: ({ locale, number }: { step: unknown; locale: Locale; number: string }) => (
     <div data-testid="process-preview">Process-{locale}-{number}</div>
   ),
 }))
 
-vi.mock('../DMCard/DMCardPreview', () => ({
-  DMCardPreview: ({ item, locale }: any) => (
+vi.mock('../../../components/for-patients/DMCard/DMCard', () => ({
+  DMCard: ({ locale }: { item: unknown; locale: Locale; preview?: boolean }) => (
     <div data-testid="dm-preview">DM-{locale}</div>
   ),
 }))
 
-vi.mock('../../components/for-patients/FAQ/FAQCard', () => ({
-  FAQCard: ({ item, locale, isOpen }: any) => (
+vi.mock('../../../components/for-patients/FAQ/FAQCard', () => ({
+  FAQCard: ({ locale, isOpen }: { item: unknown; locale: Locale; isOpen: boolean }) => (
     <div data-testid="faq-preview">FAQ-{locale}-{isOpen ? 'open' : 'closed'}</div>
   ),
 }))
 
-vi.mock('../../components/for-patients/MythsTruths/MythCard', () => ({
-  MythCard: ({ item, locale, isOpen, mythLabel, truthLabel }: any) => (
+vi.mock('../../../components/for-patients/MythsTruths/MythCard', () => ({
+  MythCard: ({ locale, isOpen, mythLabel, truthLabel }: { item: unknown; locale: Locale; isOpen: boolean; mythLabel: string; truthLabel: string }) => (
     <div data-testid="myth-preview">
       Myth-{locale}-{isOpen ? 'open' : 'closed'}-{mythLabel}-{truthLabel}
     </div>
   ),
 }))
 
-vi.mock('../../components/for-dentists/News/NewsCard', () => ({
-  NewsCard: ({ article, locale }: any) => (
+vi.mock('../../../components/for-dentists/News/NewsCard', () => ({
+  NewsCard: ({ locale }: { article: unknown; locale: Locale }) => (
     <div data-testid="news-preview">News-{locale}</div>
   ),
 }))
 
-vi.mock('../BeforeAfterCard/BeforeAfterCardPreview', () => ({
-  BeforeAfterCardPreview: ({ item }: any) => (
+vi.mock('../../BeforeAfterCard/BeforeAfterCardPreview', () => ({
+  BeforeAfterCardPreview: () => (
     <div data-testid="before-after-preview">BeforeAfter</div>
   ),
 }))
@@ -87,7 +89,7 @@ describe('renderPreview', () => {
       expect(screen.getByTestId('process-preview')).toHaveTextContent('Process-sv-03')
     })
 
-    it('should render DMCardPreview for dm key', () => {
+    it('should render DMCard for dm key', () => {
       const result = renderPreview('dm', mockItem, 0, 'sv')
       render(<>{result}</>)
       expect(screen.getByTestId('dm-preview')).toHaveTextContent('DM-sv')

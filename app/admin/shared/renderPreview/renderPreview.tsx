@@ -1,12 +1,12 @@
-import { ServiceCardPreview } from "../ServiceCard/ServiceCardPreview";
-import { AlignerCard } from "../../components/for-patients/AlignerCard/AlignerCard";
-import { AdvantageCardPreview } from "../AdvantageCard/AdvantageCardPreview";
-import { ProcessCard } from "../../components/for-patients/ProcessCard/ProcessCard";
-import { DMCardPreview } from "../DMCard/DMCardPreview";
-import { BeforeAfterCardPreview } from "../BeforeAfterCard/BeforeAfterCardPreview";
-import { FAQCard } from "../../components/for-patients/FAQ/FAQCard";
-import { MythCard } from "../../components/for-patients/MythsTruths/MythCard";
-import { NewsCard } from "../../components/for-dentists/News/NewsCard";
+import { ServiceCardPreview } from "../../ServiceCard/ServiceCardPreview";
+import { AlignerCard } from "../../../components/for-patients/AlignerCard/AlignerCard";
+import { AdvantageCardPreview } from "../../AdvantageCard/AdvantageCardPreview";
+import { ProcessCard } from "../../../components/for-patients/ProcessCard/ProcessCard";
+import { DMCard } from "../../../components/for-patients/DMCard/DMCard";
+import { BeforeAfterCardPreview } from "../../BeforeAfterCard/BeforeAfterCardPreview";
+import { FAQCard } from "../../../components/for-patients/FAQ/FAQCard";
+import { MythCard } from "../../../components/for-patients/MythsTruths/MythCard";
+import { NewsCard } from "../../../components/for-dentists/News/NewsCard";
 import type {
   ServiceItem,
   AlignerItem,
@@ -57,7 +57,11 @@ export function renderPreview(
       );
     }
     case "dm":
-      return <DMCardPreview item={item as unknown as DMItem} locale={locale} />;
+      return (
+        <div className="py-3">
+          <DMCard item={item as unknown as DMItem} locale={locale} preview />
+        </div>
+      );
     case "faq":
       return (
         <FAQCard

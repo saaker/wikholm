@@ -3,55 +3,55 @@ import { render, screen } from '@testing-library/react'
 import { renderEditForm } from './renderEditForm'
 
 // Mock all the form components
-vi.mock('../ServiceCard/ServiceCardEditForm', () => ({
+vi.mock('../../ServiceCard/ServiceCardEditForm', () => ({
   ServiceCardEditForm: ({ item, index, locale }: any) => (
     <div data-testid="service-form">Service-{index}-{locale}</div>
   ),
 }))
 
-vi.mock('../forms/AlignerCardEditForm', () => ({
+vi.mock('../../forms/AlignerCardEditForm', () => ({
   AlignerCardEditForm: ({ item, index, locale }: any) => (
     <div data-testid="aligner-form">Aligner-{index}-{locale}</div>
   ),
 }))
 
-vi.mock('../AdvantageCard/AdvantageCardEditForm', () => ({
+vi.mock('../../AdvantageCard/AdvantageCardEditForm', () => ({
   AdvantageCardEditForm: ({ item, index, locale }: any) => (
     <div data-testid="advantage-form">Advantage-{index}-{locale}</div>
   ),
 }))
 
-vi.mock('../forms/ProcessCardEditForm', () => ({
+vi.mock('../../forms/ProcessCardEditForm', () => ({
   ProcessCardEditForm: ({ item, index, locale }: any) => (
     <div data-testid="process-form">Process-{index}-{locale}</div>
   ),
 }))
 
-vi.mock('../DMCard/DMCardEditForm', () => ({
+vi.mock('../../forms/DMCardEditForm', () => ({
   DMCardEditForm: ({ item, index, locale }: any) => (
     <div data-testid="dm-form">DM-{index}-{locale}</div>
   ),
 }))
 
-vi.mock('../forms/FAQCardEditForm', () => ({
+vi.mock('../../forms/FAQCardEditForm', () => ({
   FAQCardEditForm: ({ item, index, locale }: any) => (
     <div data-testid="faq-form">FAQ-{index}-{locale}</div>
   ),
 }))
 
-vi.mock('../forms/MythCardEditForm', () => ({
+vi.mock('../../forms/MythCardEditForm', () => ({
   MythCardEditForm: ({ item, index, locale }: any) => (
     <div data-testid="myth-form">Myth-{index}-{locale}</div>
   ),
 }))
 
-vi.mock('../forms/NewsCardEditForm', () => ({
+vi.mock('../../forms/NewsCardEditForm', () => ({
   NewsCardEditForm: ({ item, index, locale }: any) => (
     <div data-testid="news-form">News-{index}-{locale}</div>
   ),
 }))
 
-vi.mock('../BeforeAfterCard/BeforeAfterCardEditForm', () => ({
+vi.mock('../../BeforeAfterCard/BeforeAfterCardEditForm', () => ({
   BeforeAfterCardEditForm: ({ item, index, locale }: any) => (
     <div data-testid="before-after-form">BeforeAfter-{index}-{locale}</div>
   ),

@@ -3,8 +3,8 @@
 import type { SectionsData } from "@/lib/sectionsDefaults";
 import { hasLanguageContent, isCardHidden } from "@/lib/cardHelpers/cardHelpers";
 import { MoveButtons } from "../MoveButtons/MoveButtons";
-import { renderPreview } from "../shared/renderPreview";
-import { renderEditForm } from "../shared/renderEditForm";
+import { renderPreview } from "../shared/renderPreview/renderPreview";
+import { renderEditForm } from "../shared/renderEditForm/renderEditForm";
 import { moveItem, deleteItem, asServiceItem, asCardArray } from "../shared/cardHelpers";
 import { useCardTracking } from "../hooks/CardsEditor/useCardTracking";
 import { useDeleteConfirmation } from "../hooks/CardsEditor/useDeleteConfirmation";

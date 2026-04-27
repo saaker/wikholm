@@ -33,6 +33,17 @@ export function DMCardEditForm({
         onChange={(v) => update(`${locale}.desc`, v)}
         multiline
       />
+      <label className="flex items-center gap-2 text-sm">
+        <input
+          type="checkbox"
+          checked={!!dm.hidden}
+          onChange={(e) => update("hidden", e.target.checked)}
+          className="rounded border-border text-primary focus:ring-primary"
+        />
+        <span className="font-medium text-foreground">
+          Dold (visas inte på sidan)
+        </span>
+      </label>
     </>
   );
 }
