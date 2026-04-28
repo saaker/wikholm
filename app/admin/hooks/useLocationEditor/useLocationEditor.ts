@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { type Location, emptyLocation } from "../shared/adminTypes";
+import { type Location, emptyLocation } from "../../shared/adminTypes";
 import basePath from "@/lib/basePath";
 
 export function useLocationEditor(

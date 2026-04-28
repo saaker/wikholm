@@ -6,9 +6,9 @@ import { MoveButtons } from "../MoveButtons/MoveButtons";
 import { renderPreview } from "../shared/renderPreview/renderPreview";
 import { renderEditForm } from "../shared/renderEditForm/renderEditForm";
 import { moveItem, deleteItem, asServiceItem, asCardArray } from "../shared/cardHelpers";
-import { useCardTracking } from "../hooks/CardsEditor/useCardTracking";
-import { useDeleteConfirmation } from "../hooks/CardsEditor/useDeleteConfirmation";
-import { useCardMutations } from "../hooks/CardsEditor/useCardMutations";
+import { useCardTracking } from "../hooks/CardsEditor/useCardTracking/useCardTracking";
+import { useDeleteConfirmation } from "../hooks/CardsEditor/useDeleteConfirmation/useDeleteConfirmation";
+import { useCardMutations } from "../hooks/CardsEditor/useCardMutations/useCardMutations";
 import { useState } from "react";
 import CaseAssessmentModal from "../../components/CaseAssessmentModal";
 

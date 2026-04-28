@@ -2,7 +2,7 @@
 
 import { useI18n } from "../../providers/I18nProvider";
 import { useSections } from "../../providers/SectionsProvider";
-import { useAnimateIn } from "../../hooks/useAnimateIn";
+import { useAnimateIn } from "../../hooks/useAnimateIn/useAnimateIn";
 import { getDelayClass } from "../../utils/animationHelpers";
 import { ProcessCard } from "../ProcessCard/ProcessCard";
 import { SectionHeader } from "../../SectionHeader";

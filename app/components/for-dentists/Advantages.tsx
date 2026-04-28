@@ -2,7 +2,7 @@
 
 import { useI18n } from "../providers/I18nProvider";
 import { useSections } from "../providers/SectionsProvider";
-import { useAnimateIn } from "../hooks/useAnimateIn";
+import { useAnimateIn } from "../hooks/useAnimateIn/useAnimateIn";
 import { AdvantageCard } from "./AdvantageCard/AdvantageCard";
 import { AdvantagesSectionHeader } from "./Advantages/AdvantagesSectionHeader";
 import { getDelayClass } from "../utils/animationHelpers";

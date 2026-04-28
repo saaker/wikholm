@@ -3,10 +3,10 @@
 import { useEffect, useState, useRef } from "react";
 
 import { type Location, dentistSidebar, patientSidebar } from "./shared/adminTypes";
-import { useAdminAuth } from "./hooks/useAdminAuth";
+import { useAdminAuth } from "./hooks/useAdminAuth/useAdminAuth";
 import { useContentEditor } from "./hooks/ContentEditor/useContentEditor";
 import { useImageManager } from "./hooks/useImageManager";
-import { useLocationEditor } from "./hooks/useLocationEditor";
+import { useLocationEditor } from "./hooks/useLocationEditor/useLocationEditor";
 import { AdminHeader } from "./AdminHeader";
 import { LoginScreen } from "./LoginScreen";
 import { CardsEditor } from "./CardsEditor/CardsEditor";

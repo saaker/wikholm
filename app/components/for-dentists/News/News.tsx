@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback, useRef } from "react";
 import Image from "next/image";
 import { useI18n } from "../../providers/I18nProvider";
 import { useSections } from "../../providers/SectionsProvider";
-import { useAnimateIn } from "../../hooks/useAnimateIn";
+import { useAnimateIn } from "../../hooks/useAnimateIn/useAnimateIn";
 import type { NewsItem } from "@/lib/sectionsDefaults";
 import basePath from "@/lib/basePath";
 import { getDelayClass } from "../../utils/animationHelpers";
