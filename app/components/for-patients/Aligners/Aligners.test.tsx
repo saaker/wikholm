@@ -3,12 +3,12 @@ import { render, screen } from '@testing-library/react'
 import Aligners from './Aligners'
 import { useI18n } from '../../providers/I18nProvider'
 import { useSections } from '../../providers/SectionsProvider'
-import { useAnimateIn } from '../../hooks/useAnimateIn'
+import { useAnimateIn } from '../../hooks/useAnimateIn/useAnimateIn'
 import type { AlignerItem } from '@/lib/sectionsDefaults'
 
 vi.mock('../../providers/I18nProvider')
 vi.mock('../../providers/SectionsProvider')
-vi.mock('../../hooks/useAnimateIn')
+vi.mock('../../hooks/useAnimateIn/useAnimateIn')
 
 describe('Aligners', () => {
   const mockT = (key: string) => {

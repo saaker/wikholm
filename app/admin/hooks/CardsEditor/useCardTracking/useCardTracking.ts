@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import type { SectionsData } from "@/lib/sectionsDefaults";
-import { asCardArray } from "../../shared/cardHelpers";
+import { asCardArray } from "../../../shared/cardHelpers";
 
 type UseCardTrackingProps = {
   sectionsData: SectionsData | null;

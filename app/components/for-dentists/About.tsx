@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useI18n } from "../providers/I18nProvider";
-import { useAnimateIn } from "../hooks/useAnimateIn";
+import { useAnimateIn } from "../hooks/useAnimateIn/useAnimateIn";
 import basePath from "@/lib/basePath";
 
 export default function About() {

@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import { useI18n } from "./providers/I18nProvider";
-import { useTheme } from "./hooks/useTheme";
+import { useTheme } from "./hooks/useTheme/useTheme";
 import basePath from "@/lib/basePath";
 
 import logo from "../../public/images/logos/logo.jpg";

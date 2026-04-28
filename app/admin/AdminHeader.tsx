@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useTheme } from "../components/hooks/useTheme";
+import { useTheme } from "../components/hooks/useTheme/useTheme";
 
 type Tab = "dentist" | "patient" | "images";
 

@@ -1,5 +1,5 @@
 import type { SectionsData } from "@/lib/sectionsDefaults";
-import { asUnknownArray, makeCard } from "../../shared/cardHelpers";
+import { asUnknownArray, makeCard } from "../../../shared/cardHelpers";
 
 type UseCardMutationsProps = {
   setSectionsData: React.Dispatch<React.SetStateAction<SectionsData | null>>;

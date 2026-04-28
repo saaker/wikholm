@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useI18n } from "../../providers/I18nProvider";
 import { useSections } from "../../providers/SectionsProvider";
-import { useAnimateIn } from "../../hooks/useAnimateIn";
+import { useAnimateIn } from "../../hooks/useAnimateIn/useAnimateIn";
 import { FAQCard } from "./FAQCard";
 import { SectionHeader } from "../../SectionHeader";
 

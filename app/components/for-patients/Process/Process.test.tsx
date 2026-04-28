@@ -54,7 +54,7 @@ vi.mock('../../providers/SectionsProvider', () => ({
   }),
 }))
 
-vi.mock('../../hooks/useAnimateIn', () => ({
+vi.mock('../../hooks/useAnimateIn/useAnimateIn', () => ({
   useAnimateIn: () => ({
     ref: { current: null },
     visible: true,
