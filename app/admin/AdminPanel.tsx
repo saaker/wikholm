@@ -14,6 +14,7 @@ import { ContentEditor } from "./ContentEditor/ContentEditor";
 import { LocationsEditor } from "./LocationsEditor";
 import { ImageManager } from "./ImageManager";
 import { MenuToggle } from "./MenuToggle";
+import { useTheme } from "../components/hooks/useTheme/useTheme";
 
 /* ═══════════════════════════════════════════════════
    Main Admin Panel
@@ -25,6 +26,7 @@ interface AdminPanelProps {
 export default function AdminPanel({ initialLocations = [] }: AdminPanelProps) {
   /* ── Auth ── */
   const auth = useAdminAuth();
+  const { dark } = useTheme();
 
   /* ── Navigation ── */
   const [tab, setTab] = useState<"dentist" | "patient" | "images">(() => {
@@ -143,14 +145,22 @@ export default function AdminPanel({ initialLocations = [] }: AdminPanelProps) {
       <div className="max-w-6xl mx-auto px-6 py-8">
         {/* Messages */}
         {auth.readOnly && (
-          <div className="mb-6 px-4 py-3 rounded-xl text-sm font-medium bg-amber-50 text-amber-700 border border-amber-200">
+          <div className={`mb-6 px-4 py-3 rounded-xl text-sm font-medium border ${dark ? "bg-red-900/20 text-red-200 border-red-800" : "bg-red-50 text-red-800 border-red-200"}`}>
             Skrivskyddat läge — redigering kräver lokal utvecklingsmiljö (
             <code>npm run dev</code>).
           </div>
         )}
         {auth.message && (
           <div
-            className={`mb-6 px-4 py-3 rounded-xl text-sm font-medium ${auth.message.type === "success" ? "bg-green-50 text-green-700 border border-green-200" : "bg-red-50 text-red-700 border border-red-200"}`}
+            className={`mb-6 px-4 py-3 rounded-xl text-sm font-medium border ${
+              auth.message.type === "success"
+                ? dark
+                  ? "bg-green-900/20 text-green-200 border-green-800"
+                  : "bg-green-50 text-green-800 border-green-200"
+                : dark
+                  ? "bg-red-900/20 text-red-200 border-red-800"
+                  : "bg-red-50 text-red-800 border-red-200"
+            }`}
           >
             {auth.message.text}
           </div>

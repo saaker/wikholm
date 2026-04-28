@@ -11,6 +11,7 @@ import { ImagePickerField } from "../fields/ImagePickerField/ImagePickerField";
 import { CheckboxField } from "../fields/CheckboxField/CheckboxField";
 import { SectionPreview } from "../SectionPreview/SectionPreview";
 import { ADMIN_TRANSLATIONS } from "../shared/translations";
+import { useTheme } from "../../components/hooks/useTheme/useTheme";
 
 export function ContentEditor({
   sectionId,
@@ -34,6 +35,7 @@ export function ContentEditor({
   readOnly: boolean;
 }) {
   const t = ADMIN_TRANSLATIONS[locale];
+  const { dark } = useTheme();
   const allSections = [...dentistContentSections, ...patientContentSections];
   const sec = allSections.find((s) => s.id === sectionId);
   if (!sec) return null;
@@ -97,9 +99,9 @@ export function ContentEditor({
 
         {/* Language reminder */}
         <div className="pt-6">
-          <div className="flex items-center gap-2 px-3 py-2 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-lg text-sm">
-            <span className="text-amber-600 dark:text-amber-400">💡</span>
-            <p className="text-amber-800 dark:text-amber-200 leading-none">
+          <div className={`flex items-center gap-2 px-3 py-2 border rounded-lg text-sm ${dark ? "bg-red-900/20 border-red-800" : "bg-red-50 border-red-200"}`}>
+            <span>💡</span>
+            <p className={`leading-none ${dark ? "text-red-200" : "text-red-800"}`}>
               {t.languageReminder_dontForget} <strong>{locale === "sv" ? t.english : t.swedish}</strong> {t.languageReminder_version}
             </p>
           </div>
