@@ -33,6 +33,7 @@ export default function Services() {
             .map((service) => {
             const isHighlightCard = service.highlight;
             const isCaseAssessment = service.id === "case";
+            const modalEnabled = isCaseAssessment && !service.modalDisabled;
 
             // Highlight card gets full width and special styling
             if (isHighlightCard) {
@@ -42,8 +43,8 @@ export default function Services() {
                   item={service}
                   locale={locale}
                   className={`animate-fade-up ${visible ? "visible" : ""}`}
-                  onClick={isCaseAssessment ? () => setIsModalOpen(true) : undefined}
-                  showClickPrompt={isCaseAssessment}
+                  onClick={modalEnabled ? () => setIsModalOpen(true) : undefined}
+                  showClickPrompt={modalEnabled}
                 />
               );
             }

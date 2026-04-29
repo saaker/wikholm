@@ -28,14 +28,16 @@ export function renderPreview(
 ) {
   switch (key) {
     case "services": {
-      const isCaseAssessment = (item as unknown as ServiceItem).id === "case";
+      const serviceItem = item as unknown as ServiceItem;
+      const isCaseAssessment = serviceItem.id === "case";
+      const modalEnabled = isCaseAssessment && !serviceItem.modalDisabled;
       return (
         <ServiceCard
-          item={item as unknown as ServiceItem}
+          item={serviceItem}
           locale={locale}
           preview
-          onClick={isCaseAssessment ? onCaseAssessmentClick : undefined}
-          showClickPrompt={isCaseAssessment}
+          onClick={modalEnabled ? onCaseAssessmentClick : undefined}
+          showClickPrompt={modalEnabled}
         />
       );
     }

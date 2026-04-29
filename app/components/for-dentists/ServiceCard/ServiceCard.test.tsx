@@ -338,11 +338,18 @@ describe("ServiceCard", () => {
       expect(card?.className).not.toContain("focus-visible:outline-none");
     });
 
-    it("should have group-hover scale animation on highlight card icon container", () => {
-      const { container } = render(<ServiceCard item={mockHighlightService} locale="sv" />);
+    it("should have group-hover scale animation on clickable highlight card icon container", () => {
+      const { container } = render(<ServiceCard item={mockHighlightService} locale="sv" onClick={vi.fn()} />);
 
       const iconContainer = container.querySelector(".case-icon");
       expect(iconContainer?.className).toContain("group-hover:scale-110");
+    });
+
+    it("should not have group-hover scale animation on non-clickable highlight card icon container", () => {
+      const { container } = render(<ServiceCard item={mockHighlightService} locale="sv" />);
+
+      const iconContainer = container.querySelector(".case-icon");
+      expect(iconContainer?.className).not.toContain("group-hover:scale-110");
     });
 
     it("should have service-badge-text class on tag elements", () => {

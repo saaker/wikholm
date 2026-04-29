@@ -76,14 +76,8 @@ export default function CaseAssessmentModal({
       title: "Kostnadsfri Case Assessment",
       subtitle: "Få professionell bedömning av ditt fall",
       intro:
-        "För att ge dig bästa möjliga bedömning behöver jag sex specifika bilder av tänderna och ansiktet. Följ instruktionerna nedan:",
+        "För att ge dig bästa möjliga bedömning behöver jag fem specifika bilder av tänderna. Följ instruktionerna nedan:",
       photoTypes: [
-        {
-          image: "/images/case-assessment/Face_front_smiling.svg",
-          title: "Ansikte framifrån",
-          desc: "Leende med synliga tänder",
-          invertLight: true,
-        },
         {
           image: "/images/case-assessment/Bite_front.svg",
           title: "Framifrån",
@@ -121,13 +115,12 @@ export default function CaseAssessmentModal({
 
 Jag skulle vilja få en kostnadsfri bedömning av ett fall.
 
-Bifogat finner du sex bilder:
-1. Ansikte framifrån (leende)
-2. Framifrån (synligt leende)
-3. Höger sida (bettsida)
-4. Vänster sida (bettsida)
-5. Överkäke (ovanifrån)
-6. Underkäke (underifrån)
+Bifogat finner du fem bilder:
+1. Framifrån (synligt leende)
+2. Höger sida (bettsida)
+3. Vänster sida (bettsida)
+4. Överkäke (ovanifrån)
+5. Underkäke (underifrån)
 
 [Valfritt: Beskriv eventuella specifika frågor eller bekymmer här]
 
@@ -142,14 +135,8 @@ Med vänliga hälsningar,
       title: "Free Case Assessment",
       subtitle: "Get professional evaluation of your case",
       intro:
-        "To provide you with the best possible assessment, I need six specific photos of the teeth and face. Follow the instructions below:",
+        "To provide you with the best possible assessment, I need five specific photos of the teeth. Follow the instructions below:",
       photoTypes: [
-        {
-          image: "/images/case-assessment/Face_front_smiling.svg",
-          title: "Face front",
-          desc: "Smiling with visible teeth",
-          invertLight: true,
-        },
         {
           image: "/images/case-assessment/Bite_front.svg",
           title: "Front view",
@@ -187,13 +174,12 @@ Med vänliga hälsningar,
 
 I would like to request a free case assessment.
 
-Attached you will find six photos:
-1. Face front (smiling)
-2. Front view (visible smile)
-3. Right side (bite view)
-4. Left side (bite view)
-5. Upper jaw (view from above)
-6. Lower jaw (view from below)
+Attached you will find five photos:
+1. Front view (visible smile)
+2. Right side (bite view)
+3. Left side (bite view)
+4. Upper jaw (view from above)
+5. Lower jaw (view from below)
 
 [Optional: Describe any specific questions or concerns here]
 
