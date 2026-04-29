@@ -128,4 +128,68 @@ describe('CheckboxField', () => {
       expect(handleChange.mock.calls[0][0]).toBe(true)
     })
   })
+
+  describe('disabled state', () => {
+    it('should render disabled checkbox when disabled prop is true', () => {
+      render(<CheckboxField label="Test" value={false} onChange={() => {}} disabled={true} />)
+
+      const checkbox = screen.getByRole('checkbox')
+      expect(checkbox).toBeDisabled()
+    })
+
+    it('should not call onChange when disabled and clicked', async () => {
+      const handleChange = vi.fn()
+      const user = userEvent.setup()
+
+      render(<CheckboxField label="Test" value={false} onChange={handleChange} disabled={true} />)
+
+      const checkbox = screen.getByRole('checkbox')
+      await user.click(checkbox)
+
+      expect(handleChange).not.toHaveBeenCalled()
+    })
+
+    it('should have cursor-not-allowed class on label when disabled', () => {
+      const { container } = render(<CheckboxField label="Test" value={false} onChange={() => {}} disabled={true} />)
+
+      const label = container.querySelector('label')
+      expect(label).toHaveClass('cursor-not-allowed')
+    })
+
+    it('should have line-through on label text when disabled', () => {
+      const { container } = render(<CheckboxField label="Test Label" value={false} onChange={() => {}} disabled={true} />)
+
+      const labelText = screen.getByText('Test Label')
+      expect(labelText).toHaveClass('line-through')
+    })
+
+    it('should not be disabled by default', () => {
+      render(<CheckboxField label="Test" value={false} onChange={() => {}} />)
+
+      const checkbox = screen.getByRole('checkbox')
+      expect(checkbox).not.toBeDisabled()
+    })
+  })
+
+  describe('helper text', () => {
+    it('should render helper text when provided', () => {
+      render(<CheckboxField label="Test" value={false} onChange={() => {}} helperText="This is helper text" />)
+
+      expect(screen.getByText('This is helper text')).toBeInTheDocument()
+    })
+
+    it('should not render helper text when not provided', () => {
+      const { container } = render(<CheckboxField label="Test" value={false} onChange={() => {}} />)
+
+      const helperText = container.querySelector('.text-xs.text-muted-dark')
+      expect(helperText).not.toBeInTheDocument()
+    })
+
+    it('should render both label and helper text', () => {
+      render(<CheckboxField label="Main Label" value={false} onChange={() => {}} helperText="Helper" />)
+
+      expect(screen.getByText('Main Label')).toBeInTheDocument()
+      expect(screen.getByText('Helper')).toBeInTheDocument()
+    })
+  })
 })

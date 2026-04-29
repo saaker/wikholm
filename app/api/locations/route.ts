@@ -40,15 +40,29 @@ export async function PUT(request: NextRequest) {
     return Response.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const body: Location = await request.json();
+  const body = await request.json();
+
+  // If body contains a locations array, we're reordering
+  if (Array.isArray(body.locations)) {
+    try {
+      await saveLocations(body.locations);
+    } catch (err) {
+      console.error("Failed to save locations:", err);
+      return Response.json({ error: String(err) }, { status: 500 });
+    }
+    return Response.json({ success: true });
+  }
+
+  // Otherwise, we're updating a single location
+  const location: Location = body;
   const locations = await getLocations();
-  const index = locations.findIndex((l) => l.id === body.id);
+  const index = locations.findIndex((l) => l.id === location.id);
 
   if (index === -1) {
     return Response.json({ error: "Location not found" }, { status: 404 });
   }
 
-  locations[index] = body;
+  locations[index] = location;
   try {
     await saveLocations(locations);
   } catch (err) {
@@ -56,7 +70,7 @@ export async function PUT(request: NextRequest) {
     return Response.json({ error: String(err) }, { status: 500 });
   }
 
-  return Response.json(body);
+  return Response.json(location);
 }
 
 export async function DELETE(request: NextRequest) {

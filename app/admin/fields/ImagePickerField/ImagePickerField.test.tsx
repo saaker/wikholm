@@ -17,13 +17,13 @@ describe('ImagePickerField', () => {
 
   describe('rendering', () => {
     it('should render with label', () => {
-      render(<ImagePickerField label="Image" value="" onChange={() => {}} />)
+      render(<ImagePickerField locale="sv" label="Image" value="" onChange={() => {}} />)
 
       expect(screen.getByText('Image')).toBeInTheDocument()
     })
 
     it('should render text input', () => {
-      render(<ImagePickerField label="Image" value="" onChange={() => {}} />)
+      render(<ImagePickerField locale="sv" label="Image" value="" onChange={() => {}} />)
 
       const input = screen.getByRole('textbox')
       expect(input).toBeInTheDocument()
@@ -31,21 +31,21 @@ describe('ImagePickerField', () => {
     })
 
     it('should render picker button', () => {
-      const { container } = render(<ImagePickerField label="Image" value="" onChange={() => {}} />)
+      const { container } = render(<ImagePickerField locale="sv" label="Image" value="" onChange={() => {}} />)
 
       const pickerButton = container.querySelector('button[title="Välj från bildbiblioteket"]')
       expect(pickerButton).toBeInTheDocument()
     })
 
     it('should display current value in input', () => {
-      render(<ImagePickerField label="Image" value="/images/news/test.jpg" onChange={() => {}} />)
+      render(<ImagePickerField locale="sv" label="Image" value="/images/news/test.jpg" onChange={() => {}} />)
 
       const input = screen.getByRole('textbox')
       expect(input).toHaveValue('/images/news/test.jpg')
     })
 
     it('should show preview when value is set', () => {
-      const { container } = render(<ImagePickerField label="Image" value="/images/news/test.jpg" onChange={() => {}} />)
+      const { container } = render(<ImagePickerField locale="sv" label="Image" value="/images/news/test.jpg" onChange={() => {}} />)
 
       const preview = container.querySelector('img[alt="Preview"]')
       expect(preview).toBeInTheDocument()
@@ -53,7 +53,7 @@ describe('ImagePickerField', () => {
     })
 
     it('should not show preview when value is empty', () => {
-      const { container } = render(<ImagePickerField label="Image" value="" onChange={() => {}} />)
+      const { container } = render(<ImagePickerField locale="sv" label="Image" value="" onChange={() => {}} />)
 
       const preview = container.querySelector('img[alt="Preview"]')
       expect(preview).not.toBeInTheDocument()
@@ -65,7 +65,7 @@ describe('ImagePickerField', () => {
       const handleChange = vi.fn()
       const user = userEvent.setup()
 
-      render(<ImagePickerField label="Image" value="" onChange={handleChange} />)
+      render(<ImagePickerField locale="sv" label="Image" value="" onChange={handleChange} />)
 
       const input = screen.getByRole('textbox')
       await user.type(input, '/test.jpg')
@@ -79,7 +79,7 @@ describe('ImagePickerField', () => {
       })
 
       const user = userEvent.setup()
-      const { container } = render(<ImagePickerField label="Image" value="" onChange={() => {}} />)
+      const { container } = render(<ImagePickerField locale="sv" label="Image" value="" onChange={() => {}} />)
 
       const pickerButton = container.querySelector('button[title="Välj från bildbiblioteket"]')
       await user.click(pickerButton!)
@@ -95,7 +95,7 @@ describe('ImagePickerField', () => {
       })
 
       const user = userEvent.setup()
-      const { container } = render(<ImagePickerField label="Image" value="" onChange={() => {}} />)
+      const { container } = render(<ImagePickerField locale="sv" label="Image" value="" onChange={() => {}} />)
 
       const pickerButton = container.querySelector('button[title="Välj från bildbiblioteket"]')
       await user.click(pickerButton!)
@@ -111,7 +111,7 @@ describe('ImagePickerField', () => {
       })
 
       const user = userEvent.setup()
-      const { container } = render(<ImagePickerField label="Image" value="" onChange={() => {}} />)
+      const { container } = render(<ImagePickerField locale="sv" label="Image" value="" onChange={() => {}} />)
 
       const pickerButton = container.querySelector('button[title="Välj från bildbiblioteket"]')
       await user.click(pickerButton!)
@@ -134,7 +134,7 @@ describe('ImagePickerField', () => {
       })
 
       const user = userEvent.setup()
-      const { container } = render(<ImagePickerField label="Image" value="" onChange={() => {}} />)
+      const { container } = render(<ImagePickerField locale="sv" label="Image" value="" onChange={() => {}} />)
 
       const pickerButton = container.querySelector('button[title="Välj från bildbiblioteket"]')
       await user.click(pickerButton!)
@@ -156,7 +156,7 @@ describe('ImagePickerField', () => {
         })
 
       const user = userEvent.setup()
-      const { container } = render(<ImagePickerField label="Image" value="" onChange={() => {}} />)
+      const { container } = render(<ImagePickerField locale="sv" label="Image" value="" onChange={() => {}} />)
 
       const pickerButton = container.querySelector('button[title="Välj från bildbiblioteket"]')
       await user.click(pickerButton!)
@@ -184,7 +184,7 @@ describe('ImagePickerField', () => {
         })
 
       const user = userEvent.setup()
-      const { container } = render(<ImagePickerField label="Image" value="" onChange={handleChange} />)
+      const { container } = render(<ImagePickerField locale="sv" label="Image" value="" onChange={handleChange} />)
 
       const pickerButton = container.querySelector('button[title="Välj från bildbiblioteket"]')
       await user.click(pickerButton!)
@@ -219,7 +219,7 @@ describe('ImagePickerField', () => {
 
       const user = userEvent.setup()
       const { container } = render(
-        <ImagePickerField label="Image" value="" onChange={() => {}} defaultFolder="news" />
+        <ImagePickerField locale="sv" label="Image" value="" onChange={() => {}} defaultFolder="news" />
       )
 
       const pickerButton = container.querySelector('button[title="Välj från bildbiblioteket"]')
@@ -236,7 +236,7 @@ describe('ImagePickerField', () => {
       fetchMock.mockRejectedValueOnce(new Error('Network error'))
 
       const user = userEvent.setup()
-      const { container } = render(<ImagePickerField label="Image" value="" onChange={() => {}} />)
+      const { container } = render(<ImagePickerField locale="sv" label="Image" value="" onChange={() => {}} />)
 
       const pickerButton = container.querySelector('button[title="Välj från bildbiblioteket"]')
       await user.click(pickerButton!)
@@ -252,7 +252,7 @@ describe('ImagePickerField', () => {
       })
 
       const user = userEvent.setup()
-      const { container } = render(<ImagePickerField label="Image" value="" onChange={() => {}} />)
+      const { container } = render(<ImagePickerField locale="sv" label="Image" value="" onChange={() => {}} />)
 
       const pickerButton = container.querySelector('button[title="Välj från bildbiblioteket"]')
       await user.click(pickerButton!)
@@ -264,7 +264,7 @@ describe('ImagePickerField', () => {
 
     it('should handle HTTP URL in value', () => {
       const { container } = render(
-        <ImagePickerField label="Image" value="https://example.com/image.jpg" onChange={() => {}} />
+        <ImagePickerField locale="sv" label="Image" value="https://example.com/image.jpg" onChange={() => {}} />
       )
 
       const preview = container.querySelector('img[alt="Preview"]')

@@ -1,4 +1,5 @@
 import { Field } from "../fields/Field/Field";
+import { ADMIN_TRANSLATIONS } from "../shared/translations";
 import { IconPicker } from "../fields/IconPicker/IconPicker";
 import { CheckboxField } from "../fields/CheckboxField/CheckboxField";
 import { asAlignerItem } from "../shared/cardHelpers";
@@ -17,27 +18,28 @@ export function AlignerCardEditForm({
   onUpdate,
 }: AlignerCardEditFormProps) {
   const update = (path: string, value: string | boolean) => onUpdate(index, path, value);
+  const t = ADMIN_TRANSLATIONS[locale];
   const localData = (item[locale] || {}) as Record<string, string>;
   const al = asAlignerItem(item);
 
   return (
     <>
       <IconPicker value={al.icon} onChange={(v) => update("icon", v)} />
-      <CheckboxField
-        label="Dölj kort"
-        value={al.hidden ?? false}
-        onChange={(v) => update("hidden", v)}
-      />
       <Field
-        label="Titel"
+        label={t.title}
         value={localData.title || ""}
         onChange={(v) => update(`${locale}.title`, v)}
       />
       <Field
-        label="Beskrivning"
+        label={t.description}
         value={localData.desc || ""}
         onChange={(v) => update(`${locale}.desc`, v)}
         multiline
+      />
+      <CheckboxField
+        label={t.hideCard}
+        value={al.hidden ?? false}
+        onChange={(v) => update("hidden", v)}
       />
     </>
   );

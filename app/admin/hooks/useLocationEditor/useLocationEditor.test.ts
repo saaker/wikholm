@@ -245,7 +245,7 @@ describe("useLocationEditor", () => {
   });
 
   describe("handleLocDelete", () => {
-    it("should delete location on confirmation", async () => {
+    it("should delete location successfully", async () => {
       mockFetch.mockResolvedValue({
         ok: true,
         json: async () => ({}),
@@ -259,7 +259,6 @@ describe("useLocationEditor", () => {
         await result.current.handleLocDelete("1");
       });
 
-      expect(global.confirm).toHaveBeenCalled();
       expect(showMessage).toHaveBeenCalledWith("success", expect.any(String));
     });
   });

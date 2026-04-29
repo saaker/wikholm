@@ -272,6 +272,7 @@ export default function AdminPanel({ initialLocations = [] }: AdminPanelProps) {
                   setForm={loc.setLocForm}
                   onSave={loc.handleLocSave}
                   onDelete={loc.handleLocDelete}
+                  onSaveOrder={loc.saveLocationOrder}
                   onEdit={loc.startEdit}
                   onCancel={loc.cancelEdit}
                   onGeocode={loc.geocodeAddress}

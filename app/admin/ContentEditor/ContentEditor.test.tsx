@@ -21,25 +21,26 @@ describe('ContentEditor', () => {
   }
 
   describe('language reminder banner', () => {
-    it('should render language reminder banner', () => {
+    it('should render language reminder banner in Swedish (default locale)', () => {
       render(<ContentEditor {...defaultProps} />)
 
-      expect(screen.getByText(/Don't forget to add the/)).toBeInTheDocument()
+      expect(screen.getByText(/Glöm inte att lägga till den/)).toBeInTheDocument()
     })
 
-    it('should show "English" reminder when locale is Swedish', () => {
+    it('should show Swedish banner with "English" reminder when locale is sv', () => {
       render(<ContentEditor {...defaultProps} locale="sv" />)
 
-      expect(screen.getByText(/Don't forget to add the/)).toBeInTheDocument()
+      expect(screen.getByText(/Glöm inte att lägga till den/)).toBeInTheDocument()
       const strongElement = screen.getByText('English', { selector: 'strong' })
       expect(strongElement).toBeInTheDocument()
     })
 
-    it('should show "Swedish" reminder when locale is English', () => {
+    it('should show English banner with "Svenska" reminder when locale is en', () => {
       render(<ContentEditor {...defaultProps} locale="en" />)
 
       expect(screen.getByText(/Don't forget to add the/)).toBeInTheDocument()
-      expect(screen.getByText('Swedish')).toBeInTheDocument()
+      const strongElement = screen.getByText('Svenska', { selector: 'strong' })
+      expect(strongElement).toBeInTheDocument()
     })
 
     it('should display lightbulb emoji in banner', () => {
@@ -85,7 +86,7 @@ describe('ContentEditor', () => {
     it('should render save button', () => {
       render(<ContentEditor {...defaultProps} />)
 
-      expect(screen.getByText('Spara ändringar')).toBeInTheDocument()
+      expect(screen.getByText('Spara')).toBeInTheDocument()
     })
 
     it('should render reset button', () => {
@@ -100,7 +101,7 @@ describe('ContentEditor', () => {
 
       render(<ContentEditor {...defaultProps} onSave={onSave} />)
 
-      const saveButton = screen.getByText('Spara ändringar')
+      const saveButton = screen.getByText('Spara')
       await user.click(saveButton)
 
       expect(onSave).toHaveBeenCalledTimes(1)

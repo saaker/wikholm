@@ -1,18 +1,27 @@
+import { ADMIN_TRANSLATIONS } from "../shared/translations";
+
 type MoveButtonsProps = {
   index: number;
   total: number;
   onMove: (from: number, to: number) => void;
+  canMoveUp?: boolean;
+  canMoveDown?: boolean;
+  locale: "sv" | "en";
 };
 
-export function MoveButtons({ index, total, onMove }: MoveButtonsProps) {
+export function MoveButtons({ index, total, onMove, canMoveUp, canMoveDown, locale }: MoveButtonsProps) {
+  const disableUp = canMoveUp !== undefined ? !canMoveUp : index === 0;
+  const disableDown = canMoveDown !== undefined ? !canMoveDown : index === total - 1;
+  const t = ADMIN_TRANSLATIONS[locale];
+
   return (
     <div className="flex flex-col gap-1">
       <button
         type="button"
-        disabled={index === 0}
+        disabled={disableUp}
         onClick={() => onMove(index, index - 1)}
         className="w-10 h-10 flex items-center justify-center rounded-lg hover:bg-muted disabled:opacity-30"
-        title="Flytta upp"
+        title={t.moveUp}
       >
         <svg
           className="w-5 h-5"
@@ -30,10 +39,10 @@ export function MoveButtons({ index, total, onMove }: MoveButtonsProps) {
       </button>
       <button
         type="button"
-        disabled={index === total - 1}
+        disabled={disableDown}
         onClick={() => onMove(index, index + 1)}
         className="w-10 h-10 flex items-center justify-center rounded-lg hover:bg-muted disabled:opacity-30"
-        title="Flytta ner"
+        title={t.moveDown}
       >
         <svg
           className="w-5 h-5"

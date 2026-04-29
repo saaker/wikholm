@@ -16,6 +16,7 @@ interface LocationData {
   website?: string;
   type: "onsite" | "partner";
   alignerBrands?: ("clearcorrect" | "invisalign")[];
+  hidden?: boolean;
 }
 
 const LocationMap = dynamic(() => import("./LocationMap"), {
@@ -39,8 +40,8 @@ export default function Locations({
     setActiveId(id);
   }, []);
 
-  const onsite = locations.filter((l) => (l.type || "onsite") === "onsite");
-  const partner = locations.filter((l) => l.type === "partner");
+  const onsite = locations.filter((l) => l.name && l.name.trim() && !l.hidden && (l.type || "onsite") === "onsite");
+  const partner = locations.filter((l) => l.name && l.name.trim() && !l.hidden && l.type === "partner");
 
   const renderCard = (location: LocationData) => (
     <button
@@ -75,50 +76,72 @@ export default function Locations({
         </span>
       </div>
       <div className="space-y-1.5 text-sm text-muted-dark">
-        <div className="flex items-start gap-2">
-          <svg
-            className="w-4 h-4 mt-0.5 shrink-0 text-primary"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-            />
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-            />
-          </svg>
-          <span>{location.address}</span>
-        </div>
-        <div className="flex items-center gap-2">
-          <svg
-            className="w-4 h-4 shrink-0 text-primary"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
-            />
-          </svg>
-          <a
-            href={`tel:${location.phone.replace(/\s/g, "")}`}
-            onClick={(e) => e.stopPropagation()}
-            className="hover:text-primary transition-colors rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
-          >
-            {location.phone}
-          </a>
-        </div>
+        {location.address && (
+          <div className="flex items-start gap-2">
+            <svg
+              className="w-4 h-4 mt-0.5 shrink-0 text-primary"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+              />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+              />
+            </svg>
+            <span>{location.address}</span>
+          </div>
+        )}
+        {location.phone && (
+          <div className="flex items-center gap-2">
+            <svg
+              className="w-4 h-4 shrink-0 text-primary"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+              />
+            </svg>
+            <a
+              href={`tel:${location.phone.replace(/\s/g, "")}`}
+              onClick={(e) => e.stopPropagation()}
+              className="hover:text-primary transition-colors rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+            >
+              {location.phone}
+            </a>
+          </div>
+        )}
+        {location.hours && (
+          <div className="flex items-center gap-2">
+            <svg
+              className="w-4 h-4 shrink-0 text-primary"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+            </svg>
+            <span>{location.hours}</span>
+          </div>
+        )}
         {location.website && (
           <div className="flex items-center gap-2">
             <svg
