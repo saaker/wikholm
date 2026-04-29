@@ -3,12 +3,14 @@
 import { useState } from "react";
 import { inputCls } from "../../shared/adminTypes";
 import basePath from "@/lib/basePath";
+import { ADMIN_TRANSLATIONS } from "../../shared/translations";
 
 type ImagePickerFieldProps = {
   label: string;
   value: string;
   onChange: (v: string) => void;
   defaultFolder?: string;
+  locale: "sv" | "en";
 };
 
 export function ImagePickerField({
@@ -16,7 +18,9 @@ export function ImagePickerField({
   value,
   onChange,
   defaultFolder,
+  locale,
 }: ImagePickerFieldProps) {
+  const t = ADMIN_TRANSLATIONS[locale];
   const [open, setOpen] = useState(false);
   const [folders, setFolders] = useState<string[]>([]);
   const [selFolder, setSelFolder] = useState<string | null>(null);
@@ -76,7 +80,7 @@ export function ImagePickerField({
               type="button"
               onClick={openPicker}
               className="w-9 h-9 shrink-0 flex items-center justify-center rounded-lg border border-border bg-muted hover:bg-primary-light hover:text-primary transition-colors text-muted-dark"
-              title="Välj från bildbiblioteket"
+              title={t.imagePicker_selectFromLibrary}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -100,7 +104,7 @@ export function ImagePickerField({
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
           <div className="bg-surface rounded-2xl shadow-2xl border border-border w-full max-w-2xl max-h-[80vh] flex flex-col">
             <div className="flex items-center justify-between px-5 py-4 border-b border-border">
-              <h3 className="font-semibold text-sm">Välj bild</h3>
+              <h3 className="font-semibold text-sm">{t.imagePicker_selectImage}</h3>
               <button
                 onClick={() => setOpen(false)}
                 className="text-muted-dark hover:text-foreground text-lg"
@@ -125,11 +129,11 @@ export function ImagePickerField({
               <div className="flex-1 p-3 overflow-y-auto">
                 {!selFolder ? (
                   <p className="text-xs text-muted-dark text-center py-8">
-                    Välj en mapp till vänster
+                    {t.imagePicker_selectFolder}
                   </p>
                 ) : images.length === 0 ? (
                   <p className="text-xs text-muted-dark text-center py-8">
-                    Inga bilder i mappen
+                    {t.imagePicker_noImages}
                   </p>
                 ) : (
                   <div className="grid grid-cols-3 gap-2">

@@ -10,9 +10,7 @@ export function useLocationEditor(
 ) {
   const [locations, setLocations] = useState<Location[]>(initialLocations);
   const [editing, setEditing] = useState<Location | null>(null);
-  const [locForm, setLocForm] = useState<
-    Omit<Location, "id"> & { id?: string }
-  >(emptyLocation);
+  const [locForm, setLocForm] = useState<Omit<Location, "id"> & { id?: string }>(emptyLocation);
   const [loading, setLoading] = useState(false);
   const [geocoding, setGeocoding] = useState(false);
 
@@ -64,8 +62,12 @@ export function useLocationEditor(
     e.preventDefault();
     setLoading(true);
     try {
-      const method = editing ? "PUT" : "POST";
-      const body = editing ? { ...locForm, id: editing.id } : locForm;
+      // Check if type has changed
+      const typeChanged = editing && editing.id !== "new" && editing.type !== locForm.type;
+
+      const isNew = !editing || editing.id === "new";
+      const method = isNew ? "POST" : "PUT";
+      const body = isNew ? locForm : { ...locForm, id: editing.id };
       const res = await fetch(`${basePath}/api/locations`, {
         method,
         headers: authHeaders,
@@ -78,7 +80,13 @@ export function useLocationEditor(
         );
         setLocForm(emptyLocation);
         setEditing(null);
-        await fetchLocations();
+
+        // If type changed, reorganize all locations
+        if (typeChanged) {
+          await reorganizeLocationsByType();
+        } else {
+          await fetchLocations();
+        }
       } else {
         const d = await res.json();
         showMessage("error", d.error || "Något gick fel");
@@ -90,8 +98,37 @@ export function useLocationEditor(
     }
   }
 
+  async function reorganizeLocationsByType() {
+    try {
+      const locs = await fetch(`${basePath}/api/locations`).then(r => r.json());
+
+      // Group by type
+      const onsite = locs.filter((l: Location) => l.type === "onsite");
+      const partner = locs.filter((l: Location) => l.type === "partner");
+
+      // Reassign order values
+      const reordered = [
+        ...onsite.map((l: Location, idx: number) => ({ ...l, order: idx })),
+        ...partner.map((l: Location, idx: number) => ({ ...l, order: onsite.length + idx })),
+      ];
+
+      // Save reordered locations
+      const res = await fetch(`${basePath}/api/locations`, {
+        method: "PUT",
+        headers: authHeaders,
+        body: JSON.stringify({ locations: reordered }),
+      });
+
+      if (res.ok) {
+        await fetchLocations();
+      }
+    } catch (err) {
+      console.error("Failed to reorganize:", err);
+      await fetchLocations();
+    }
+  }
+
   async function handleLocDelete(id: string) {
-    if (!confirm("Är du säker på att du vill ta bort denna klinik?")) return;
     setLoading(true);
     try {
       const res = await fetch(`${basePath}/api/locations`, {
@@ -126,12 +163,46 @@ export function useLocationEditor(
       website: loc.website || "",
       type: loc.type,
       alignerBrands: loc.alignerBrands || [],
+      order: loc.order,
+      hidden: loc.hidden || false,
     });
   }
 
   function cancelEdit() {
     setEditing(null);
     setLocForm(emptyLocation);
+  }
+
+  async function saveLocationOrder(reorderedLocations: Location[]) {
+    setLoading(true);
+    try {
+      // Group by type and preserve order within each type
+      const onsite = reorderedLocations.filter(l => l.type === "onsite");
+      const partner = reorderedLocations.filter(l => l.type === "partner");
+
+      // Reassign order values to maintain type grouping
+      const finalOrder = [
+        ...onsite.map((l, idx) => ({ ...l, order: idx })),
+        ...partner.map((l, idx) => ({ ...l, order: onsite.length + idx })),
+      ];
+
+      const res = await fetch(`${basePath}/api/locations`, {
+        method: "PUT",
+        headers: authHeaders,
+        body: JSON.stringify({ locations: finalOrder }),
+      });
+
+      if (res.ok) {
+        showMessage("success", "Ordning sparad!");
+        await fetchLocations();
+      } else {
+        showMessage("error", "Kunde inte spara ordning");
+      }
+    } catch {
+      showMessage("error", "Nätverksfel");
+    } finally {
+      setLoading(false);
+    }
   }
 
   return {
@@ -145,6 +216,7 @@ export function useLocationEditor(
     geocodeAddress,
     handleLocSave,
     handleLocDelete,
+    saveLocationOrder,
     startEdit,
     cancelEdit,
   };

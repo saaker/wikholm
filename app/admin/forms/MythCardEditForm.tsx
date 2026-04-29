@@ -1,5 +1,6 @@
 import { Field } from "../fields/Field/Field";
-import { HideCheckbox } from "../fields/HideCheckbox/HideCheckbox";
+import { ADMIN_TRANSLATIONS } from "../shared/translations";
+import { CheckboxField } from "../fields/CheckboxField/CheckboxField";
 import { asMythItem } from "../shared/cardHelpers";
 
 type MythCardEditFormProps = {
@@ -16,24 +17,26 @@ export function MythCardEditForm({
   onUpdate,
 }: MythCardEditFormProps) {
   const update = (path: string, value: string | boolean) => onUpdate(index, path, value);
+  const t = ADMIN_TRANSLATIONS[locale];
   const localData = (item[locale] || {}) as Record<string, string>;
   const myth = asMythItem(item);
 
   return (
     <>
       <Field
-        label="Myt"
+        label={t.myth_label}
         value={localData.myth || ""}
         onChange={(v) => update(`${locale}.myth`, v)}
       />
       <Field
-        label="Sanning"
+        label={t.truth_label}
         value={localData.truth || ""}
         onChange={(v) => update(`${locale}.truth`, v)}
         multiline
       />
-      <HideCheckbox
-        checked={!!myth.hidden}
+      <CheckboxField
+        label={t.hideCard}
+        value={!!myth.hidden}
         onChange={(checked) => update("hidden", checked)}
       />
     </>

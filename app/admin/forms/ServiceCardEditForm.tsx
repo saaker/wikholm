@@ -1,7 +1,8 @@
 import { Field } from "../fields/Field/Field";
 import { IconPicker } from "../fields/IconPicker/IconPicker";
-import { HideCheckbox } from "../fields/HideCheckbox/HideCheckbox";
+import { CheckboxField } from "../fields/CheckboxField/CheckboxField";
 import { asServiceItem } from "../shared/cardHelpers";
+import { ADMIN_TRANSLATIONS } from "../shared/translations";
 
 type ServiceCardEditFormProps = {
   item: Record<string, unknown>;
@@ -21,6 +22,7 @@ export function ServiceCardEditForm({
   const update = (path: string, value: string | boolean) => onUpdate(index, path, value);
   const localData = (item[locale] || {}) as Record<string, string>;
   const svc = asServiceItem(item);
+  const t = ADMIN_TRANSLATIONS[locale];
 
   const hasOtherHighlight = Boolean(
     allItems?.some(
@@ -32,51 +34,42 @@ export function ServiceCardEditForm({
     <>
       <IconPicker value={svc.icon} onChange={(v) => update("icon", v)} />
       <Field
-        label="Titel"
+        label={t.title}
         value={localData.title || ""}
         onChange={(v) => update(`${locale}.title`, v)}
       />
       <Field
-        label="Beskrivning"
+        label={t.description}
         value={localData.desc || ""}
         onChange={(v) => update(`${locale}.desc`, v)}
         multiline
       />
       <Field
-        label="Tagg"
+        label={t.tag}
         value={localData.tag || ""}
         onChange={(v) => update(`${locale}.tag`, v)}
       />
       <Field
-        label="Pris"
+        label={t.price}
         value={localData.price || ""}
         onChange={(v) => update(`${locale}.price`, v)}
       />
       <Field
-        label="Klick-text (för case assessment)"
+        label={t.service_clickPrompt}
         value={localData.clickPrompt || ""}
         onChange={(v) => update(`${locale}.clickPrompt`, v)}
-        placeholder={locale === "sv" ? "Se hur du skickar ditt fall" : "See how to submit your case"}
+        placeholder={t.service_clickPromptPlaceholder}
       />
-      <label className="flex items-center gap-2 text-sm">
-        <input
-          type="checkbox"
-          checked={svc.highlight}
-          onChange={(e) => update("highlight", e.target.checked)}
-          className="rounded"
-          disabled={hasOtherHighlight && !svc.highlight}
-        />
-        <span className={hasOtherHighlight && !svc.highlight ? "line-through" : ""}>
-          Markera som highlight
-        </span>
-        {hasOtherHighlight && !svc.highlight && (
-          <span className="text-xs text-muted-dark">
-            (En annan tjänst är redan markerad som highlight)
-          </span>
-        )}
-      </label>
-      <HideCheckbox
-        checked={!!svc.hidden}
+      <CheckboxField
+        label={t.service_highlightLabel}
+        value={svc.highlight}
+        onChange={(checked) => update("highlight", checked)}
+        disabled={hasOtherHighlight && !svc.highlight}
+        helperText={hasOtherHighlight && !svc.highlight ? t.service_highlightHelper : undefined}
+      />
+      <CheckboxField
+        label={t.hideCard}
+        value={!!svc.hidden}
         onChange={(checked) => update("hidden", checked)}
       />
     </>

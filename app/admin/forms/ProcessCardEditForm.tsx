@@ -1,4 +1,5 @@
 import { Field } from "../fields/Field/Field";
+import { ADMIN_TRANSLATIONS } from "../shared/translations";
 
 type ProcessCardEditFormProps = {
   item: Record<string, unknown>;
@@ -14,17 +15,18 @@ export function ProcessCardEditForm({
   onUpdate,
 }: ProcessCardEditFormProps) {
   const update = (path: string, value: string | boolean) => onUpdate(index, path, value);
+  const t = ADMIN_TRANSLATIONS[locale];
   const localData = (item[locale] || {}) as Record<string, string>;
 
   return (
     <>
       <Field
-        label="Titel"
+        label={t.title}
         value={localData.title || ""}
         onChange={(v) => update(`${locale}.title`, v)}
       />
       <Field
-        label="Beskrivning"
+        label={t.description}
         value={localData.desc || ""}
         onChange={(v) => update(`${locale}.desc`, v)}
         multiline

@@ -4,6 +4,8 @@ import type { SectionsData } from "@/lib/sectionsDefaults";
 /* ═══════════════════════════════════════════════════
    Types
    ═══════════════════════════════════════════════════ */
+export type AlignerBrand = "clearcorrect" | "invisalign";
+
 export interface Location {
   id: string;
   name: string;
@@ -14,7 +16,9 @@ export interface Location {
   lng: number;
   website?: string;
   type: "onsite" | "partner";
-  alignerBrands: ("clearcorrect" | "invisalign")[];
+  alignerBrands: AlignerBrand[];
+  order: number;
+  hidden?: boolean;
 }
 
 export const emptyLocation: Omit<Location, "id"> = {
@@ -27,6 +31,7 @@ export const emptyLocation: Omit<Location, "id"> = {
   website: "",
   type: "onsite",
   alignerBrands: [],
+  order: 0,
 };
 
 export type ContentOverrides = {
@@ -336,7 +341,7 @@ export const patientSidebar: SidebarItem[] = [
   { type: "content", sectionId: "beforeAfter", title: "Före & Efter (rubrik)" },
   { type: "cards", sectionKey: "beforeAfter", title: "Före & Efter (kort)" },
   { type: "content", sectionId: "locations-header", title: "Kliniker (rubrik)" },
-  { type: "locations", title: "Kliniker" },
+  { type: "locations", title: "Kliniker (kort)" },
   { type: "content", sectionId: "faq-header", title: "FAQ (rubrik)" },
   { type: "cards", sectionKey: "faq", title: "FAQ (kort)" },
 ];

@@ -6,28 +6,28 @@ import { MoveButtons } from './MoveButtons'
 describe('MoveButtons', () => {
   describe('rendering', () => {
     it('should render two buttons', () => {
-      render(<MoveButtons index={1} total={3} onMove={() => {}} />)
+      render(<MoveButtons locale="sv" index={1} total={3} onMove={() => {}} />)
 
       const buttons = screen.getAllByRole('button')
       expect(buttons).toHaveLength(2)
     })
 
     it('should render up button with correct title', () => {
-      const { container } = render(<MoveButtons index={1} total={3} onMove={() => {}} />)
+      const { container } = render(<MoveButtons locale="sv" index={1} total={3} onMove={() => {}} />)
 
       const upButton = container.querySelector('button[title="Flytta upp"]')
       expect(upButton).toBeInTheDocument()
     })
 
     it('should render down button with correct title', () => {
-      const { container } = render(<MoveButtons index={1} total={3} onMove={() => {}} />)
+      const { container } = render(<MoveButtons locale="sv" index={1} total={3} onMove={() => {}} />)
 
       const downButton = container.querySelector('button[title="Flytta ner"]')
       expect(downButton).toBeInTheDocument()
     })
 
     it('should render SVG icons in both buttons', () => {
-      const { container } = render(<MoveButtons index={1} total={3} onMove={() => {}} />)
+      const { container } = render(<MoveButtons locale="sv" index={1} total={3} onMove={() => {}} />)
 
       const svgs = container.querySelectorAll('svg')
       expect(svgs).toHaveLength(2)
@@ -36,21 +36,21 @@ describe('MoveButtons', () => {
 
   describe('disabled states - first item', () => {
     it('should disable up button for first item', () => {
-      const { container } = render(<MoveButtons index={0} total={3} onMove={() => {}} />)
+      const { container } = render(<MoveButtons locale="sv" index={0} total={3} onMove={() => {}} />)
 
       const upButton = container.querySelector('button[title="Flytta upp"]')
       expect(upButton).toBeDisabled()
     })
 
     it('should enable down button for first item', () => {
-      const { container } = render(<MoveButtons index={0} total={3} onMove={() => {}} />)
+      const { container } = render(<MoveButtons locale="sv" index={0} total={3} onMove={() => {}} />)
 
       const downButton = container.querySelector('button[title="Flytta ner"]')
       expect(downButton).not.toBeDisabled()
     })
 
     it('should apply opacity style to disabled up button', () => {
-      const { container } = render(<MoveButtons index={0} total={3} onMove={() => {}} />)
+      const { container } = render(<MoveButtons locale="sv" index={0} total={3} onMove={() => {}} />)
 
       const upButton = container.querySelector('button[title="Flytta upp"]')
       expect(upButton).toHaveClass('disabled:opacity-30')
@@ -59,21 +59,21 @@ describe('MoveButtons', () => {
 
   describe('disabled states - last item', () => {
     it('should enable up button for last item', () => {
-      const { container } = render(<MoveButtons index={2} total={3} onMove={() => {}} />)
+      const { container } = render(<MoveButtons locale="sv" index={2} total={3} onMove={() => {}} />)
 
       const upButton = container.querySelector('button[title="Flytta upp"]')
       expect(upButton).not.toBeDisabled()
     })
 
     it('should disable down button for last item', () => {
-      const { container } = render(<MoveButtons index={2} total={3} onMove={() => {}} />)
+      const { container } = render(<MoveButtons locale="sv" index={2} total={3} onMove={() => {}} />)
 
       const downButton = container.querySelector('button[title="Flytta ner"]')
       expect(downButton).toBeDisabled()
     })
 
     it('should apply opacity style to disabled down button', () => {
-      const { container } = render(<MoveButtons index={2} total={3} onMove={() => {}} />)
+      const { container } = render(<MoveButtons locale="sv" index={2} total={3} onMove={() => {}} />)
 
       const downButton = container.querySelector('button[title="Flytta ner"]')
       expect(downButton).toHaveClass('disabled:opacity-30')
@@ -82,7 +82,7 @@ describe('MoveButtons', () => {
 
   describe('disabled states - middle item', () => {
     it('should enable both buttons for middle item', () => {
-      const { container } = render(<MoveButtons index={1} total={3} onMove={() => {}} />)
+      const { container } = render(<MoveButtons locale="sv" index={1} total={3} onMove={() => {}} />)
 
       const upButton = container.querySelector('button[title="Flytta upp"]')
       const downButton = container.querySelector('button[title="Flytta ner"]')
@@ -94,7 +94,7 @@ describe('MoveButtons', () => {
 
   describe('disabled states - single item', () => {
     it('should disable both buttons for single item', () => {
-      const { container } = render(<MoveButtons index={0} total={1} onMove={() => {}} />)
+      const { container } = render(<MoveButtons locale="sv" index={0} total={1} onMove={() => {}} />)
 
       const upButton = container.querySelector('button[title="Flytta upp"]')
       const downButton = container.querySelector('button[title="Flytta ner"]')
@@ -108,7 +108,7 @@ describe('MoveButtons', () => {
     it('should call onMove with correct arguments when up button clicked', async () => {
       const handleMove = vi.fn()
       const user = userEvent.setup()
-      const { container } = render(<MoveButtons index={2} total={5} onMove={handleMove} />)
+      const { container } = render(<MoveButtons locale="sv" index={2} total={5} onMove={handleMove} />)
 
       const upButton = container.querySelector('button[title="Flytta upp"]')
       await user.click(upButton!)
@@ -120,7 +120,7 @@ describe('MoveButtons', () => {
     it('should not call onMove when disabled up button clicked', async () => {
       const handleMove = vi.fn()
       const user = userEvent.setup()
-      const { container } = render(<MoveButtons index={0} total={3} onMove={handleMove} />)
+      const { container } = render(<MoveButtons locale="sv" index={0} total={3} onMove={handleMove} />)
 
       const upButton = container.querySelector('button[title="Flytta upp"]')
       await user.click(upButton!)
@@ -131,7 +131,7 @@ describe('MoveButtons', () => {
     it('should move from position 1 to 0', async () => {
       const handleMove = vi.fn()
       const user = userEvent.setup()
-      const { container } = render(<MoveButtons index={1} total={3} onMove={handleMove} />)
+      const { container } = render(<MoveButtons locale="sv" index={1} total={3} onMove={handleMove} />)
 
       const upButton = container.querySelector('button[title="Flytta upp"]')
       await user.click(upButton!)
@@ -142,7 +142,7 @@ describe('MoveButtons', () => {
     it('should move from position 4 to 3', async () => {
       const handleMove = vi.fn()
       const user = userEvent.setup()
-      const { container } = render(<MoveButtons index={4} total={5} onMove={handleMove} />)
+      const { container } = render(<MoveButtons locale="sv" index={4} total={5} onMove={handleMove} />)
 
       const upButton = container.querySelector('button[title="Flytta upp"]')
       await user.click(upButton!)
@@ -155,7 +155,7 @@ describe('MoveButtons', () => {
     it('should call onMove with correct arguments when down button clicked', async () => {
       const handleMove = vi.fn()
       const user = userEvent.setup()
-      const { container } = render(<MoveButtons index={1} total={5} onMove={handleMove} />)
+      const { container } = render(<MoveButtons locale="sv" index={1} total={5} onMove={handleMove} />)
 
       const downButton = container.querySelector('button[title="Flytta ner"]')
       await user.click(downButton!)
@@ -167,7 +167,7 @@ describe('MoveButtons', () => {
     it('should not call onMove when disabled down button clicked', async () => {
       const handleMove = vi.fn()
       const user = userEvent.setup()
-      const { container } = render(<MoveButtons index={2} total={3} onMove={handleMove} />)
+      const { container } = render(<MoveButtons locale="sv" index={2} total={3} onMove={handleMove} />)
 
       const downButton = container.querySelector('button[title="Flytta ner"]')
       await user.click(downButton!)
@@ -178,7 +178,7 @@ describe('MoveButtons', () => {
     it('should move from position 0 to 1', async () => {
       const handleMove = vi.fn()
       const user = userEvent.setup()
-      const { container } = render(<MoveButtons index={0} total={3} onMove={handleMove} />)
+      const { container } = render(<MoveButtons locale="sv" index={0} total={3} onMove={handleMove} />)
 
       const downButton = container.querySelector('button[title="Flytta ner"]')
       await user.click(downButton!)
@@ -189,7 +189,7 @@ describe('MoveButtons', () => {
     it('should move from position 3 to 4', async () => {
       const handleMove = vi.fn()
       const user = userEvent.setup()
-      const { container } = render(<MoveButtons index={3} total={5} onMove={handleMove} />)
+      const { container } = render(<MoveButtons locale="sv" index={3} total={5} onMove={handleMove} />)
 
       const downButton = container.querySelector('button[title="Flytta ner"]')
       await user.click(downButton!)
@@ -200,7 +200,7 @@ describe('MoveButtons', () => {
 
   describe('styling', () => {
     it('should apply hover styles to buttons', () => {
-      const { container } = render(<MoveButtons index={1} total={3} onMove={() => {}} />)
+      const { container } = render(<MoveButtons locale="sv" index={1} total={3} onMove={() => {}} />)
 
       const buttons = container.querySelectorAll('button')
       buttons.forEach((button) => {
@@ -209,7 +209,7 @@ describe('MoveButtons', () => {
     })
 
     it('should apply rounded styles to buttons', () => {
-      const { container } = render(<MoveButtons index={1} total={3} onMove={() => {}} />)
+      const { container } = render(<MoveButtons locale="sv" index={1} total={3} onMove={() => {}} />)
 
       const buttons = container.querySelectorAll('button')
       buttons.forEach((button) => {
@@ -218,7 +218,7 @@ describe('MoveButtons', () => {
     })
 
     it('should apply flex layout to container', () => {
-      const { container } = render(<MoveButtons index={1} total={3} onMove={() => {}} />)
+      const { container } = render(<MoveButtons locale="sv" index={1} total={3} onMove={() => {}} />)
 
       const wrapper = container.querySelector('.flex.flex-col')
       expect(wrapper).toBeInTheDocument()
@@ -227,7 +227,7 @@ describe('MoveButtons', () => {
 
   describe('edge cases', () => {
     it('should handle total of 2 items', () => {
-      const { container } = render(<MoveButtons index={0} total={2} onMove={() => {}} />)
+      const { container } = render(<MoveButtons locale="sv" index={0} total={2} onMove={() => {}} />)
 
       const upButton = container.querySelector('button[title="Flytta upp"]')
       const downButton = container.querySelector('button[title="Flytta ner"]')
@@ -237,7 +237,7 @@ describe('MoveButtons', () => {
     })
 
     it('should handle large total count', () => {
-      const { container } = render(<MoveButtons index={50} total={100} onMove={() => {}} />)
+      const { container } = render(<MoveButtons locale="sv" index={50} total={100} onMove={() => {}} />)
 
       const upButton = container.querySelector('button[title="Flytta upp"]')
       const downButton = container.querySelector('button[title="Flytta ner"]')
@@ -252,7 +252,7 @@ describe('MoveButtons', () => {
 
       // Test moving from second-to-last to last
       const { container, rerender } = render(
-        <MoveButtons index={8} total={10} onMove={handleMove} />
+        <MoveButtons locale="sv" index={8} total={10} onMove={handleMove} />
       )
 
       const downButton = container.querySelector('button[title="Flytta ner"]')
@@ -261,7 +261,7 @@ describe('MoveButtons', () => {
       expect(handleMove).toHaveBeenCalledWith(8, 9)
 
       // Test moving from second to first
-      rerender(<MoveButtons index={1} total={10} onMove={handleMove} />)
+      rerender(<MoveButtons locale="sv" index={1} total={10} onMove={handleMove} />)
 
       const upButton = container.querySelector('button[title="Flytta upp"]')
       await user.click(upButton!)
@@ -273,14 +273,14 @@ describe('MoveButtons', () => {
   describe('type safety', () => {
     it('should accept valid index and total props', () => {
       expect(() => {
-        render(<MoveButtons index={0} total={1} onMove={() => {}} />)
+        render(<MoveButtons locale="sv" index={0} total={1} onMove={() => {}} />)
       }).not.toThrow()
     })
 
     it('should call onMove with number arguments', async () => {
       const handleMove = vi.fn()
       const user = userEvent.setup()
-      const { container } = render(<MoveButtons index={1} total={3} onMove={handleMove} />)
+      const { container } = render(<MoveButtons locale="sv" index={1} total={3} onMove={handleMove} />)
 
       const upButton = container.querySelector('button[title="Flytta upp"]')
       await user.click(upButton!)
