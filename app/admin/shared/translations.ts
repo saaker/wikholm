@@ -65,6 +65,7 @@ export const ADMIN_TRANSLATIONS = {
     service_clickPromptPlaceholder: "Se hur du skickar ditt fall",
     service_highlightLabel: "Markera som highlight",
     service_highlightHelper: "(En annan tjänst är redan markerad som highlight)",
+    service_disableModal: "Inaktivera case assessment modal",
 
     // ========== BEFORE/AFTER CARDS ==========
     beforeAfter_beforeImage: "Före-bild",
@@ -183,6 +184,7 @@ export const ADMIN_TRANSLATIONS = {
     service_clickPromptPlaceholder: "See how to submit your case",
     service_highlightLabel: "Mark as highlight",
     service_highlightHelper: "(Another service is already marked as highlight)",
+    service_disableModal: "Disable case assessment modal",
 
     // ========== BEFORE/AFTER CARDS ==========
     beforeAfter_beforeImage: "Before image",

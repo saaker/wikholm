@@ -68,6 +68,11 @@ export function ServiceCardEditForm({
         helperText={hasOtherHighlight && !svc.highlight ? t.service_highlightHelper : undefined}
       />
       <CheckboxField
+        label={t.service_disableModal}
+        value={!!svc.modalDisabled}
+        onChange={(checked) => update("modalDisabled", checked)}
+      />
+      <CheckboxField
         label={t.hideCard}
         value={!!svc.hidden}
         onChange={(checked) => update("hidden", checked)}

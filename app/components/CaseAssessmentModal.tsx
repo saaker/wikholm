@@ -2,6 +2,8 @@
 
 import { useI18n } from "./providers/I18nProvider";
 import { useEffect, useRef } from "react";
+import Image from "next/image";
+import { useTheme } from "./hooks/useTheme/useTheme";
 
 interface CaseAssessmentModalProps {
   isOpen: boolean;
@@ -13,6 +15,7 @@ export default function CaseAssessmentModal({
   onClose,
 }: CaseAssessmentModalProps) {
   const { locale } = useI18n();
+  const { dark } = useTheme();
   const modalRef = useRef<HTMLDivElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const previousFocusRef = useRef<HTMLElement | null>(null);
@@ -73,27 +76,37 @@ export default function CaseAssessmentModal({
       title: "Kostnadsfri Case Assessment",
       subtitle: "Få professionell bedömning av ditt fall",
       intro:
-        "För att ge dig bästa möjliga bedömning behöver jag fyra specifika bilder av tänderna. Följ instruktionerna nedan:",
+        "För att ge dig bästa möjliga bedömning behöver jag fem specifika bilder av tänderna. Följ instruktionerna nedan:",
       photoTypes: [
         {
-          icon: "👈",
-          title: "Vänster sida",
-          desc: "Tänder i bett från vänster sida (bettsida)",
-        },
-        {
-          icon: "👉",
-          title: "Höger sida",
-          desc: "Tänder i bett från höger sida (bettsida)",
-        },
-        {
-          icon: "😁",
+          image: "/images/case-assessment/Bite_front.svg",
           title: "Framifrån",
           desc: "Tänder i bett framifrån (synligt leende)",
+          invertLight: false,
         },
         {
-          icon: "🦷",
-          title: "Slutet bett",
-          desc: "Läppar stängda, tänder i bett (profilvy)",
+          image: "/images/case-assessment/Bite_right.svg",
+          title: "Höger sida",
+          desc: "Tänder i bett från höger sida (bettsida)",
+          invertLight: false,
+        },
+        {
+          image: "/images/case-assessment/Bite_left.svg",
+          title: "Vänster sida",
+          desc: "Tänder i bett från vänster sida (bettsida)",
+          invertLight: false,
+        },
+        {
+          image: "/images/case-assessment/Teeth_upper_arch.svg",
+          title: "Överkäke",
+          desc: "Övre tandrad sett ovanifrån",
+          invertLight: true,
+        },
+        {
+          image: "/images/case-assessment/Teeth_lower_arch.svg",
+          title: "Underkäke",
+          desc: "Undre tandrad sett underifrån",
+          invertLight: true,
         },
       ],
       emailTitle: "Exempel på e-post",
@@ -102,11 +115,12 @@ export default function CaseAssessmentModal({
 
 Jag skulle vilja få en kostnadsfri bedömning av ett fall.
 
-Bifogat finner du fyra bilder:
-1. Vänster sida (bettsida)
+Bifogat finner du fem bilder:
+1. Framifrån (synligt leende)
 2. Höger sida (bettsida)
-3. Framifrån (synligt leende)
-4. Slutet bett (profilvy)
+3. Vänster sida (bettsida)
+4. Överkäke (ovanifrån)
+5. Underkäke (underifrån)
 
 [Valfritt: Beskriv eventuella specifika frågor eller bekymmer här]
 
@@ -121,27 +135,37 @@ Med vänliga hälsningar,
       title: "Free Case Assessment",
       subtitle: "Get professional evaluation of your case",
       intro:
-        "To provide you with the best possible assessment, I need four specific photos of the teeth. Follow the instructions below:",
+        "To provide you with the best possible assessment, I need five specific photos of the teeth. Follow the instructions below:",
       photoTypes: [
         {
-          icon: "👈",
-          title: "Left side",
-          desc: "Teeth in occlusion from left side (bite view)",
-        },
-        {
-          icon: "👉",
-          title: "Right side",
-          desc: "Teeth in occlusion from right side (bite view)",
-        },
-        {
-          icon: "😁",
+          image: "/images/case-assessment/Bite_front.svg",
           title: "Front view",
           desc: "Teeth in occlusion from front (visible smile)",
+          invertLight: false,
         },
         {
-          icon: "🦷",
-          title: "Closed bite",
-          desc: "Lips closed, teeth in occlusion (profile view)",
+          image: "/images/case-assessment/Bite_right.svg",
+          title: "Right side",
+          desc: "Teeth in occlusion from right side (bite view)",
+          invertLight: false,
+        },
+        {
+          image: "/images/case-assessment/Bite_left.svg",
+          title: "Left side",
+          desc: "Teeth in occlusion from left side (bite view)",
+          invertLight: false,
+        },
+        {
+          image: "/images/case-assessment/Teeth_upper_arch.svg",
+          title: "Upper jaw",
+          desc: "Upper teeth arch viewed from above",
+          invertLight: true,
+        },
+        {
+          image: "/images/case-assessment/Teeth_lower_arch.svg",
+          title: "Lower jaw",
+          desc: "Lower teeth arch viewed from below",
+          invertLight: true,
         },
       ],
       emailTitle: "Email template example",
@@ -150,11 +174,12 @@ Med vänliga hälsningar,
 
 I would like to request a free case assessment.
 
-Attached you will find four photos:
-1. Left side (bite view)
+Attached you will find five photos:
+1. Front view (visible smile)
 2. Right side (bite view)
-3. Front view (visible smile)
-4. Closed bite (profile view)
+3. Left side (bite view)
+4. Upper jaw (view from above)
+5. Lower jaw (view from below)
 
 [Optional: Describe any specific questions or concerns here]
 
@@ -187,9 +212,10 @@ Best regards,
     >
       <div
         ref={modalRef}
-        className="relative w-full h-full md:h-auto md:max-w-3xl md:max-h-[90vh] overflow-y-auto bg-surface md:rounded-2xl shadow-2xl"
+        className="relative w-full h-full md:h-auto md:max-w-3xl md:max-h-[90vh] bg-surface md:rounded-2xl shadow-2xl md:overflow-hidden"
         onClick={(e) => e.stopPropagation()}
       >
+        <div className="overflow-y-auto h-full md:max-h-[90vh]">
         {/* Close button */}
         <button
           ref={closeButtonRef}
@@ -249,7 +275,14 @@ Best regards,
                 key={i}
                 className="flex gap-3 p-4 rounded-xl bg-muted border border-border/50"
               >
-                <div className="text-4xl">{type.icon}</div>
+                <div className="w-16 h-16 shrink-0 relative">
+                  <Image
+                    src={type.image}
+                    alt={type.title}
+                    fill
+                    className={`object-contain ${type.invertLight && !dark ? "invert" : ""}`}
+                  />
+                </div>
                 <div>
                   <h3 className="font-semibold text-foreground mb-1">
                     {i + 1}. {type.title}
@@ -323,6 +356,7 @@ Best regards,
               {t.close}
             </button>
           </div>
+        </div>
         </div>
       </div>
     </div>

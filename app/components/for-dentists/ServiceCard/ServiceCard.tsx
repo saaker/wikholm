@@ -39,11 +39,11 @@ export const ServiceCard = forwardRef<HTMLDivElement | HTMLButtonElement, Servic
         <Component
           {...clickProps}
           ref={ref as React.Ref<HTMLButtonElement> & React.Ref<HTMLDivElement>}
-          className={`relative ${preview ? "" : "w-full"} text-left bg-linear-to-br from-primary/5 via-surface to-primary/5 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all border-2 border-primary/40 ring-2 ring-primary/20 ${isClickable ? "cursor-pointer" : ""} group ${isClickable ? "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2" : ""} ${className}`}
+          className={`relative ${preview ? "" : "w-full"} text-left bg-linear-to-br from-primary/5 via-surface to-primary/5 rounded-2xl p-8 shadow-lg ${isClickable ? "hover:shadow-xl" : ""} transition-all border-2 border-primary/40 ring-2 ring-primary/20 ${isClickable ? "cursor-pointer" : ""} group ${isClickable ? "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2" : ""} ${className}`}
         >
           <div className="flex flex-col md:flex-row gap-6 items-start">
             {/* Icon */}
-            <div className="w-16 h-16 rounded-xl bg-primary/30 flex items-center justify-center case-icon shrink-0 group-hover:scale-110 transition-transform">
+            <div className={`w-16 h-16 rounded-xl bg-primary/30 flex items-center justify-center case-icon shrink-0 ${isClickable ? "group-hover:scale-110 transition-transform" : ""}`}>
               <Icon name={item.icon} className="w-9 h-9" />
             </div>
 
@@ -120,7 +120,7 @@ export const ServiceCard = forwardRef<HTMLDivElement | HTMLButtonElement, Servic
       <Component
         {...clickProps}
         ref={ref as React.Ref<HTMLDivElement> & React.Ref<HTMLButtonElement>}
-        className={`relative ${isClickable ? "w-full text-left cursor-pointer" : ""} bg-surface rounded-2xl p-8 shadow-sm hover:shadow-md transition-all border border-border/50 ${isClickable ? "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2" : ""} ${className}`}
+        className={`relative ${isClickable ? "w-full text-left cursor-pointer" : ""} bg-surface rounded-2xl p-8 shadow-sm ${isClickable ? "hover:shadow-md" : ""} transition-all border border-border/50 ${isClickable ? "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2" : ""} ${className}`}
       >
         <div className="flex gap-5">
           <div className="w-12 h-12 rounded-xl bg-primary-light flex items-center justify-center text-primary-dark dark:text-primary shrink-0">
